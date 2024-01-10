@@ -1,0 +1,430 @@
+<%- include('admin-partials/header.ejs') %>
+
+
+<style>
+   .badge.shade-yellow {
+      background-color: #FFD700;
+      /* Yellow */
+      color: #000;
+      /* Black */
+      border: 1px solid #FFD700;
+      padding: 5px 10px;
+      border-radius: 5px;
+   }
+
+   .badge.shade-grey {
+      background-color: #808080;
+      /* Grey */
+      color: #FFF;
+      /* White */
+      border: 1px solid #808080;
+      padding: 5px 10px;
+      border-radius: 5px;
+   }
+
+   .badge.shade-green {
+      background-color: #008000;
+      /* Green */
+      color: #FFF;
+      /* White */
+      border: 1px solid #008000;
+      padding: 5px 10px;
+      border-radius: 5px;
+   }
+
+   .badge.shade-blue {
+      background-color: #0000FF;
+      /* Blue */
+      color: #FFF;
+      /* White */
+      border: 1px solid #0000FF;
+      padding: 5px 10px;
+      border-radius: 5px;
+   }
+
+   .badge.shade-red {
+      background-color: #FF0000;
+      /* Red */
+      color: #FFF;
+      /* White */
+      border: 1px solid #FF0000;
+      padding: 5px 10px;
+      border-radius: 5px;
+   }
+
+   .badge.shade-orange {
+      background-color: #ff6b26;
+      /* Orange */
+      color: #FFF;
+      /* White */
+      border: 1px solid #ff6b26;
+      padding: 5px 10px;
+      border-radius: 5px;
+   }
+</style>
+
+<div class="screen-overlay"></div>
+
+<aside class="navbar-aside" id="offcanvas_aside">
+   <div class="aside-top">
+      <a href="index.html" class="brand-wrap">
+         <img src="/assets/imgs/shop/BIKYS.png" class="logo" alt="inloop Dashboard">
+      </a>
+      <div>
+         <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i>
+         </button>
+      </div>
+   </div>
+   <nav>
+      <ul class="menu-aside">
+         <li class="menu-item ">
+            <a class="menu-link" href="/admin"> <i class="icon material-icons md-home"></i>
+               <span class="text">Dashboard</span>
+            </a>
+         </li>
+         <li class="menu-item ">
+            <a class="menu-link" href="/admin/usermanagement"> <i class="icon material-icons md-person"></i>
+               <span class="text">User Management</span>
+            </a>
+         </li>
+         <li class="menu-item has-submenu ">
+            <a class="menu-link" href=""> <i class="icon material-icons md-shopping_bag"></i>
+               <span class="text">Products</span>
+            </a>
+            <div class="submenu ">
+               <a href="/admin/product-management">Product List</a>
+               <!-- <a href="page-products-grid.html">Product grid</a>
+                   <a href="page-products-grid-2.html">Product grid 2</a> -->
+               <a href="/admin/category-management">Categories</a>
+            </div>
+         </li>
+         <li class="menu-item active">
+            <a class="menu-link" href="/admin/order-management"> <i class="icon material-icons md-shopping_cart"></i>
+               <span class="text">Order Management</span>
+            </a>
+            <!-- <div class="submenu">
+                <a href="page-orders-1.html">Order list 1</a>
+                <a href="page-orders-2.html">Order list 2</a>
+                <a href="page-orders-detail.html">Order detail</a>
+                <a href="page-orders-tracking.html">Order tracking</a>
+                <a href="page-invoice.html">Invoice</a>
+            </div> -->
+         </li>
+         <!-- <li class="menu-item has-submenu">
+               <a class="menu-link" href="page-sellers-cards.html"> <i class="icon material-icons md-store"></i>
+                   <span class="text">Sellers</span>
+               </a>
+               <div class="submenu">
+                   <a href="page-sellers-cards.html">Sellers cards</a>
+                   <a href="page-sellers-list.html">Sellers list</a>
+                   <a href="page-seller-detail.html">Seller profile</a>
+               </div>
+           </li> -->
+         <!-- <li class="menu-item has-submenu">
+               <a class="menu-link" href="page-transactions-1.html"> <i
+                       class="icon material-icons md-monetization_on"></i>
+                   <span class="text">Transactions</span>
+               </a>
+               <div class="submenu">
+                   <a href="page-transactions-1.html">Transaction 1</a>
+                   <a href="page-transactions-2.html">Transaction 2</a>
+                   <a href="page-transactions-details.html">Transaction Details</a>
+               </div>
+           </li> -->
+         <!-- <li class="menu-item has-submenu">
+               <a class="menu-link" href="#"> <i class="icon material-icons md-person"></i>
+                   <span class="text">Account</span>
+               </a>
+               <div class="submenu">
+                   <a href="page-account-login.html">User login</a>
+                   <a href="page-account-register.html">User registration</a>
+                   <a href="page-error-404.html">Error 404</a>
+               </div>
+           </li> -->
+         <!-- <li class="menu-item">
+               <a class="menu-link" href="page-reviews.html"> <i class="icon material-icons md-comment"></i>
+                   <span class="text">Reviews</span>
+               </a>
+           </li> -->
+           <li class="menu-item">
+            <a class="menu-link" href="/admin/coupon-management"> <i class="icon material-icons md-redeem"></i>
+                <span class="text">Coupon Management</span>
+            </a>
+        </li>
+         <!-- <li class="menu-item">
+               <a class="menu-link" disabled href="#"> <i class="icon material-icons md-pie_chart"></i>
+                   <span class="text">Statistics</span>
+               </a>
+           </li> -->
+      </ul>
+      <hr>
+      <!-- <ul class="menu-aside">
+           <li class="menu-item has-submenu">
+               <a class="menu-link" href="#"> <i class="icon material-icons md-settings"></i>
+                   <span class="text">Settings</span>
+               </a>
+               <div class="submenu">
+                   <a href="page-settings-1.html">Setting sample 1</a>
+                   <a href="page-settings-2.html">Setting sample 2</a>
+               </div>
+           </li>
+           <li class="menu-item">
+               <a class="menu-link" href="page-blank.html"> <i class="icon material-icons md-local_offer"></i>
+                   <span class="text"> Starter page </span>
+               </a>
+           </li>
+       </ul> -->
+      <br>
+      <br>
+   </nav>
+</aside>
+
+<main class="main-wrap">
+   <header class="main-header navbar">
+      <div class="col-search">
+         <form class="searchform">
+            <div class="input-group">
+               <input list="search_terms" type="text" class="form-control" placeholder="Search term">
+               <button class="btn btn-light bg" type="button"> <i class="material-icons md-search"></i></button>
+            </div>
+            <datalist id="search_terms">
+               <option value="Products">
+               <option value="New orders">
+               <option value="Apple iphone">
+               <option value="Ahmed Hassan">
+            </datalist>
+         </form>
+      </div>
+      <div class="col-nav">
+         <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i
+               class="material-icons md-apps"></i> </button>
+         <ul class="nav">
+            <li class="nav-item">
+               <a class="nav-link btn-icon" href="#">
+                  <i class="material-icons md-notifications animation-shake"></i>
+                  <span class="badge rounded-pill">3</span>
+               </a>
+            </li>
+            <li class="nav-item">
+               <a class="nav-link btn-icon darkmode" href="#"> <i class="material-icons md-nights_stay"></i> </a>
+            </li>
+            <li class="nav-item">
+               <a href="#" class="requestfullscreen nav-link btn-icon"><i class="material-icons md-cast"></i></a>
+            </li>
+            <li class="dropdown nav-item">
+               <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownLanguage"
+                  aria-expanded="false"><i class="material-icons md-public"></i></a>
+               <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownLanguage">
+                  <a class="dropdown-item text-brand" href="#"><img src="/adminassets/imgs/theme/flag-us.png"
+                        alt="English">English</a>
+                  <a class="dropdown-item" href="#"><img src="/adminassets/imgs/theme/flag-fr.png"
+                        alt="Français">Français</a>
+                  <a class="dropdown-item" href="#"><img src="/adminassets/imgs/theme/flag-jp.png" alt="Français">日本語</a>
+                  <a class="dropdown-item" href="#"><img src="/adminassets/imgs/theme/flag-cn.png" alt="Français">中国人</a>
+               </div>
+            </li>
+            <li class="dropdown nav-item">
+               <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false">
+                  <img class="img-xs rounded-circle" src="/adminassets/imgs/people/avatar2.jpg" alt="User"></a>
+               <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
+                  <a class="dropdown-item" href="#"><i class="material-icons md-perm_identity"></i>Edit
+                     Profile</a>
+                  <a class="dropdown-item" href="#"><i class="material-icons md-settings"></i>Account Settings</a>
+                  <a class="dropdown-item" href="#"><i class="material-icons md-account_balance_wallet"></i>Wallet</a>
+                  <a class="dropdown-item" href="#"><i class="material-icons md-receipt"></i>Billing</a>
+                  <a class="dropdown-item" href="#"><i class="material-icons md-help_outline"></i>Help center</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item text-danger" href="#"><i class="material-icons md-exit_to_app"></i>Logout</a>
+               </div>
+            </li>
+         </ul>
+      </div>
+   </header>
+   <section class="content-main">
+      <div class="content-header">
+         <div>
+            <h2 class="content-title card-title">Order Management</h2>
+            <!-- <p>Lorem ipsum dolor sit amet.</p> -->
+         </div>
+         <!-- <div>
+            <a href="#" class="btn btn-light rounded font-md">Export</a>
+            <a href="#" class="btn btn-light rounded  font-md">Import</a>
+            <a href="#" class="btn btn-primary btn-sm rounded">Create new</a>
+         </div> -->
+      </div>
+      <!-- <div class="card mb-4"> -->
+      <!-- <header class="card-header">
+            <div class="row align-items-center"> -->
+      <!-- <div class="col col-check flex-grow-0">
+                        <div class="form-check ms-2">
+                            <input class="form-check-input" type="checkbox" value="">
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-12 me-auto mb-md-0 mb-3">
+                        <select class="form-select">
+                            <option selected>All category</option>
+                            <option>Electronics</option>
+                            <option>Clothes</option>
+                            <option>Automobile</option>
+                        </select>
+                    </div> -->
+      <!-- <div class="col-md-2 col-6">
+                        <input type="date" value="02.05.2022" class="form-control">
+                    </div> -->
+      <!-- <div class="col-md-2 col-6">
+                        <select class="form-select">
+                            <option selected>Status</option>
+                            <option>Active</option>
+                            <option>Disabled</option>
+                            <option>Show all</option>
+                        </select>
+                    </div> -->
+      <!-- </div> -->
+      <!-- </header> card-header end// -->
+
+      <div class="container rounded  ">
+         <div class="table-responsive ">
+            <table class="table table-hover">
+               <thead class="border rounded">
+                  <tr class="text-center">
+                  <tr>
+                     <th>S.No</th>
+                     <th>Status</th>
+                     <!-- <th>Ordered By</th> -->
+                     <th>Purchased</th>
+                     <th>Date</th>
+                     <th>Price</th>
+                     <th class="text-right">View</th>
+                      <!-- <th class="text-right">Deleted</th>  -->
+                  </tr>
+                  </tr>
+               </thead>
+               <tbody class="border rounded">
+                  <% if(orders && orders.length > 0){ %>
+                  <% orders.forEach((order, index) => { %>
+                  <tr>
+                     <td><%= (currentPage - 1) * perPage + index + 1 %></td>
+
+                     <%
+                              const statusColors = {
+                                  "Pending": "yellow",
+                                  "Processing": "grey",
+                                  "Shipped": "blue",
+                                  "Delivered": "green",
+                                  "Canceled": "red",
+                                  "Returned" : "orange"
+                              };
+                              %>
+                     <td><span class="badge shade-<%= statusColors[order.status] %>"><%= order.status %></span></td>
+
+                     
+                     <td>
+                        <% const totalQuantity = order.items.reduce((total, item) => total + item.quantity, 0); %>
+                        <%= totalQuantity %> Items
+                     </td>
+                     <td><%= order.orderDate.toLocaleDateString() %></td>
+                     <td class="text-bold">INR <%= order.billTotal %></td>
+                     <td>
+                        <a href="/admin/order-management/orderDetailedView/<%= order._id %>">
+                           <div>
+                              <button class="btn btn-success btn-small">
+                                 <i class="fa-regular fa-eye" style="color: #ffff; height: 8px;"></i>
+                              </button>
+                           </div>
+                        </a>
+                     </td>
+                     <!-- <td>
+                        <button class="btn btn-danger btn-small"
+                           onclick="confirmDelete('<%= order._id %>')">Delete</button>
+                     </td> -->
+
+
+                  </tr>
+                  <% }) } else{ %>
+
+                  <tr>
+                     <td colspan="9" class="text-center">No orders Found</td>
+                  </tr>
+                  <% } %>
+                  
+               </tbody>
+               
+            </table>
+             <!-- pagination -->
+      <div class="pagination-area mt-15 mb-sm-5 mb-lg-0">
+         <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-start">
+               <% if (currentPage > 1) { %>
+               <li class="page-item">
+                  <a class="page-link" href="?page=<%= currentPage - 1 %>"><i
+                        class="material-icons md-chevron_left"></i></a>
+               </li>
+               <% } %>
+
+               <% for (let i = Math.max(1, currentPage - 2); i <= Math.min(currentPage + 2, totalPages); i++) { %>
+               <li class="page-item <%= currentPage === i ? 'active' : '' %>">
+                  <a class="page-link" href="?page=<%= i %>"><%= i %></a>
+               </li>
+               <% } %>
+
+               <% if (currentPage < totalPages) { %>
+               <li class="page-item">
+                  <a class="page-link" href="?page=<%= currentPage + 1 %>"><i
+                        class="material-icons md-chevron_right"></i></a>
+               </li>
+               <% } %>
+            </ul>
+         </nav>
+      </div>
+            
+         </div>
+        
+
+      </div>
+
+      
+
+
+
+
+
+   </section> <!-- content-main end// -->
+
+   <script>
+      function confirmDelete(orderId) {
+         
+         Swal.fire({
+            title: 'Delete Order?',
+            text: 'Are you sure you want to delete this order?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, delete it',
+            timer: 2000,
+         }).then((result) => {
+            if (result.isConfirmed) {
+               // If the user confirms, send a request to delete the order
+               fetch(`/admin/order-management/deleteOrder/${orderId}`, {
+                     method: 'DELETE'
+                  }).then((response) => response.json())
+                  .then((response) => {
+                     if (response.success) {
+                        // Order deleted successfully
+                        Swal.fire('Order Deleted', '', 'success');
+                        setTimeout(() => {
+                                    window.location.reload();
+                                },
+                                2000
+                            );
+                     } else {
+                        // Handle deletion failure
+                        Swal.fire('Error Deleting Order', response.message, 'error');
+                     }
+                  });
+            }
+         });
+      }
+   </script>
+
+   <%- include('admin-partials/footer.ejs') %>

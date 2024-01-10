@@ -1,0 +1,1032 @@
+<%- include('admin-partials/header.ejs') %>
+
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" ></script> -->
+
+
+
+
+    <div class="screen-overlay"></div>
+
+    <aside class="navbar-aside" id="offcanvas_aside">
+        <div class="aside-top">
+            <a href="index.html" class="brand-wrap">
+
+                <!-- <img src="/assets/imgs/theme/inloop-logo.png" class="logo" alt="inloop Dashboard"> -->
+                <h3 style="color:green">Home World</h3>
+            </a>
+            <div>
+                <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i>
+                </button>
+            </div>
+        </div>
+        <nav>
+            <ul class="menu-aside">
+                <li class="menu-item active">
+                    <a class="menu-link" href="/admin"> <i class="icon material-icons md-home"></i>
+                        <span class="text">Dashboard</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/usermanagement"> <i class="icon material-icons md-person"></i>
+                        <span class="text">User Management</span>
+                    </a>
+                </li>
+
+                <li class="menu-item has-submenu">
+                    <a class="menu-link" href=""> <i class="icon material-icons md-shopping_bag"></i>
+                        <span class="text">Products</span>
+                    </a>
+                    <div class="submenu">
+                        <a href="page-products-list.html">Product List</a>
+                        <a href="page-categories.html">Categories</a>
+                    </div>
+                </li>
+
+                <li class="menu-item ">
+                    <a class="menu-link" href="/admin/order-management"> <i
+                            class="icon material-icons md-shopping_cart"></i>
+                        <span class="text">Order Management</span>
+                    </a>
+                </li>
+                
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/coupon-management"> <i class="icon material-icons md-redeem"></i>
+                        <span class="text">Coupon Management</span>
+                    </a>
+                </li>
+                <!-- <li class="menu-item has-submenu">
+               <a class="menu-link" href="page-sellers-cards.html"> <i class="icon material-icons md-store"></i>
+                   <span class="text">Sellers</span>
+               </a>
+               <div class="submenu">
+                   <a href="page-sellers-cards.html">Sellers cards</a>
+                   <a href="page-sellers-list.html">Sellers list</a>
+                   <a href="page-seller-detail.html">Seller profile</a>
+               </div>
+           </li> -->
+                <!-- <li class="menu-item has-submenu">
+               <a class="menu-link" href="page-transactions-1.html"> <i
+                       class="icon material-icons md-monetization_on"></i>
+                   <span class="text">Transactions</span>
+               </a>
+               <div class="submenu">
+                   <a href="page-transactions-1.html">Transaction 1</a>
+                   <a href="page-transactions-2.html">Transaction 2</a>
+                   <a href="page-transactions-details.html">Transaction Details</a>
+               </div>
+           </li> -->
+                <!-- <li class="menu-item has-submenu">
+               <a class="menu-link" href="#"> <i class="icon material-icons md-person"></i>
+                   <span class="text">Account</span>
+               </a>
+               <div class="submenu">
+                   <a href="page-account-login.html">User login</a>
+                   <a href="page-account-register.html">User registration</a>
+                   <a href="page-error-404.html">Error 404</a>
+               </div>
+           </li> -->
+                <!-- <li class="menu-item">
+               <a class="menu-link" href="page-reviews.html"> <i class="icon material-icons md-comment"></i>
+                   <span class="text">Reviews</span>
+               </a>
+           </li> -->
+                <!-- <li class="menu-item">
+                <a class="menu-link" href="page-brands.html"> <i class="icon material-icons md-stars"></i>
+                    <span class="text">Brands</span> </a>
+            </li> -->
+                <!-- <li class="menu-item">
+               <a class="menu-link" disabled href="#"> <i class="icon material-icons md-pie_chart"></i>
+                   <span class="text">Statistics</span>
+               </a>
+           </li> -->
+            </ul>
+            <!-- <hr> -->
+            <!-- <ul class="menu-aside">
+           <li class="menu-item has-submenu">
+               <a class="menu-link" href="#"> <i class="icon material-icons md-settings"></i>
+                   <span class="text">Settings</span>
+               </a>
+               <div class="submenu">
+                   <a href="page-settings-1.html">Setting sample 1</a>
+                   <a href="page-settings-2.html">Setting sample 2</a>
+               </div>
+           </li>
+           <li class="menu-item">
+               <a class="menu-link" href="page-blank.html"> <i class="icon material-icons md-local_offer"></i>
+                   <span class="text"> Starter page </span>
+               </a>
+           </li>
+       </ul> -->
+            <br>
+            <br>
+        </nav>
+    </aside>
+
+    <main class="main-wrap">
+        <header class="main-header navbar">
+            <!-- <div class="col-search">
+            <form class="searchform">
+                <div class="input-group">
+                    <input list="search_terms" type="text" class="form-control" placeholder="Search term">
+                    <button class="btn btn-light bg" type="button"> <i class="material-icons md-search"></i></button>
+                </div>
+                <datalist id="search_terms">
+                    <option value="Products">
+                    <option value="New orders">
+                    <option value="Apple iphone">
+                    <option value="Ahmed Hassan">
+                </datalist>
+            </form>
+        </div> -->
+            <div class="col-nav ms-auto">
+                <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i
+                        class="material-icons md-apps"></i> </button>
+                <ul class="nav">
+                    <!-- <li class="nav-item">
+                    <a class="nav-link btn-icon" href="#">
+                        <i class="material-icons md-notifications animation-shake"></i>
+                        <span class="badge rounded-pill">3</span>
+                    </a>
+                </li> -->
+                    <li class="nav-item">
+                        <a class="nav-link btn-icon darkmode" href="#"> <i class="material-icons md-nights_stay"></i>
+                        </a>
+                    </li>
+                    <!-- <li class="nav-item">
+                    <a href="#" class="requestfullscreen nav-link btn-icon"><i class="material-icons md-cast"></i></a>
+                </li> -->
+                    <li class="dropdown nav-item">
+                        <a class="dropdown-item text-danger" href="/admin/logout"><i
+                                class="material-icons md-exit_to_app"></i>Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </header>
+
+
+
+
+
+        <section class="content-main">
+            <div class="content-header">
+                <div>
+                    <h2 class="content-title card-title">Coupon Management</h2>
+                    <!-- <p>Lorem ipsum dolor sit amet.</p> -->
+                </div>
+                <!-- <div>
+          <a href="#" class="btn btn-light rounded font-md">Export</a>
+          <a href="#" class="btn btn-light rounded  font-md">Import</a>
+          <a href="#" class="btn btn-primary btn-sm rounded">Create new</a>
+       </div> -->
+            </div>
+            <div class="main-container">
+
+                <!-- //popups -->
+
+
+                <!-- <div id="notification-bar" class="hidden">
+        <div class="notification-message">
+          <div id="notification-icon"></div>
+          <div id="notification-text"></div>
+        </div>
+      </div>
+      
+       -->
+                <div id="alertContainer" class="position-fixed top-15 end-10 " style="z-index: 5"></div>
+                <div class="message-box" id="messageBox"></div>
+
+
+                <div class="row m-3">
+                    <div class="row d-flex justify-content-end mb-4">
+                        <button type="button" class="btn btn-primary create-coupon-btn w-25" data-toggle="modal"
+                            data-target="#createCouponModal">
+                            Create Coupon
+                        </button>
+                    </div>
+
+                    <table class="table table-bordered table-definition mb-5">
+                        <thead>
+                            <style>
+                                th {
+                                    text-align: center;
+                                }
+                            </style>
+                            <tr>
+
+                                <th>S.No</th>
+                                <th>Coupon Name</th>
+                                <th>Description</th>
+                                <th>Discount in %</th>
+                                <th>Max Discount <br> Amount</th>
+                                <th>Min Purchase <br> Amount</th>
+                                <th>Max amount</th>
+                                <th>Status</th>
+                                <th>View </th>
+                                <th col-2>Actions</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% if(coupons && coupons.length>0){ %>
+                                <% coupons.forEach((item,i)=>{%>
+                                    <tr>
+                                        <td class="text-center mt-2">
+                                            <%= i+1 %>
+                                        </td>
+                                        <td class="text-center mt-2">
+                                            <%= item.code %>
+                                        </td>
+                                        <td class="text-center mt-2">
+                                            <%= item.description %>
+                                        </td>
+                                        <td class="text-center mt-2">
+                                            <%= item.discountPercentage %> %
+                                        </td>
+                                        <td class="text-center mt-2">
+                                            <%= item.maxDiscountAmount %>
+                                        </td>
+                                        <td class="text-center mt-2">
+                                            <%= item.minimumAmount %>
+                                        </td>
+                                        <td class="text-center mt-2">
+                                            <%= item.maximumAmount %>
+                                        </td>
+
+
+                                        <td class="text-center "><span
+                                                class="<%= item.isActive ? 'actives' : 'inactive' %> mt-3">
+                                                <%= item.isActive ? 'Active' : 'Inactive' %>
+                                            </span></td>
+                                        <td class="text-center mt-2">
+                                            <button class="btn btn-sm text-light" style="background-color: #088178;"
+                                                data-toggle="modal" data-target="#couponDetailsModal<%= i %>">View
+                                                <i class=""></i>
+                                            </button>
+
+
+                                        </td>
+                                        <td class="text-center mt-2">
+                                            <% if (item.isActive) { %>
+                                                <button class="btn btn-sm btn-success"
+                                                    onclick="toggleActivation('<%= item._id %>', false)"
+                                                    data-toggle="tooltip" title="Deactivate">
+                                                    <i class="fas fa-toggle-on"></i>
+                                                </button>
+                                                <% } else { %>
+                                                    <button class="btn btn-sm btn-danger"
+                                                        onclick="toggleActivation('<%= item._id %>', true)"
+                                                        data-toggle="tooltip" title="Activate">
+                                                        <i class="fas fa-toggle-off"></i>
+                                                    </button>
+                                                    <% } %>
+                                                        <button class="btn ms-2 btn-sm text-light"
+                                                            style="background-color: #088178;" data-toggle="modal"
+                                                            data-target="#editCouponModal<%= item._id %>"
+                                                            data-toggle="tooltip" title="Edit"
+                                                            onclick="populateEditModal('<%= item._id %>');"> Edit
+                                                            <i class="bi bi-pencil"></i>
+                                                        </button>
+                                        </td>
+
+
+
+
+
+                                        <!-- Edit Modal -->
+                                        <div class="modal fade" id="editCouponModal<%= item._id %>" tabindex="-1"
+                                            role="dialog" aria-labelledby="editCouponModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+                                                role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="createCouponModalLabel">Edit Coupon
+                                                        </h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <!-- Coupon Creation Form -->
+                                                        <form id="createCouponForm_<%= item._id  %>"
+                                                            action="/admin/EditCoupon/<%= item._id  %>" method="post">
+                                                            <div class="form-row d-flex mb-3">
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="code" class="text-right">Coupon
+                                                                        Code</label>
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+
+                                                                    <input type="text" value="<%= item.code %>"
+                                                                        class="form-control" id="code_<%= item._id %>"
+                                                                        name="code" required>
+                                                                    <span id="codeError_<%= item._id %>"
+                                                                        class="error-message text-danger"></span>
+                                                                </div>
+
+                                                            </div>
+
+                                                            <div class="form-row d-flex mb-3">
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="description_<%= item._id %>"
+                                                                        class="text-right">Description</label>
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <textarea class="form-control"
+                                                                        value="<%= item.description %>"
+                                                                        id="description_<%= item._id %>"
+                                                                        name="description" required></textarea>
+                                                                    <span id="descriptionError_<%= item._id %>"
+                                                                        class="error-message text-danger"></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-row d-flex mb-3">
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="maxDiscountAmount_<%= item._id %>"
+                                                                        class="text-right">Maximum Discount
+                                                                        Amount</label>
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <input type="Number"
+                                                                        value="<%= item.maxDiscountAmount %>"
+                                                                        class="form-control"
+                                                                        id="maxDiscountAmount_<%= item._id %>"
+                                                                        name="maxDiscountAmount" required>
+                                                                    <span id="maxDiscountAmountError_<%= item._id %>"
+                                                                        class="error-message text-danger"></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-row d-flex mb-3">
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="discountAmount_<%= item._id %>"
+                                                                        class="text-right">Discount Percentage</label>
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <input type="text"
+                                                                        value="<%= item.discountPercentage %>"
+                                                                        class="form-control"
+                                                                        id="discountAmount_<%= item._id %>"
+                                                                        name="discountPercentage">
+                                                                    <span id="discountAmountError_<%= item._id %>"
+                                                                        class="error-message text-danger"></span>
+                                                                </div>
+                                                            </div>
+
+
+                                                            <div class="form-row d-flex mb-3">
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="minimumAmount_<%= item._id %>"
+                                                                        class="text-right">Minimum Purchase
+                                                                        Amount</label>
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <input type="number"
+                                                                        value="<%= item.minimumAmount %>"
+                                                                        class="form-control"
+                                                                        id="minimumAmount_<%= item._id %>"
+                                                                        name="minimumAmount" required>
+                                                                    <span id="minimumAmountError_<%= item._id %>"
+                                                                        class="error-message text-danger"></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-row d-flex mb-3">
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="maximumAmount<%= item._id %>"
+                                                                        class="text-right">Maximum Amount</label>
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <input type="number"
+                                                                        value="<%= item.maximumAmount %>"
+                                                                        class="form-control"
+                                                                        id="maximumAmount_<%= item._id %>"
+                                                                        name="maximumAmount" required>
+                                                                    <span id="maximumAmountError_<%= item._id %>"
+                                                                        class="error-message text-danger"></span>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-row d-flex mb-3">
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="expirationDate_<%= item._id %>"
+                                                                        class="text-right">Expiration Date</label>
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <input type="date"
+                                                                        value="<%= item.expirationDate %>"
+                                                                        class="form-control"
+                                                                        id="expirationDate_<%= item._id %>"
+                                                                        name="expirationDate" required>
+
+                                                                    <span id="expirationDateError_<%= item._id %>"
+                                                                        class="error-message text-danger"></span>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-row d-flex mb-3">
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="maxUsers_<%= item._id %>"
+                                                                        class="text-right">Maximum
+                                                                        Users Allowed</label>
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <input type="number" value="<%= item.maxUsers %>"
+                                                                        class="form-control"
+                                                                        id="maxUsers_<%= item._id %>" name="maxUsers">
+                                                                    <span id="maxUsersError_<%= item._id %>"
+                                                                        class="error-message text-danger"></span>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">Close</button>
+                                                        <button type="button" class="btn btn-primary btn-edit"
+                                                            onclick="populateEditModal('<%= item._id %>');"
+                                                            id="createCouponSubmit<%= item._id %>">Edit</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </td>
+
+                                    </tr>
+                                    <% }) %>
+                                        <% } %>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+                <!-- pagination -->
+                <div class="pagination-area mt-15 mb-sm-5 mb-lg-0">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-start">
+                            <% if (currentPage> 1) { %>
+                                <li class="page-item">
+                                    <a class="page-link" href="?page=<%= currentPage - 1 %>"><i
+                                            class="material-icons md-chevron_left"></i></a>
+                                </li>
+                                <% } %>
+
+                                    <% for (let i=Math.max(1, currentPage - 2); i <=Math.min(currentPage + 2,
+                                        totalPages); i++) { %>
+                                        <li class="page-item <%= currentPage === i ? 'active' : '' %>">
+                                            <a class="page-link" href="?page=<%= i %>">
+                                                <%= i %>
+                                            </a>
+                                        </li>
+                                        <% } %>
+
+                                            <% if (currentPage < totalPages) { %>
+                                                <li class="page-item">
+                                                    <a class="page-link" href="?page=<%= currentPage + 1 %>"><i
+                                                            class="material-icons md-chevron_right"></i></a>
+                                                </li>
+                                                <% } %>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            </div>
+
+
+
+
+
+
+            <!-- MODAL DETAILED VIEW  -->
+            <% coupons.forEach((item, i)=> { %>
+                <!-- Modal for Coupon Details -->
+
+                <div class="modal fade" id="couponDetailsModal<%= i %>" tabindex="-1" role="dialog"
+                    aria-labelledby="couponDetailsModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered receipt-modal" role="document">
+                        <!-- Center the modal -->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="couponDetailsModalLabel">Coupon Details</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <!-- Receipt-style formatting -->
+                                <div class="receipt">
+                                    <table class="table mx-auto table-bordered pt-4">
+                                        <tr class="mb-3">
+                                            <td class="text-center"><strong>Coupon Code:</strong></td>
+                                            <td class="text-center">
+                                                <%= item.code %>
+                                            </td>
+                                        </tr>
+                                        <tr class="pt-3">
+                                            <td class="text-center"><strong>Description:</strong></td>
+                                            <td class="text-center">
+                                                <%= item.description %>
+                                            </td>
+                                        </tr>
+                                        <tr class="mb-3">
+                                            <td class="text-center"><strong>Minimum Purchase Amount:</strong></td>
+                                            <td class="text-center">
+                                                <%= item.minimumAmount %>
+                                            </td>
+                                        </tr>
+                                        <tr class="mb-3">
+                                            <td class="text-center"><strong>Maximum Amount:</strong></td>
+                                            <td class="text-center">
+                                                <%= item.maximumAmount %>
+                                            </td>
+                                        </tr>
+                                        <tr class="mb-3">
+                                            <td class="text-center"><strong>Maximum Discount Amount:</strong></td>
+                                            <td class="text-center">
+                                                <%= item.maxDiscountAmount %>
+                                            </td>
+                                        </tr>
+                                        <tr class="mb-3">
+                                            <td class="text-center"><strong>Discount Percentage:</strong></td>
+                                            <td class="text-center">
+                                                <%= item.discountPercentage %> %
+                                            </td>
+                                        </tr>
+                                        <tr class="mb-3">
+                                            <td class="text-center"><strong>Expiry Date :</strong></td>
+                                            <td class="text-center">
+                                                <%= item.expirationDate %>
+                                            </td>
+                                        </tr>
+                                        <tr class="mb-3">
+                                            <td class="text-center"><strong>IS Active:</strong></td>
+                                            <td class="text-center">
+                                                <span class="<%= item.isActive ? 'actives' : 'inactive' %>">
+                                                    <%= item.isActive ? 'Active' : 'Inactive' %>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <% }) %>
+
+
+                    <!-- Create Coupon Modal -->
+                    <!-- Create Coupon Modal -->
+                    <div class="modal fade" id="createCouponModal" tabindex="-1" role="dialog"
+                        aria-labelledby="createCouponModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="createCouponModalLabel">Create Coupon</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- Coupon Creation Form -->
+                                    <form id="createCouponForm" action="/admin/createCoupon" method="post">
+                                        <div class="form-row d-flex mb-3">
+                                            <div class="form-group col-md-6">
+                                                <label for="code" class="text-right">Coupon Code</label>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <span id="generateCodeContainer">
+                                                    <button id="generateCode" type="button">Generate Code</button>
+                                                </span>
+                                                <input type="text" class="form-control" id="code" name="code" required>
+                                                <span id="codeError" class="error-message text-danger"></span>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="form-row d-flex mb-3">
+                                            <div class="form-group col-md-6">
+                                                <label for="description" class="text-right">Description</label>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <textarea class="form-control" id="description" name="description"
+                                                    required></textarea>
+                                                <span id="descriptionError" class="error-message text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-row d-flex mb-3">
+                                            <div class="form-group col-md-6">
+                                                <label for="discountAmount" class="text-right">Discount
+                                                    Percentage</label>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <input type="text" class="form-control" id="discountAmount"
+                                                    name="discountPercentage">
+                                                <span id="discountAmountError" class="error-message text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row d-flex mb-3">
+                                            <div class="form-group col-md-6">
+                                                <label for="maxDiscountAmount" class="text-right"> Maximum Discount
+                                                    Amount</label>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <input type="Number" class="form-control" id="maxDiscountAmount"
+                                                    name="maxDiscountAmount" required>
+                                                <span id="maxDiscountAmountError"
+                                                    class="error-message text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-row d-flex mb-3">
+                                            <div class="form-group col-md-6">
+                                                <label for="minimumAmount" class="text-right">Minimum Purchase
+                                                    Amount</label>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <input type="number" class="form-control" id="minimumAmount"
+                                                    name="minimumAmount" required>
+                                                <span id="minimumAmountError" class="error-message text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-row d-flex mb-3">
+                                            <div class="form-group col-md-6">
+                                                <label for="maximumAmount" class="text-right">Maximum Amount</label>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <input type="number" class="form-control" id="maximumAmount"
+                                                    name="maximumAmount" required>
+                                                <span id="maximumAmountError" class="error-message text-danger"></span>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-row d-flex mb-3">
+                                            <div class="form-group col-md-6">
+                                                <label for="expirationDate" class="text-right">Expiration Date</label>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <input type="date" class="form-control" id="expirationDate"
+                                                    name="expirationDate" required>
+                                                <span id="expirationDateError" class="error-message text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row d-flex mb-3">
+                                            <div class="form-group col-md-6">
+                                                <label for="maxUsers" class="text-right">Maximum Users Allowed</label>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <input type="number" class="form-control" id="maxUsers" name="maxUsers">
+                                                <span id="maxUsersError" class="error-message text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary"
+                                        id="createCouponSubmit">Create</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+        </section>
+
+
+        <!-- <script src="/javascripts/adminCouponManagement.js"></script> -->
+        <script>
+            //Edit And Save Alert
+            const successMessage = '<%= sucessMessage %>';
+            const errorMessage = '<%= errorMessage %>';
+
+            console.log('////////////////////////////////////////////////////////////')
+            const messageBox = document.getElementById('messageBox');
+
+            if (errorMessage !== '') {
+                showMessage(errorMessage, 'error');
+            } else if (successMessage !== '') {
+                showMessage(successMessage, 'success');
+            }
+
+            function showMessage(message, messageType) {
+                messageBox.innerHTML = '';
+                const icon = document.createElement('span');
+                icon.className = 'message-icon';
+
+                if (messageType === 'success') {
+                    icon.innerHTML = '✔'; // You can use any icon you prefer
+                } else if (messageType === 'error') {
+                    icon.innerHTML = '✖'; // You can use any icon you prefer
+                }
+
+                messageBox.appendChild(icon);
+                messageBox.appendChild(document.createTextNode(message));
+                messageBox.classList.add(messageType);
+                messageBox.style.display = 'block';
+
+                setTimeout(() => {
+                    messageBox.style.display = 'none';
+                }, 2000); // Display the message for 4 seconds
+            }
+
+
+
+            ///js
+
+
+            const currentDate = new Date();
+
+            document.addEventListener("DOMContentLoaded", function () {
+
+                document.getElementById('createCouponSubmit').addEventListener('click', function () {
+                    // Clear previous error messages
+                    const errorFields = ['code', 'description', 'discountAmount', 'maxDiscountAmount',
+                        'minimumAmount', 'maximumAmount', 'expirationDate', 'maxUsers'
+                    ];
+                    errorFields.forEach((field) => {
+                        document.getElementById(`${field}Error`).textContent = '';
+                    });
+
+                    // Form data collection
+                    const code = document.getElementById('code').value;
+                    const description = document.getElementById('description').value;
+                    const maximumDIscountAmount = parseFloat(document.getElementById('maxDiscountAmount')
+                        .value);
+                    const expirationDate = new Date(document.getElementById('expirationDate').value);
+                    const maxUsers = parseInt(document.getElementById('maxUsers').value, 10);
+                    const minimumAmount = parseFloat(document.getElementById('minimumAmount').value);
+                    const maximumAmount = parseFloat(document.getElementById('maximumAmount').value);
+                    const discountAmount = parseFloat(document.getElementById('discountAmount').value)
+                    // Validation logic
+                    let isValid = true;
+
+                    // Coupon Code Validation
+
+                    if (!/^(?=.*[A-Z])(?=.*\d)[A-Z\d]{6,}$/.test(code)) {
+
+                        document.getElementById('codeError').textContent =
+                            'Invalid Coupon Code. It must contain at least 6 characters and a mix of uppercase letters and numbers.';
+                        isValid = false;
+                    }
+
+                    // Description Validation
+                    if (description.trim() === '') {
+                        document.getElementById('descriptionError').textContent =
+                            'Description is required';
+                        isValid = false;
+                    }
+
+                    if (discountAmount < 1 && discountAmount > 100) {
+                        document.getElementById('discountAmountError').textContent =
+                            'The discount Percentage is must be 0 and 100'
+                    }
+
+                    if (maximumDIscountAmount < 1 && isNaN(maximumDIscountAmount)) {
+                        document.getElementById('maxDiscountAmountError').textContent =
+                            'The maximum amount is must be greater than 1'
+                    }
+
+
+                    // Expiration Date Validation
+                    if (expirationDate <= currentDate) {
+                        document.getElementById('expirationDateError').textContent =
+                            'Expiration Date must be greater than the current date.';
+                        isValid = false;
+                    }
+
+                    // Maximum Users Validation
+                    if (isNaN(maxUsers) || maxUsers <= 0) {
+                        document.getElementById('maxUsersError').textContent =
+                            'Maximum Users must be a positive number.';
+                        isValid = false;
+                    }
+
+                    if (minimumAmount <= 0) {
+                        document.getElementById('minimumAmountError').textContent =
+                            'Minimum Amount must be greater than zero.';
+                        isValid = false;
+                    }
+
+                    // Maximum Amount Validation
+                    if (maximumAmount <= minimumAmount) {
+                        document.getElementById('maximumAmountError').textContent =
+                            'Maximum Amount must be greater than or equal to Minimum Amount.';
+                        isValid = false;
+                    }
+                    // If the form is valid, submit the data
+                    if (isValid) {
+                        // Directly submit the form
+                        document.getElementById('createCouponForm').submit();
+                    }
+                });
+
+
+
+                // Automatically hide the toast after 6 seconds (6000 milliseconds)
+
+
+
+
+
+                //RANDOM CODE GENERTAION 
+                document.getElementById('generateCode').addEventListener('click', function () {
+                    // Generate a random coupon code
+                    const randomCode = generateRandomCode();
+
+                    // Fill the input field with the generated code
+                    document.getElementById('code').value = randomCode;
+
+                    // You can also trigger the input field's change event to validate the generated code
+                    const codeInput = document.getElementById('code');
+                    const codeChangeEvent = new Event('change', {
+                        bubbles: true,
+                        cancelable: true,
+                    });
+                    codeInput.dispatchEvent(codeChangeEvent);
+                });
+
+                function generateRandomCode() {
+                    // Generate a random code following your criteria
+                    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+                    const codeLength = 8;
+                    let randomCode = '';
+
+                    for (let i = 0; i < codeLength; i++) {
+                        const randomIndex = Math.floor(Math.random() * characters.length);
+                        randomCode += characters.charAt(randomIndex);
+                    }
+
+                    return randomCode;
+                }
+
+
+
+                function closeCustomToast() {
+                    const customToast = document.getElementById('customToast');
+                    customToast.style.display = 'none';
+                }
+
+
+            })
+
+            //EDIT COUPON 
+            function populateEditModal(itemId) {
+                // Access the item properties and populate the edit modal fields
+                console.log(itemId);
+                const item_id = itemId;
+                const errorFields = ['code', 'maxDiscountAmount', 'description', 'discountAmount', 'minimumAmount',
+                    'maximumAmount', 'expirationDate', 'maxUsers'
+                ];
+
+                // Clear previous error messages
+
+                errorFields.forEach((field) => {
+                    const errorElement = document.getElementById(`${field}Error_${item_id}`);
+                    if (errorElement) {
+                        errorElement.textContent = '';
+                    } else {
+                        console.error(`Element with ID ${field}Error_${item_id} not found.`);
+                    }
+                });
+
+                // Form data collection
+                const code = document.getElementById(`code_${item_id}`).value;
+                const description = document.getElementById(`description_${item_id}`).value;
+                const expirationDateValue = document.getElementById(`expirationDate_${item_id}`).value;
+                const formattedExpirationDate = new Date(expirationDateValue.replace(/-/g, '/'));
+                const maximumDiscountAmount = parseFloat(document.getElementById(`discountAmount_${item_id}`).value)
+                const maxUsers = parseInt(document.getElementById(`maxUsers_${item_id}`).value, 10);
+                const minimumAmount = parseFloat(document.getElementById(`minimumAmount_${item_id}`).value);
+                const maximumAmount = parseFloat(document.getElementById(`maximumAmount_${item_id}`).value);
+                const discountAmount = parseFloat(document.getElementById(`discountAmount_${item_id}`).value);
+
+                // Validation logic
+                let isValid = true;
+
+                // Coupon Code Validation
+                if (!/^(?=.*[A-Z])(?=.*\d)[A-Z\d]{6,}$/.test(code)) {
+                    document.getElementById(`codeError_${item_id}`).textContent =
+                        'Invalid Coupon Code. It must contain at least 6 characters and a mix of uppercase letters and numbers.';
+                    isValid = false;
+                }
+
+                // Description Validation
+                if (description.trim() === '') {
+                    document.getElementById(`descriptionError_${item_id}`).textContent =
+                        'Description is required.';
+                    isValid = false;
+                }
+
+                if (discountAmount < 1 || discountAmount > 100) {
+                    document.getElementById(`discountAmountError_${item_id}`).textContent =
+                        'The discount Percentage must be between 1 and 100.';
+                    isValid = false;
+                }
+
+                if (maximumDiscountAmount < 1 || isNaN(maximumDiscountAmount)) {
+                    document.getElementById(`discountAmountError_${item_id}`).textContent =
+                        'The Maximum Discount must be an number and not less than one'
+                }
+                // Start Date Validation
+
+
+                // Expiration Date Validation
+                if (expirationDate <= currentDate) {
+                    document.getElementById(`expirationDateError_${item_id}`).textContent =
+                        'Expiration Date must be greater than the current date.';
+                    isValid = false;
+                }
+
+                // Maximum Users Validation
+                if (isNaN(maxUsers) || maxUsers <= 0) {
+                    document.getElementById(`maxUsersError_${item_id}`).textContent =
+                        'Maximum Users must be a positive number.';
+                    isValid = false;
+                }
+
+                if (minimumAmount <= 0) {
+                    document.getElementById(`minimumAmountError_${item_id}`).textContent =
+                        'Minimum Amount must be greater than zero.';
+                    isValid = false;
+                }
+
+                // Maximum Amount Validation
+                if (maximumAmount <= minimumAmount) {
+                    document.getElementById(`maximumAmountError_${item_id}`).textContent =
+                        'Maximum Amount must be greater than or equal to Minimum Amount.';
+                    isValid = false;
+                }
+
+                // If the form is valid, submit the data
+                if (isValid) {
+                    console.log('Form is valid. Submitting the form.');
+                    // Directly submit the form
+                    document.getElementById(`createCouponForm_${item_id}`).submit();
+                }
+
+
+            }
+
+
+            //TO ACTIVATE AND DEACTIVATE THE COUPON 
+            function toggleActivation(itemId, activate) {
+
+                fetch(`/admin/coupon/update-status/${itemId}?activate=${activate}`, {
+                    method: 'POST', // Use POST or another appropriate HTTP method
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            showAlert('Success', data.message, 'alert-success');
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 3000)
+                            // Update the item's activation status based on 'activate'
+                            const item = document.getElementById(`item-${itemId}`);
+                            if (item) {
+                                item.isActive = activate;
+
+                            }
+                        } else {
+                            showAlert('Error', data.message, 'alert-danger');
+                            console.error('Activation toggle failed:', data.message);
+                        }
+                    })
+                    .catch(error => {
+                        showAlert('Error', 'Fetch error', 'alert-danger');
+                        console.error('Fetch error:', error);
+                    });
+            }
+
+
+
+            //Side Alert
+            function showAlert(title, message, alertClass) {
+                const alertContainer = document.getElementById('alertContainer');
+                const alertElement = document.createElement('div');
+                alertElement.className = `alert ${alertClass} alert-dismissible fade show`;
+                alertElement.role = 'alert';
+                alertElement.innerHTML = `
+      <strong>${title}:</strong> ${message}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>`;
+                alertContainer.appendChild(alertElement);
+            }
+        </script>
+
+        <%- include('admin-partials/footer.ejs')%>

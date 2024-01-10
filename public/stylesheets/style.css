@@ -1,0 +1,88 @@
+
+
+
+body {
+  background-color: #f0f0f0;
+  font-family: Arial, sans-serif;
+  background: url('/images/login.avif') no-repeat;
+  background-size: cover; 
+}
+
+.container {
+  margin-top: 100px;
+  width: 450px;
+  border: 1px;
+  border-radius: 30px;
+  
+}
+
+.wrapper {
+  background-color: #fff;
+  border-radius: 25px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  /* margin-top: 10px; */
+
+}
+
+.form-pad {
+  padding: 20px;
+}
+
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+
+.form-signin h3 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.form-signin label {
+  font-weight: bold;
+}
+
+.form-control {
+  margin-bottom: 10px;
+}
+
+.btn-success {
+  background-color: rgb(0, 128, 102);
+  color: #fff;
+  border: none;
+}
+
+.btn-success:hover {
+  background-color: #31b0d5;
+}
+
+.signup a {
+  text-decoration: none;
+}
+
+.forgot:hover {
+  color: #31b0d5;
+}
+
+.forgot{
+  text-align: right;
+  
+  
+}
+.text-center{
+margin-top: 30px;
+
+}
+/* 
+.logo{
+height: 100px;
+}
+
+ */
+
+
+ .container img{
+  height: 150px;
+ }

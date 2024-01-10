@@ -1,0 +1,85 @@
+/* Reset default margin and padding for all elements */
+* {
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Set a background color for the entire page */
+  body {
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Center the container both horizontally and vertically */
+  .container.pt-5 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  
+  /* Style the form background */
+  .from-bg {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+  }
+  
+  /* Style the form title */
+  .title {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  /* Style error messages */
+  .text-danger {
+    color: #d9534f; /* Red color for error messages */
+  }
+  
+  /* Style labels and input fields */
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-label {
+    display: inline-block;
+    text-align: center;
+  }
+  
+  .form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-shadow: none;
+  }
+  
+  /* Style the submit button */
+  .btn.signup {
+    background-color:rgb(0, 128, 102); /* Blue button */
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 3px;
+    cursor: pointer;
+    margin: 0 auto;
+    display: block;
+    margin-bottom: 15px;
+  }
+  
+  /* Style the signup link */
+  .signup a {
+    text-decoration: none;
+    color: #07eeff;
+    margin-left: 5px;
+  }
+  
+  
+  /* Style the error messages next to input fields */
+  .check-label {
+    font-size: 14px;
+    color: red;
+  }

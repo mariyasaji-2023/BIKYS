@@ -1,0 +1,1983 @@
+<%- include('partials/header.ejs') %>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- other head elements -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+
+    <!-- Bootstrap CSS -->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
+
+    <!-- Bootstrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+
+    <header class="header-area header-style-1 header-height-2">
+        <div class="header-top header-top-ptb-1 d-none d-lg-block">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-xl-3 col-lg-4">
+                        <div class="header-info">
+                            <ul>
+                                <li><i class="fi-rs-smartphone"></i> <a href="#">(+01) - 2345 - 6789</a></li>
+                                <li><i class="fi-rs-marker"></i><a href="page-contact.html">Our location</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-4">
+                        <!-- <div class="text-center">
+                        <div id="news-flash" class="d-inline-block">
+                            <ul>
+                                <li>Get great devices up to 50% off <a href="shop-grid-right.html">View details</a></li>
+                                <li>Supper Value Deals - Save more with coupons</li>
+                                <li>Trendy 25silver jewelry, save up 35% off today <a href="shop-grid-right.html">Shop
+                                        now</a></li>
+                            </ul>
+                        </div>
+                    </div> -->
+                    </div>
+
+                    <div class="col-xl-3 col-lg-4">
+                        <div class="header-info header-info-right">
+                            <ul>
+
+                                <!-- <li><i class="fi-rs-user"></i><a href="/signup">Sign Up</a></li> -->
+                                <!-- <li><i class="fi-rs-user"></i><a href="/login">Log In </a></li>    -->
+
+
+                                <li><i class="fa-solid fa-user"></i><a href="/profile">Profile</a></li>
+
+                                <li><i class="fi-rs-user"></i><a href="/logout">Logout</a></li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-middle header-middle-ptb-1 d-none d-lg-block">
+            <div class="container">
+                <div class="header-wrap">
+                    <div class="logo logo-width-1">
+                        <a href="/"><img src="/assets/imgs/shop/BIKYS.png" alt="logo"></a>
+                    </div>
+                    <div class="header-right">
+                        <div class="search-style-2">
+                            <form action="/shop" method="get">
+                                <select class="select-active" name="category">
+                                    <option value="">All Categories</option>
+                                    <% category.forEach((category)=>{ %>
+                                        <option value="<%= category._id  %>">
+                                            <%= category.name %>
+                                        </option>
+                                        <% }) %>
+                                </select>
+                                <input type="text" name="search" placeholder="Search for items...">
+                            </form>
+                        </div>
+                        <div class="header-action-right">
+                            <div class="header-action-2">
+                                <div class="header-action-icon-2">
+                                    <a href="/wishlist">
+                                        <img class="svgInject" alt="Evara"
+                                            src="/assets/imgs/theme/icons/icon-heart.svg">
+                                        <!-- <span class="pro-count blue">4</span> -->
+                                    </a>
+                                </div>
+                                <div class="header-action-icon-2">
+                                    <a class="mini-cart-icon" href="/cart">
+                                        <img alt="Evara" src="/assets/imgs/theme/icons/icon-cart.svg">
+                                        <!-- <span class="pro-count blue">2</span> -->
+                                    </a>
+                                    <!-- <div class="cart-dropdown-wrap cart-dropdown-hm2">
+                                    <ul>
+                                        <li>
+                                            <div class="shopping-cart-img">
+                                                <a href="shop-product-right.html"><img alt="Evara"
+                                                        src="/assets/imgs/shop/thumbnail-3.jpg"></a>
+                                            </div>
+                                            <div class="shopping-cart-title">
+                                                <h4><a href="shop-product-right.html">Daisy Casual Bag</a></h4>
+                                                <h4><span>1 × </span>$800.00</h4>
+                                            </div>
+                                            <div class="shopping-cart-delete">
+                                                <a href="#"><i class="fi-rs-cross-small"></i></a>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="shopping-cart-img">
+                                                <a href="shop-product-right.html"><img alt="Evara"
+                                                        src="/assets/imgs/shop/thumbnail-2.jpg"></a>
+                                            </div>
+                                            <div class="shopping-cart-title">
+                                                <h4><a href="shop-product-right.html">Corduroy Shirts</a></h4>
+                                                <h4><span>1 × </span>$3200.00</h4>
+                                            </div>
+                                            <div class="shopping-cart-delete">
+                                                <a href="#"><i class="fi-rs-cross-small"></i></a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <div class="shopping-cart-footer">
+                                        <div class="shopping-cart-total">
+                                            <h4>Total <span>$4000.00</span></h4>
+                                        </div>
+                                        <div class="shopping-cart-button">
+                                            <a href="shop-cart.html" class="outline">View cart</a>
+                                            <a href="shop-checkout.html">Checkout</a>
+                                        </div>
+                                    </div>
+                                </div> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-bottom header-bottom-bg-color sticky-bar">
+            <div class="container">
+                <div class="header-wrap header-space-between position-relative">
+                    <div class="logo logo-width-1 d-block d-lg-none">
+                        <a href="/"><img src="/assets/imgs/shop/BIKYS.png" alt="logo"></a>
+                    </div>
+                    <div class="header-nav d-none d-lg-flex">
+                        <!-- <div class="main-categori-wrap d-none d-lg-block">
+                        <a class="categori-button-active" href="#">
+                            <span class="fi-rs-apps"></span> Browse Categories
+                        </a>
+                        <div class="categori-dropdown-wrap categori-dropdown-active-large">
+                            <ul>
+                                <li class="has-children">
+                                    <a href="shop-grid-right.html"><i class="evara-font-dress"></i>Women's Clothing</a>
+                                    <div class="dropdown-menu">
+                                        <ul class="mega-menu d-lg-flex">
+                                            <li class="mega-menu-col col-lg-7">
+                                                <ul class="d-lg-flex">
+                                                    <li class="mega-menu-col col-lg-6">
+                                                        <ul>
+                                                            <li><span class="submenu-title">Hot & Trending</span></li>
+                                                            <li><a class="dropdown-item nav-link nav_item"
+                                                                    href="#">Dresses</a></li>
+                                                            <li><a class="dropdown-item nav-link nav_item"
+                                                                    href="#">Blouses & Shirts</a></li>
+                                                            <li><a class="dropdown-item nav-link nav_item"
+                                                                    href="#">Hoodies & Sweatshirts</a></li>
+                                                            <li><a class="dropdown-item nav-link nav_item"
+                                                                    href="#">Women's Sets</a></li>
+                                                            <li><a class="dropdown-item nav-link nav_item"
+                                                                    href="#">Suits & Blazers</a></li>
+                                                            <li><a class="dropdown-item nav-link nav_item"
+                                                                    href="#">Bodysuits</a></li>
+                                                            <li><a class="dropdown-item nav-link nav_item"
+                                                                    href="#">Tanks & Camis</a></li>
+                                                            <li><a class="dropdown-item nav-link nav_item"
+                                                                    href="#">Coats & Jackets</a></li>
+                                                        </ul>
+                                                    </li>
+                                                    <li class="mega-menu-col col-lg-6">
+                                                        <ul>
+                                                            <li><span class="submenu-title">Bottoms</span></li>
+                                                            <li><a class="dropdown-item nav-link nav_item"
+                                                                    href="#">Leggings</a></li>
+                                                            <li><a class="dropdown-item nav-link nav_item"
+                                                                    href="#">Skirts</a></li>
+                                                            <li><a class="dropdown-item nav-link nav_item"
+                                                                    href="#">Shorts</a></li>
+                                                            <li><a class="dropdown-item nav-link nav_item"
+                                                                    href="#">Jeans</a></li>
+                                                            <li><a class="dropdown-item nav-link nav_item"
+                                                                    href="#">Pants & Capris</a></li>
+                                                            <li><a class="dropdown-item nav-link nav_item"
+                                                                    href="#">Bikini Sets</a></li>
+                                                            <li><a class="dropdown-item nav-link nav_item"
+                                                                    href="#">Cover-Ups</a></li>
+                                                            <li><a class="dropdown-item nav-link nav_item"
+                                                                    href="#">Swimwear</a></li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li class="mega-menu-col col-lg-5">
+                                                <div class="header-banner2">
+                                                    <img src="/assets/imgs/banner/menu-banner-2.jpg"
+                                                        alt="menu_banner1">
+                                                    <div class="banne_info">
+                                                        <h6>10% Off</h6>
+                                                        <h4>New Arrival</h4>
+                                                        <a href="#">Shop now</a>
+                                                    </div>
+                                                </div>
+                                                <div class="header-banner2">
+                                                    <img src="/assets/imgs/banner/menu-banner-3.jpg"
+                                                        alt="menu_banner2">
+                                                    <div class="banne_info">
+                                                        <h6>15% Off</h6>
+                                                        <h4>Hot Deals</h4>
+                                                        <a href="#">Shop now</a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li class="has-children">
+                                    <a href="shop-grid-right.html"><i class="evara-font-tshirt"></i>Men's Clothing</a>
+                                    <div class="dropdown-menu">
+                                        <ul class="mega-menu d-lg-flex">
+                                            <li class="mega-menu-col col-lg-7">
+                                                <ul class="d-lg-flex">
+                                                    <li class="mega-menu-col col-lg-6">
+                                                        <ul>
+                                                            <li><span class="submenu-title">Jackets & Coats</span></li>
+                                                            <li><a class="dropdown-item nav-link nav_item" href="#">Down
+                                                                    Jackets</a></li>
+                                                            <li><a class="dropdown-item nav-link nav_item"
+                                                                    href="#">Jackets</a></li>
+                                                            <li><a class="dropdown-item nav-link nav_item"
+                                                                    href="#">Parkas</a></li>
+                                                            <li><a class="dropdown-item nav-link nav_item" href="#">Faux
+                                                                    Leather Coats</a></li>
+                                                            <li><a class="dropdown-item nav-link nav_item"
+                                                                    href="#">Trench</a></li>
+                                                            <li><a class="dropdown-item nav-link nav_item" href="#">Wool
+                                                                    & Blends</a></li>
+                                                            <li><a class="dropdown-item nav-link nav_item"
+                                                                    href="#">Vests & Waistcoats</a></li>
+                                                            <li><a class="dropdown-item nav-link nav_item"
+                                                                    href="#">Leather Coats</a></li>
+                                                        </ul>
+                                                    </li>
+                                                    <li class="mega-menu-col col-lg-6">
+                                                        <ul>
+                                                            <li><span class="submenu-title">Suits & Blazers</span></li>
+                                                            <li><a class="dropdown-item nav-link nav_item"
+                                                                    href="#">Blazers</a></li>
+                                                            <li><a class="dropdown-item nav-link nav_item" href="#">Suit
+                                                                    Jackets</a></li>
+                                                            <li><a class="dropdown-item nav-link nav_item" href="#">Suit
+                                                                    Pants</a></li>
+                                                            <li><a class="dropdown-item nav-link nav_item"
+                                                                    href="#">Suits</a></li>
+                                                            <li><a class="dropdown-item nav-link nav_item"
+                                                                    href="#">Vests</a></li>
+                                                            <li><a class="dropdown-item nav-link nav_item"
+                                                                    href="#">Tailor-made Suits</a></li>
+                                                            <li><a class="dropdown-item nav-link nav_item"
+                                                                    href="#">Cover-Ups</a></li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li class="mega-menu-col col-lg-5">
+                                                <div class="header-banner2">
+                                                    <img src="/assets/imgs/banner/menu-banner-4.jpg"
+                                                        alt="menu_banner1">
+                                                    <div class="banne_info">
+                                                        <h6>10% Off</h6>
+                                                        <h4>New Arrival</h4>
+                                                        <a href="#">Shop now</a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li class="has-children">
+                                    <a href="shop-grid-right.html"><i class="evara-font-smartphone"></i> Cellphones</a>
+                                    <div class="dropdown-menu">
+                                        <ul class="mega-menu d-lg-flex">
+                                            <li class="mega-menu-col col-lg-7">
+                                                <ul class="d-lg-flex">
+                                                    <li class="mega-menu-col col-lg-6">
+                                                        <ul>
+                                                            <li><span class="submenu-title">Hot & Trending</span></li>
+                                                            <li><a class="dropdown-item nav-link nav_item"
+                                                                    href="#">Cellphones</a></li>
+                                                            <li><a class="dropdown-item nav-link nav_item"
+                                                                    href="#">iPhones</a></li>
+                                                            <li><a class="dropdown-item nav-link nav_item"
+                                                                    href="#">Refurbished Phones</a></li>
+                                                            <li><a class="dropdown-item nav-link nav_item"
+                                                                    href="#">Mobile Phone</a></li>
+                                                            <li><a class="dropdown-item nav-link nav_item"
+                                                                    href="#">Mobile Phone Parts</a></li>
+                                                            <li><a class="dropdown-item nav-link nav_item"
+                                                                    href="#">Phone Bags & Cases</a></li>
+                                                            <li><a class="dropdown-item nav-link nav_item"
+                                                                    href="#">Communication Equipments</a></li>
+                                                            <li><a class="dropdown-item nav-link nav_item"
+                                                                    href="#">Walkie Talkie</a></li>
+                                                        </ul>
+                                                    </li>
+                                                    <li class="mega-menu-col col-lg-6">
+                                                        <ul>
+                                                            <li><span class="submenu-title">Accessories</span></li>
+                                                            <li><a class="dropdown-item nav-link nav_item"
+                                                                    href="#">Screen Protectors</a></li>
+                                                            <li><a class="dropdown-item nav-link nav_item" href="#">Wire
+                                                                    Chargers</a></li>
+                                                            <li><a class="dropdown-item nav-link nav_item"
+                                                                    href="#">Wireless Chargers</a></li>
+                                                            <li><a class="dropdown-item nav-link nav_item" href="#">Car
+                                                                    Chargers</a></li>
+                                                            <li><a class="dropdown-item nav-link nav_item"
+                                                                    href="#">Power Bank</a></li>
+                                                            <li><a class="dropdown-item nav-link nav_item"
+                                                                    href="#">Armbands</a></li>
+                                                            <li><a class="dropdown-item nav-link nav_item" href="#">Dust
+                                                                    Plug</a></li>
+                                                            <li><a class="dropdown-item nav-link nav_item"
+                                                                    href="#">Signal Boosters</a></li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li class="mega-menu-col col-lg-5">
+                                                <div class="header-banner2">
+                                                    <img src="/assets/imgs/banner/menu-banner-5.jpg"
+                                                        alt="menu_banner1">
+                                                    <div class="banne_info">
+                                                        <h6>10% Off</h6>
+                                                        <h4>New Arrival</h4>
+                                                        <a href="#">Shop now</a>
+                                                    </div>
+                                                </div>
+                                                <div class="header-banner2">
+                                                    <img src="/assets/imgs/banner/menu-banner-6.jpg"
+                                                        alt="menu_banner2">
+                                                    <div class="banne_info">
+                                                        <h6>15% Off</h6>
+                                                        <h4>Hot Deals</h4>
+                                                        <a href="#">Shop now</a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li><a href="shop-grid-right.html"><i class="evara-font-desktop"></i>Computer &
+                                        Office</a></li>
+                                <li><a href="shop-grid-right.html"><i class="evara-font-cpu"></i>Consumer
+                                        Electronics</a></li>
+                                <li><a href="shop-grid-right.html"><i class="evara-font-diamond"></i>Jewelry &
+                                        Accessories</a></li>
+                                <li><a href="shop-grid-right.html"><i class="evara-font-home"></i>Home & Garden</a></li>
+                                <li><a href="shop-grid-right.html"><i class="evara-font-high-heels"></i>Shoes</a></li>
+                                <li><a href="shop-grid-right.html"><i class="evara-font-teddy-bear"></i>Mother &
+                                        Kids</a></li>
+                                <li><a href="shop-grid-right.html"><i class="evara-font-kite"></i>Outdoor fun</a></li>
+                                <li>
+                                    <ul class="more_slide_open" style="display: none;">
+                                        <li><a href="shop-grid-right.html"><i class="evara-font-desktop"></i>Beauty,
+                                                Health</a></li>
+                                        <li><a href="shop-grid-right.html"><i class="evara-font-cpu"></i>Bags and
+                                                Shoes</a></li>
+                                        <li><a href="shop-grid-right.html"><i class="evara-font-diamond"></i>Consumer
+                                                Electronics</a></li>
+                                        <li><a href="shop-grid-right.html"><i class="evara-font-home"></i>Automobiles &
+                                                Motorcycles</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <div class="more_categories">Show more...</div>
+                        </div>
+                    </div> -->
+                        <div class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block">
+                            <nav>
+                                <ul>
+                                    <li><a href="/">Home </a></li>
+
+
+                                    <li>
+                                        <a href="page-about.html">About</a>
+                                    </li>
+                                    <li><a href="/shop">Shop </a>
+                                    </li>
+                                    <!-- <li class="position-static"><a href="#">Mega menu <i class="fi-rs-angle-down"></i></a>
+                                    <ul class="mega-menu">
+                                        <li class="sub-mega-menu sub-mega-menu-width-22">
+                                            <a class="menu-title" href="#">Women's Fashion</a>
+                                            <ul>
+                                                <li><a href="shop-product-right.html">Dresses</a></li>
+                                                <li><a href="shop-product-right.html">Blouses & Shirts</a></li>
+                                                <li><a href="shop-product-right.html">Hoodies & Sweatshirts</a></li>
+                                                <li><a href="shop-product-right.html">Wedding Dresses</a></li>
+                                                <li><a href="shop-product-right.html">Prom Dresses</a></li>
+                                                <li><a href="shop-product-right.html">Cosplay Costumes</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="sub-mega-menu sub-mega-menu-width-22">
+                                            <a class="menu-title" href="#">Men's Fashion</a>
+                                            <ul>
+                                                <li><a href="shop-product-right.html">Jackets</a></li>
+                                                <li><a href="shop-product-right.html">Casual Faux Leather</a></li>
+                                                <li><a href="shop-product-right.html">Genuine Leather</a></li>
+                                                <li><a href="shop-product-right.html">Casual Pants</a></li>
+                                                <li><a href="shop-product-right.html">Sweatpants</a></li>
+                                                <li><a href="shop-product-right.html">Harem Pants</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="sub-mega-menu sub-mega-menu-width-22">
+                                            <a class="menu-title" href="#">Technology</a>
+                                            <ul>
+                                                <li><a href="shop-product-right.html">Gaming Laptops</a></li>
+                                                <li><a href="shop-product-right.html">Ultraslim Laptops</a></li>
+                                                <li><a href="shop-product-right.html">Tablets</a></li>
+                                                <li><a href="shop-product-right.html">Laptop Accessories</a></li>
+                                                <li><a href="shop-product-right.html">Tablet Accessories</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="sub-mega-menu sub-mega-menu-width-34">
+                                            <div class="menu-banner-wrap">
+                                                <a href="shop-product-right.html"><img
+                                                        src="/assets/imgs/banner/menu-banner.jpg" alt="Evara"></a>
+                                                <div class="menu-banner-content">
+                                                    <h4>Hot deals</h4>
+                                                    <h3>Don't miss<br> Trending</h3>
+                                                    <div class="menu-banner-price">
+                                                        <span class="new-price text-success">Save to 50%</span>
+                                                    </div>
+                                                    <div class="menu-banner-btn">
+                                                        <a href="shop-product-right.html">Shop now</a>
+                                                    </div>
+                                                </div>
+                                                <div class="menu-banner-discount">
+                                                    <h3>
+                                                        <span>35%</span>
+                                                        off
+                                                    </h3>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </li> -->
+                                    <!-- <li><a href="blog-category-grid.html">Blog <i class="fi-rs-angle-down"></i></a>
+                                    <ul class="sub-menu">
+                                        <li><a href="blog-category-grid.html">Blog Category Grid</a></li>
+                                        <li><a href="blog-category-list.html">Blog Category List</a></li>
+                                        <li><a href="blog-category-big.html">Blog Category Big</a></li>
+                                        <li><a href="blog-category-fullwidth.html">Blog Category Wide</a></li>
+                                        <li><a href="#">Single Post <i class="fi-rs-angle-right"></i></a>
+                                            <ul class="level-menu level-menu-modify">
+                                                <li><a href="blog-post-left.html">Left Sidebar</a></li>
+                                                <li><a href="blog-post-right.html">Right Sidebar</a></li>
+                                                <li><a href="blog-post-fullwidth.html">No Sidebar</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li> -->
+                                    <!-- <li><a href="#">Pages <i class="fi-rs-angle-down"></i></a>
+                                    <ul class="sub-menu">
+                                        <li><a href="page-about.html">About Us</a></li>
+                                        <li><a href="page-contact.html">Contact</a></li>
+                                        <li><a href="page-account.html">My Account</a></li>
+                                        <li><a href="page-login-register.html">login/register</a></li>
+                                        <li><a href="page-purchase-guide.html">Purchase Guide</a></li>
+                                        <li><a href="page-privacy-policy.html">Privacy Policy</a></li>
+                                        <li><a href="page-terms.html">Terms of Service</a></li>
+                                        <li><a href="page-404.html">404 Page</a></li>
+                                    </ul>
+                                </li> -->
+                                    <li>
+                                        <a href="page-contact.html">Contact</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <!-- <div class="hotline d-none d-lg-block">
+                    <p><i class="fi-rs-headset"></i><span>Hotline</span> 1900 - 888 </p>
+                </div> -->
+                    <!-- <p class="mobile-promotion">Happy <span class="text-brand">Mother's Day</span>. Big Sale Up to 40%</p> -->
+                    <div class="header-action-right d-block d-lg-none">
+                        <div class="header-action-2">
+                            <div class="header-action-icon-2">
+                                <a href="shop-wishlist.html">
+                                    <img alt="Evara" src="/assets/imgs/theme/icons/icon-heart.svg">
+                                    <!-- <span class="pro-count white">4</span> -->
+                                </a>
+                            </div>
+                            <div class="header-action-icon-2">
+                                <a class="mini-cart-icon" href="/cart">
+                                    <img alt="Evara" src="/assets/imgs/theme/icons/icon-cart.svg">
+                                    <!-- <span class="pro-count white">2</span> -->
+                                </a>
+                                <!-- <div class="cart-dropdown-wrap cart-dropdown-hm2">
+                                <ul>
+                                    <li>
+                                        <div class="shopping-cart-img">
+                                            <a href="shop-product-right.html"><img alt="Evara"
+                                                    src="/assets/imgs/shop/thumbnail-3.jpg"></a>
+                                        </div>
+                                        <div class="shopping-cart-title">
+                                            <h4><a href="shop-product-right.html">Plain Striola Shirts</a></h4>
+                                            <h3><span>1 × </span>$800.00</h3>
+                                        </div>
+                                        <div class="shopping-cart-delete">
+                                            <a href="#"><i class="fi-rs-cross-small"></i></a>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="shopping-cart-img">
+                                            <a href="shop-product-right.html"><img alt="Evara"
+                                                    src="/assets/imgs/shop/thumbnail-4.jpg"></a>
+                                        </div>
+                                        <div class="shopping-cart-title">
+                                            <h4><a href="shop-product-right.html">Macbook Pro 2022</a></h4>
+                                            <h3><span>1 × </span>$3500.00</h3>
+                                        </div>
+                                        <div class="shopping-cart-delete">
+                                            <a href="#"><i class="fi-rs-cross-small"></i></a>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div class="shopping-cart-footer">
+                                    <div class="shopping-cart-total">
+                                        <h4>Total <span>$383.00</span></h4>
+                                    </div>
+                                    <div class="shopping-cart-button">
+                                        <a href="shop-cart.html">View cart</a>
+                                        <a href="shop-checkout.html">Checkout</a>
+                                    </div>
+                                </div>
+                            </div> -->
+                            </div>
+                            <div class="header-action-icon-2 d-block d-lg-none">
+                                <div class="burger-icon burger-icon-white">
+                                    <span class="burger-icon-top"></span>
+                                    <span class="burger-icon-mid"></span>
+                                    <span class="burger-icon-bottom"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="mobile-header-active mobile-header-wrapper-style">
+        <div class="mobile-header-wrapper-inner">
+            <div class="mobile-header-top">
+                <div class="mobile-header-logo">
+                    <a href="/"><img src="/assets/imgs/shop/BIKYS.png" alt="logo"></a>
+                </div>
+                <div class="mobile-menu-close close-style-wrap close-style-position-inherit">
+                    <button class="close-style search-close">
+                        <i class="icon-top"></i>
+                        <i class="icon-bottom"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="mobile-header-content-area">
+                <div class="mobile-search search-style-3 mobile-header-border">
+                    <form action="#">
+                        <input type="text" placeholder="Search for items…">
+                        <button type="submit"><i class="fi-rs-search"></i></button>
+                    </form>
+                </div>
+                <div class="mobile-menu-wrap mobile-header-border">
+                    <!-- <div class="main-categori-wrap mobile-header-border">
+                    <a class="categori-button-active-2" href="#">
+                        <span class="fi-rs-apps"></span> Browse Categories
+                    </a>
+                    <div class="categori-dropdown-wrap categori-dropdown-active-small">
+                        <ul>
+                            <li><a href="shop-grid-right.html"><i class="evara-font-dress"></i>Women's Clothing</a></li>
+                            <li><a href="shop-grid-right.html"><i class="evara-font-tshirt"></i>Men's Clothing</a></li>
+                            <li> <a href="shop-grid-right.html"><i class="evara-font-smartphone"></i> Cellphones</a>
+                            </li>
+                            <li><a href="shop-grid-right.html"><i class="evara-font-desktop"></i>Computer & Office</a>
+                            </li>
+                            <li><a href="shop-grid-right.html"><i class="evara-font-cpu"></i>Consumer Electronics</a>
+                            </li>
+                            <li><a href="shop-grid-right.html"><i class="evara-font-home"></i>Home & Garden</a></li>
+                            <li><a href="shop-grid-right.html"><i class="evara-font-high-heels"></i>Shoes</a></li>
+                            <li><a href="shop-grid-right.html"><i class="evara-font-teddy-bear"></i>Mother & Kids</a>
+                            </li>
+                            <li><a href="shop-grid-right.html"><i class="evara-font-kite"></i>Outdoor fun</a></li>
+                        </ul>
+                    </div>
+                </div> -->
+                    <!-- mobile menu start -->
+                    <nav>
+                        <ul class="mobile-menu">
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a
+                                    href="index.html">Home</a>
+                                <ul class="dropdown">
+                                    <li><a href="index.html">Home 1</a></li>
+                                    <li><a href="index-2.html">Home 2</a></li>
+                                    <li><a href="index-3.html">Home 3</a></li>
+                                    <li><a href="index-4.html">Home 4</a></li>
+                                </ul>
+                            </li>
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a
+                                    href="shop-grid-right.html">shop</a>
+                                <ul class="dropdown">
+                                    <li><a href="shop-grid-right.html">Shop Grid – Right Sidebar</a></li>
+                                    <li><a href="shop-grid-left.html">Shop Grid – Left Sidebar</a></li>
+                                    <li><a href="shop-list-right.html">Shop List – Right Sidebar</a></li>
+                                    <li><a href="shop-list-left.html">Shop List – Left Sidebar</a></li>
+                                    <li><a href="shop-fullwidth.html">Shop - Wide</a></li>
+                                    <li class="menu-item-has-children"><span class="menu-expand"></span><a
+                                            href="#">Single
+                                            Product</a>
+                                        <ul class="dropdown">
+                                            <li><a href="shop-product-right.html">Product – Right Sidebar</a></li>
+                                            <li><a href="shop-product-left.html">Product – Left Sidebar</a></li>
+                                            <li><a href="shop-product-full.html">Product – No sidebar</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="shop-filter.html">Shop – Filter</a></li>
+                                    <li><a href="shop-wishlist.html">Shop – Wishlist</a></li>
+                                    <li><a href="shop-cart.html">Shop – Cart</a></li>
+                                    <li><a href="shop-checkout.html">Shop – Checkout</a></li>
+                                    <li><a href="shop-compare.html">Shop – Compare</a></li>
+                                </ul>
+                            </li>
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Mega
+                                    menu</a>
+                                <ul class="dropdown">
+                                    <li class="menu-item-has-children"><span class="menu-expand"></span><a
+                                            href="#">Women's
+                                            Fashion</a>
+                                        <ul class="dropdown">
+                                            <li><a href="shop-product-right.html">Dresses</a></li>
+                                            <li><a href="shop-product-right.html">Blouses & Shirts</a></li>
+                                            <li><a href="shop-product-right.html">Hoodies & Sweatshirts</a></li>
+                                            <li><a href="shop-product-right.html">Women's Sets</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="menu-item-has-children"><span class="menu-expand"></span><a
+                                            href="#">Men's
+                                            Fashion</a>
+                                        <ul class="dropdown">
+                                            <li><a href="shop-product-right.html">Jackets</a></li>
+                                            <li><a href="shop-product-right.html">Casual Faux Leather</a></li>
+                                            <li><a href="shop-product-right.html">Genuine Leather</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="menu-item-has-children"><span class="menu-expand"></span><a
+                                            href="#">Technology</a>
+                                        <ul class="dropdown">
+                                            <li><a href="shop-product-right.html">Gaming Laptops</a></li>
+                                            <li><a href="shop-product-right.html">Ultraslim Laptops</a></li>
+                                            <li><a href="shop-product-right.html">Tablets</a></li>
+                                            <li><a href="shop-product-right.html">Laptop Accessories</a></li>
+                                            <li><a href="shop-product-right.html">Tablet Accessories</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a
+                                    href="blog-category-fullwidth.html">Blog</a>
+                                <ul class="dropdown">
+                                    <li><a href="blog-category-grid.html">Blog Category Grid</a></li>
+                                    <li><a href="blog-category-list.html">Blog Category List</a></li>
+                                    <li><a href="blog-category-big.html">Blog Category Big</a></li>
+                                    <li><a href="blog-category-fullwidth.html">Blog Category Wide</a></li>
+                                    <li class="menu-item-has-children"><span class="menu-expand"></span><a
+                                            href="#">Single
+                                            Product Layout</a>
+                                        <ul class="dropdown">
+                                            <li><a href="blog-post-left.html">Left Sidebar</a></li>
+                                            <li><a href="blog-post-right.html">Right Sidebar</a></li>
+                                            <li><a href="blog-post-fullwidth.html">No Sidebar</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Pages</a>
+                                <ul class="dropdown">
+                                    <li><a href="page-about.html">About Us</a></li>
+                                    <li><a href="page-contact.html">Contact</a></li>
+                                    <li><a href="page-account.html">My Account</a></li>
+                                    <li><a href="page-login-register.html">login/register</a></li>
+                                    <li><a href="page-purchase-guide.html">Purchase Guide</a></li>
+                                    <li><a href="page-privacy-policy.html">Privacy Policy</a></li>
+                                    <li><a href="page-terms.html">Terms of Service</a></li>
+                                    <li><a href="page-404.html">404 Page</a></li>
+                                </ul>
+                            </li>
+                            <!-- <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Language</a>
+                            <ul class="dropdown">
+                                <li><a href="#">English</a></li>
+                                <li><a href="#">French</a></li>
+                                <li><a href="#">German</a></li>
+                                <li><a href="#">Spanish</a></li>
+                            </ul>
+                        </li> -->
+                        </ul>
+                    </nav>
+                    <!-- mobile menu end -->
+                </div>
+                <div class="mobile-header-info-wrap mobile-header-border">
+                    <div class="single-mobile-header-info mt-30">
+                        <a href="page-contact.html"> Our location </a>
+                    </div>
+                    <div class="single-mobile-header-info">
+                        <a href="page-login-register.html">Log In / Sign Up </a>
+                    </div>
+                    <div class="single-mobile-header-info">
+                        <a href="#">(+01) - 2345 - 6789 </a>
+                    </div>
+                </div>
+                <div class="mobile-social-icon">
+                    <h5 class="mb-15 text-grey-4">Follow Us</h5>
+                    <a href="#"><img src="/assets/imgs/theme/icons/icon-facebook.svg" alt=""></a>
+                    <a href="#"><img src="/assets/imgs/theme/icons/icon-twitter.svg" alt=""></a>
+                    <a href="#"><img src="/assets/imgs/theme/icons/icon-instagram.svg" alt=""></a>
+                    <a href="#"><img src="/assets/imgs/theme/icons/icon-pinterest.svg" alt=""></a>
+                    <a href="#"><img src="/assets/imgs/theme/icons/icon-youtube.svg" alt=""></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <main class="main">
+        <div class="page-header breadcrumb-wrap">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="/" rel="nofollow">Home</a>
+                    <span></span> Shop
+                    <span></span> Checkout
+                </div>
+            </div>
+        </div>
+        <section class="mt-50 mb-50">
+            <div class="container">
+                <div class="row">
+                    <!-- <div class="col-lg-6 mb-sm-15">
+                        <div class="toggle_info">
+                            <span><i class="fi-rs-user mr-10"></i><span class="text-muted">Already have an account?</span> <a href="#loginform" data-bs-toggle="collapse" class="collapsed" aria-expanded="false">Click here to login</a></span>
+                        </div>
+                        <div class="panel-collapse collapse login_form" id="loginform">
+                            <div class="panel-body">
+                                <p class="mb-30 font-sm">If you have shopped with us before, please enter your details below. If you are a new customer, please proceed to the Billing &amp; Shipping section.</p>
+                                <form method="post">
+                                    <div class="form-group">
+                                        <input type="text" name="email" placeholder="Username Or Email">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" name="password" placeholder="Password">
+                                    </div>
+                                    <div class="login_footer form-group">
+                                        <div class="chek-form">
+                                            <div class="custome-checkbox">
+                                                <input class="form-check-input" type="checkbox" name="checkbox" id="remember" value="">
+                                                <label class="form-check-label" for="remember"><span>Remember me</span></label>
+                                            </div>
+                                        </div>
+                                        <a href="#">Forgot password?</a>
+                                    </div>
+                                    <div class="form-group">
+                                        <button class="btn btn-md" name="login">Log in</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div> -->
+
+                </div>
+                <!-- <div class="row">
+                    <div class="col-12">
+                        <div class="divider mt-50 mb-50"></div>
+                    </div>
+                </div> -->
+                <div class="row">
+                    <div class="col-lg-6">
+                        <!-- IF ADDRESSES -->
+                        <% if(addresses && addresses.addresses.length>0){ %>
+                            <% addresses.addresses.forEach((item,index)=>{ %>
+
+                                <div class="card mb-3">
+                                    <% if (item.addressType==='temp' ) { %>
+                                        <div class="card-header d-flex gap-4">
+                                            <input type="radio" name="selectedAddress" value="<%= item.addressType %>"
+                                                id="address<%= index %>" style=" width: 16px;
+                                            height: 16px;
+                                            margin-top: 2px">
+                                            <h5 class="mb-0">Temporary Address</h5>
+                                        </div>
+                                        <% } else { %>
+                                            <div class="card-header d-flex gap-4">
+                                                <input type="radio" name="selectedAddress"
+                                                    value="<%= item.addressType %>" id="address<%= index %>" style=" width: 16px;
+                                            height: 16px;
+                                            margin-top: 2px">
+                                                <h5 class="mb-0">
+                                                    <%= item.addressType.toUpperCase() %> Address
+                                                </h5>
+                                            </div>
+
+                                            <% } %>
+                                                <div class="card-body">
+
+                                                    <address>
+                                                        <%= item.HouseNo %>
+                                                            <%= item.Street %><br>
+                                                                <%= item.city %>, <%= item.State %>
+                                                                        <%= item.pincode %>
+                                                                            <%= item.Country %><br>
+                                                    </address>
+                                                    <p>
+                                                        <%= item.district %>
+                                                    </p>
+                                                </div>
+                                                <div class="card-footer d-flex justify-content-between">
+                                                    <button class="btn" data-toggle="modal"
+                                                        data-target="#editAddressModal<%= index %>"
+                                                        data-index="<%= index %>">Edit</button>
+                                                    <button class="btn" type="button"
+                                                        onclick="addressRemove('<%= item.addressType  %>')">Remove</button>
+                                                </div>
+                                </div>
+
+                                <!-- edit address modal -->
+                                <div class="modal fade" id="editAddressModal<%= index %>" tabindex="-1" role="dialog"
+                                    aria-labelledby="editAddressModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+                                        <!-- Add 'modal-lg' to make it large if needed -->
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="editAddressModalLabel">Edit Address</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form id="addressForm" class="address-form"
+                                                    action="/profile/editAddress" method="post">
+                                                    <!-- Form fields for address details -->
+                                                    <div class="form-group mb-3">
+                                                        <label for="addressType">Address Type</label>
+                                                        <select class="form-control" id="editAddressType"
+                                                            value="<%= item.addressType %>" name="addressType" required>
+                                                            <option value="home" <% if (item.addressType==='home' ) { %>
+                                                                selected<% } %>>Home
+                                                            </option>
+                                                            <option value="work" <% if (item.addressType==='work' ) { %>
+                                                                selected<% } %>>Work
+                                                            </option>
+                                                            <option value="temp" <% if (item.addressType==='temp' ) { %>
+                                                                selected<% } %>>Temporary
+                                                            </option>
+                                                        </select>
+                                                        <span id="addressTypeError" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group mb-3">
+                                                        <label for="houseNo">House No</label>
+                                                        <input type="text" class="form-control editHouseNo"
+                                                            id="editHouseNo" required name="HouseNo"
+                                                            value="<%= item.HouseNo %>" placeholder="House Number">
+                                                        <span id="edithouseNoError"
+                                                            class="text-danger editHouseNo"></span>
+                                                    </div>
+                                                    <div class="form-group mb-3">
+                                                        <label for="street">Street</label>
+                                                        <input type="text" class="form-control editStreet"
+                                                            id="editStreet" required name="Street"
+                                                            value="<%= item.Street %>" placeholder="Street">
+                                                        <span id="editstreetError"
+                                                            class="text-danger streetError"></span>
+                                                    </div>
+                                                    <div class="form-group mb-3">
+                                                        <label for="landmark">Landmark</label>
+                                                        <input type="text" class="form-control" id="editlandmark"
+                                                            name="Landmark" value="<%= item.Landmark%>"
+                                                            placeholder="Landmark">
+
+                                                    </div>
+                                                    <div class="form-group mb-3">
+                                                        <label for="pincode">Pincode</label>
+                                                        <input type="number" class="form-control editPincode"
+                                                            id="editPincode" required name="pincode"
+                                                            value="<%= item.pincode %>" placeholder="Pincode">
+                                                        <span id="editpincodeError"
+                                                            class="text-danger pincodeError"></span>
+                                                    </div>
+                                                    <div class="form-group mb-3">
+                                                        <label for="city">City</label>
+                                                        <input type="text" class="form-control editCity" id="editCity"
+                                                            name="city" required value="<%= item.city %>"
+                                                            placeholder="City">
+                                                        <span id="editcityError" class="text-danger cityError"></span>
+                                                    </div>
+                                                    <div class="form-group mb-3">
+                                                        <label for="district">District</label>
+                                                        <input type="text" class="form-control cityError"
+                                                            id="editDistrict" required value="<%= item.district %>"
+                                                            name="district" placeholder="district">
+                                                        <span id="editdistrictError"
+                                                            class="text-danger districtError"></span>
+                                                    </div>
+                                                    <div class="form-group mb-3">
+                                                        <label for="state" class="mb-2 d-block">State</label>
+                                                        <select id="editState" class="form-control border districtError"
+                                                            required name="state">
+                                                            <option value="">Select A State</option>
+                                                            <option value="Andhra Pradesh" <% if
+                                                                (item.State==='Andhra Pradesh' ) { %>selected<% } %>
+                                                                    >Andhra
+                                                                    Pradesh</option>
+                                                            <option value="Arunachal Pradesh" <% if
+                                                                (item.State==='Arunachal Pradesh' ) { %>selected<% } %>>
+                                                                    Arunachal Pradesh</option>
+                                                            <option value="Assam" <% if (item.State==='Assam' ) { %>
+                                                                selected<% } %>>Assam</option>
+                                                            <option value="Bihar" <% if (item.State==='Bihar' ) { %>
+                                                                selected<% } %>>Bihar</option>
+                                                            <option value="Chhattisgarh" <% if
+                                                                (item.State==='Chhattisgarh' ) { %>selected<% } %>>
+                                                                    Chhattisgarh</option>
+                                                            <option value="Goa" <% if (item.State==='Goa' ) { %>selected
+                                                                <% } %>>Goa
+                                                            </option>
+                                                            <option value="Gujarat" <% if (item.State==='Gujarat' ) { %>
+                                                                selected<% } %>>Gujarat
+                                                            </option>
+                                                            <option value="Haryana" <% if (item.State==='Haryana' ) { %>
+                                                                selected<% } %>>Haryana
+                                                            </option>
+                                                            <option value="Himachal Pradesh" <% if
+                                                                (item.State==='Himachal Pradesh' ) { %>selected<% } %>>
+                                                                    Himachal Pradesh</option>
+                                                            <option value="Jharkhand" <% if (item.State==='Jharkhand' )
+                                                                { %>selected<% } %>>Jharkhand
+                                                            </option>
+                                                            <option value="Karnataka" <% if (item.State==='Karnataka' )
+                                                                { %>selected<% } %>>Karnataka
+                                                            </option>
+                                                            <option value="Kerala" <% if (item.State==='Kerala' ) { %>
+                                                                selected<% } %>>Kerala</option>
+                                                            <option value="Madhya Pradesh" <% if
+                                                                (item.State==='Madhya Pradesh' ) { %>selected<% } %>
+                                                                    >Madhya
+                                                                    Pradesh</option>
+                                                            <option value="Maharashtra" <% if
+                                                                (item.State==='Maharashtra' ) { %>selected<% } %>
+                                                                    >Maharashtra
+                                                            </option>
+                                                            <option value="Manipur" <% if (item.State==='Manipur' ) { %>
+                                                                selected<% } %>>Manipur
+                                                            </option>
+                                                            <option value="Meghalaya" <% if (item.State==='Meghalaya' )
+                                                                { %>selected<% } %>>Meghalaya
+                                                            </option>
+                                                            <option value="Mizoram" <% if (item.State==='Mizoram' ) { %>
+                                                                selected<% } %>>Mizoram
+                                                            </option>
+                                                            <option value="Nagaland" <% if (item.State==='Nagaland' ) {
+                                                                %>selected<% } %>>Nagaland
+                                                            </option>
+                                                            <option value="Odisha" <% if (item.State==='Odisha' ) { %>
+                                                                selected<% } %>>Odisha</option>
+                                                            <option value="Punjab" <% if (item.State==='Punjab' ) { %>
+                                                                selected<% } %>>Punjab</option>
+                                                            <option value="Rajasthan" <% if (item.State==='Rajasthan' )
+                                                                { %>selected<% } %>>Rajasthan
+                                                            </option>
+                                                            <option value="Sikkim" <% if (item.State==='Sikkim' ) { %>
+                                                                selected<% } %>>Sikkim</option>
+                                                            <option value="Tamil Nadu" <% if (item.State==='Tamil Nadu'
+                                                                ) { %>selected<% } %>>Tamil Nadu
+                                                            </option>
+                                                            <option value="Telangana" <% if (item.State==='Telangana' )
+                                                                { %>selected<% } %>>Telangana
+                                                            </option>
+                                                            <option value="Tripura" <% if (item.State==='Tripura' ) { %>
+                                                                selected<% } %>>Tripura
+                                                            </option>
+                                                            <option value="Uttar Pradesh" <% if
+                                                                (item.State==='Uttar Pradesh' ) { %>selected<% } %>
+                                                                    >Uttar
+                                                                    Pradesh</option>
+                                                            <option value="Uttarakhand" <% if
+                                                                (item.State==='Uttarakhand' ) { %>selected<% } %>
+                                                                    >Uttarakhand
+                                                            </option>
+                                                            <option value="West Bengal" <% if
+                                                                (item.State==='West Bengal' ) { %>selected<% } %>>West
+                                                                    Bengal
+                                                            </option>
+                                                            <!-- Add more states as needed -->
+                                                        </select>
+                                                        <span id="editstateError" class="text-danger stateError"></span>
+                                                    </div>
+                                                    <div class="form-group mb-3">
+                                                        <label for="country">Country</label>
+                                                        <input type="text" required class="form-control stateError"
+                                                            id="editCountry" value="<%= item.Country %>" name="Country"
+                                                            placeholder="Country">
+                                                        <span id="editcountryError"
+                                                            class="text-danger countryError"></span>
+                                                    </div>
+                                                    <!-- Other address fields here... -->
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn">Save
+                                                    Changes</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <% }) %>
+                                    <% if(addresses.addresses.length<3){ %>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="border border-dotted border-success p-0">
+                                                    <button class="btn  w-100 h-100" data-toggle="modal"
+                                                        data-target="#addressModal">
+                                                        Add Address
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <% } %>
+
+                                            <% }else{ %>
+
+                                                <!-- before adding the addressess  -->
+
+                                                <h2>Shipping Address</h2>
+                                                <form id="addressForm">
+                                                    <!-- Form fields for address details -->
+                                                    <div class="form-group mb-3">
+                                                        <label for="addressType">Address Type</label>
+                                                        <select class="form-control" id="addressType"
+                                                            name="addressType">
+                                                            <option value="home">Home</option>
+                                                            <option value="work">Work</option>
+                                                            <option value="temp">Temporary</option>
+                                                        </select>
+                                                        <span id="addressTypeError" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group mb-3">
+                                                        <label for="houseNo">House No</label>
+                                                        <input type="text" class="form-control" id="houseNo"
+                                                            placeholder="House Number">
+                                                        <span id="houseNoError" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group mb-3">
+                                                        <label for="street">Street</label>
+                                                        <input type="text" class="form-control" id="street"
+                                                            placeholder="Street">
+                                                        <span id="streetError" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group mb-3">
+                                                        <label for="landmark">Landmark</label>
+                                                        <input type="text" class="form-control" id="landmark"
+                                                            placeholder="Landmark">
+
+                                                    </div>
+                                                    <div class="form-group mb-3">
+                                                        <label for="pincode">Pincode</label>
+                                                        <input type="number" class="form-control" id="pincode"
+                                                            placeholder="Pincode">
+                                                        <span id="pincodeError" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group mb-3">
+                                                        <label for="city">City</label>
+                                                        <input type="text" class="form-control" id="city"
+                                                            placeholder="City">
+                                                        <span id="cityError" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group mb-3">
+                                                        <label for="district">District</label>
+                                                        <input type="text" class="form-control" id="district"
+                                                            placeholder="district">
+                                                        <span id="districtError" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group mb-3">
+                                                        <label for="state" class="mb-2 d-block">State</label>
+                                                        <select id="state" class="form-control border" required
+                                                            name="state">
+                                                            <option value="">Select A State</option>
+                                                            <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                                            <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                                                            <option value="Assam">Assam</option>
+                                                            <option value="Bihar">Bihar</option>
+                                                            <option value="Chhattisgarh">Chhattisgarh</option>
+                                                            <option value="Goa">Goa</option>
+                                                            <option value="Gujarat">Gujarat</option>
+                                                            <option value="Haryana">Haryana</option>
+                                                            <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                                            <option value="Jharkhand">Jharkhand</option>
+                                                            <option value="Karnataka">Karnataka</option>
+                                                            <option value="Kerala">Kerala</option>
+                                                            <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                                            <option value="Maharashtra">Maharashtra</option>
+                                                            <option value="Manipur">Manipur</option>
+                                                            <option value="Meghalaya">Meghalaya</option>
+                                                            <option value="Mizoram">Mizoram</option>
+                                                            <option value="Nagaland">Nagaland</option>
+                                                            <option value="Odisha">Odisha</option>
+                                                            <option value="Punjab">Punjab</option>
+                                                            <option value="Rajasthan">Rajasthan</option>
+                                                            <option value="Sikkim">Sikkim</option>
+                                                            <option value="Tamil Nadu">Tamil Nadu</option>
+                                                            <option value="Telangana">Telangana</option>
+                                                            <option value="Tripura">Tripura</option>
+                                                            <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                                            <option value="Uttarakhand">Uttarakhand</option>
+                                                            <option value="West Bengal">West Bengal</option>
+                                                            <!-- Add more states as needed -->
+                                                        </select>
+                                                        <span id="stateError" class="text-danger"></span>
+
+                                                    </div>
+                                                    <div class="form-group mb-3">
+                                                        <label for="country">Country</label>
+                                                        <input type="text" class="form-control" id="country"
+                                                            placeholder="Country">
+                                                        <span id="countryError" class="text-danger"></span>
+                                                    </div>
+                                                    <div>
+                                                        <button type="submit" id="saveAddress" class="btn">Save
+                                                            Address</button>
+                                                    </div>
+                                                </form>
+
+
+                                                <% } %>
+                    </div>
+
+                    <!-- Add Adress MODAL -->
+                    <div class="modal fade" id="addressModal" tabindex="-1" role="dialog"
+                        aria-labelledby="addressModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="addressModalLabel">Add Address</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="addressForm">
+                                        <!-- Form fields for address details -->
+                                        <div class="form-group mb-3">
+                                            <label for="addressType">Address Type</label>
+                                            <select class="form-control" id="addressType" name="addressType">
+                                                <option value="home" <%=selectedAddressTypes.includes('home')
+                                                    ? 'disabled' : '' %>>
+                                                    Home
+                                                </option>
+                                                <option value="work" <%=selectedAddressTypes.includes('work')
+                                                    ? 'disabled' : '' %>>
+                                                    Work
+                                                </option>
+                                                <option value="temp" <%=selectedAddressTypes.includes('temp')
+                                                    ? 'disabled' : '' %>>
+                                                    Temporary</option>
+                                            </select>
+                                            <span id="addressTypeError" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label for="houseNo">House No</label>
+                                            <input type="text" class="form-control" id="houseNo"
+                                                placeholder="House Number">
+                                            <span id="houseNoError" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label for="street">Street</label>
+                                            <input type="text" class="form-control" id="street" placeholder="Street">
+                                            <span id="streetError" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label for="landmark">Landmark</label>
+                                            <input type="text" class="form-control" id="landmark"
+                                                placeholder="Landmark">
+
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label for="pincode">Pincode</label>
+                                            <input type="number" class="form-control" id="pincode"
+                                                placeholder="Pincode">
+                                            <span id="pincodeError" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label for="city">City</label>
+                                            <input type="text" class="form-control" id="city" placeholder="City">
+                                            <span id="cityError" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label for="district">District</label>
+                                            <input type="text" class="form-control" id="district"
+                                                placeholder="district">
+                                            <span id="districtError" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label for="state" class="mb-2 d-block">State</label>
+                                            <select id="state" class="form-control border" required name="state">
+                                                <option value="">Select A State</option>
+                                                <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                                <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                                                <option value="Assam">Assam</option>
+                                                <option value="Bihar">Bihar</option>
+                                                <option value="Chhattisgarh">Chhattisgarh</option>
+                                                <option value="Goa">Goa</option>
+                                                <option value="Gujarat">Gujarat</option>
+                                                <option value="Haryana">Haryana</option>
+                                                <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                                <option value="Jharkhand">Jharkhand</option>
+                                                <option value="Karnataka">Karnataka</option>
+                                                <option value="Kerala">Kerala</option>
+                                                <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                                <option value="Maharashtra">Maharashtra</option>
+                                                <option value="Manipur">Manipur</option>
+                                                <option value="Meghalaya">Meghalaya</option>
+                                                <option value="Mizoram">Mizoram</option>
+                                                <option value="Nagaland">Nagaland</option>
+                                                <option value="Odisha">Odisha</option>
+                                                <option value="Punjab">Punjab</option>
+                                                <option value="Rajasthan">Rajasthan</option>
+                                                <option value="Sikkim">Sikkim</option>
+                                                <option value="Tamil Nadu">Tamil Nadu</option>
+                                                <option value="Telangana">Telangana</option>
+                                                <option value="Tripura">Tripura</option>
+                                                <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                                <option value="Uttarakhand">Uttarakhand</option>
+                                                <option value="West Bengal">West Bengal</option>
+                                                <!-- Add more states as needed -->
+                                            </select>
+                                            <span id="stateError" class="text-danger"></span>
+
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label for="country">Country</label>
+                                            <input type="text" class="form-control" id="country" placeholder="Country">
+                                            <span id="countryError" class="text-danger"></span>
+                                        </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" id="saveAddress" class="btn">Save
+                                        Address</button>
+                                </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-6">
+
+                        <div class="card mb-4">
+                            <div class="card-header py-3">
+                                <h5 class="mb-0 text-font">Items to Buy: <%= itemCount %>
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <% selectedItems.forEach(item=> { %>
+                                    <div class="row mt-3">
+                                        <input type="text" hidden value="<%= item.productId %>" name="produtId"
+                                            class="productId">
+                                        <div class="col-md-4">
+                                            <img src="/<%= item.image %>" class="rounded-3" style="width: 100px;"
+                                                alt="<%= item.name %>" />
+                                        </div>
+                                        <div class="col-md-6 ms-3">
+
+                                            <p class="mb-0 text-descriptions">
+                                                <%= item.name %>
+                                            </p>
+                                            <span class="mb-0 text-brand">INR <%= item.productPrice.toFixed(2) %></span>
+                                            <p class="text-descriptions mt-0">Qty:<span
+                                                    class="text-descriptions fw-bold">
+                                                    <%= item.quantity %>
+                                                </span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <% }); %>
+
+                                        <div class="card-footer m-4 p-0 mb-2">
+                                            <ul class="list-group list-group-flush">
+                                                <li
+                                                    class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 text-muted">
+                                                    Subtotal
+                                                    <span>INR <%= billTotal %></span>
+                                                </li>
+                                                <li
+                                                    class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 text-muted">
+                                                    Discount
+                                                    <span>
+                                                        <% if(discountPrice && discountedTotal){ %>
+                                                            <%= discountPrice %>
+                                                                <% }else{ %>
+                                                                    00.00
+                                                                    <% } %>
+                                                    </span>
+                                                </li>
+                                                <li
+                                                    class="list-group-item d-flex justify-content-between align-items-center px-0 fw-bold text-uppercase">
+                                                    Total to pay
+                                                    <span>INR <% if(discountPrice && discountedTotal){ %>
+                                                            <%= discountedTotal %>
+                                                                <% }else{ %>
+                                                                    <%= billTotal %>
+                                                                        <% } %> </span>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+
+                            </div>
+                        </div>
+
+
+                        <div class="btn-group text-center">
+                            <button type="button" class="btn text-light btn-outline-light mb-4"
+                                onclick="addMoneyToWallet('<%= userDetail._id %>')"><i class="fa-solid fa-wallet fa-xl"
+                                    style="color: #ffffff;"></i> Add
+                                money to wallet </button>
+                        </div>
+
+
+
+                        <div class="row">
+                            <div class="card mb-4">
+                                <div class="card-header py-3">
+                                    <h5 class="mb-0 text-font">Payment Methods</h5>
+                                </div>
+                                <div class="card-body">
+                                    <form id="paymentForm">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="paymentOption"
+                                                id="cashOnDelivery" value="cashOnDelivery">
+                                            <label class="form-check-label" for="cashOnDelivery">
+                                                Cash on Delivery
+                                            </label>
+                                        </div>
+
+                                        <!-- <div id="generatedCode"
+                                        style="display: none; width:70px;height:40px;border:1px solid;border-color: #19B8A2; padding-top:3px ; padding-left: 8px;">
+                                    </div>
+                                    <div class="form-group" id="codeSection" style="display: none;">
+                                        <label for="verificationCode">Enter Verification Code:</label>
+                                        <input type="text" class="form-control" id="verificationCode" required>
+                                    </div> -->
+
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="paymentOption"
+                                                id="Razorpay" value="Razorpay">
+                                            <label class="form-check-label" for="cashOnDelivery">
+                                                Online Payment
+                                            </label>
+                                        </div>
+
+                                        <div class="form-check">
+                                            <% if (userDetail.WalletData.balance < billTotal) { %>
+                                                <input class="form-check-input" type="radio"
+                                                    style="border-color: black;" name="paymentOption" id="Wallet"
+                                                    value="Wallet" disabled>
+                                                <label class="form-check-label" for="cashOnDelivery">
+                                                    Wallet (Insufficient funds)
+                                                </label>
+                                                <p class="text-danger" style="font-size: smaller;">Wallet balance is
+                                                    insufficient. Please choose another payment method.</p>
+                                                <% } else { %>
+                                                    <input class="form-check-input" type="radio"
+                                                        style="border-color: black;" name="paymentOption" id="Wallet"
+                                                        value="Wallet">
+                                                    <label class="form-check-label" for="cashOnDelivery">
+                                                        Wallet
+                                                    </label>
+                                                    <% } %>
+                                        </div>
+                                        <!-- <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="paymentOption" id="Paypal"
+                                                value="Paypal">
+                                            <label class="form-check-label" for="cashOnDelivery">
+                                                Paypal
+                                            </label>
+                                        </div>-->
+
+
+                                        <!-- <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="paymentOption" id="creditCard" value="creditCard">
+                                            <label class="form-check-label" for="creditCard">
+                                                Credit Card
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="paymentOption" id="netBanking" value="netBanking">
+                                            <label class="form-check-label" for="netBanking">
+                                                Net Banking
+                                            </label>
+                                        </div> -->
+
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-center">
+                            <button type="button" id="proceedButton" class="btn w-75">Proceed to Payment</button>
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+            </div>
+
+
+
+
+            <!-- <form id="paymentVerifyForm" action="/cart/verify-payment" method="POST">
+            <input name="razorpay_payment_id" type="hidden" id="razorpay_payment_id" />
+            <input name="razorpay_order_id" type="hidden" id="razorpay_order_id" />
+            <input name="razorpay_signature" type="hidden" id="razorpay_signature" />
+        </form> -->
+    </main>
+
+
+
+
+
+
+
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            // Function to validate the form
+            console.log('workdeddd')
+
+            document.getElementById('saveAddress').addEventListener('click', function () {
+                // Validate and save the address
+                if (validateForm()) {
+                    saveAddress();
+                }
+            });
+
+
+            function validateForm() {
+                var valid = true;
+                var addressType = $('#addressType').val();
+                var houseNo = $('#houseNo').val();
+                var street = $('#street').val();
+                var pincode = $('#pincode').val();
+                var city = $('#city').val();
+                var district = $('#district').val();
+                var state = $('#state').val();
+                var country = $('#country').val();
+                // Clear previous errors
+                clearErrors();
+
+                // Validation rules
+                if (!addressType) {
+                    valid = false;
+                    $('#addressTypeError').text('Type of Address is required')
+                }
+                if (!houseNo) {
+                    valid = false;
+                    $('#houseNoError').text('House No is required.');
+                }
+                if (!street) {
+                    valid = false;
+                    $('#streetError').text('Street is required.');
+                }
+                if (!pincode || pincode.length !== 6 || isNaN(pincode)) {
+                    valid = false;
+                    $('#pincodeError').text('Pincode must be a 6-digit number.');
+                }
+                if (!city || !/^[A-Za-z\s]+$/.test(city)) {
+                    valid = false;
+                    $('#cityError').text('City is required.');
+                }
+                if (!district) {
+                    valid = false;
+                    $('#districtError').text('District is Required')
+                }
+                if (!state) {
+                    valid = false;
+                    $('#stateError').text('State is required.');
+                }
+                if (!country || /\d/.test(country)) {
+                    valid = false;
+                    $('#countryError').text('Country is required and should not contain numbers.');
+                }
+
+                return valid;
+            }
+
+            function clearErrors() {
+                $('#addressTypeError').text();
+                $('#houseNoError').text('');
+                $('#streetError').text('');
+                $('#pincodeError').text('');
+                $('#cityError').text('');
+                $('#districtError').text('')
+                $('#stateError').text('');
+                $('#countryError').text('');
+            }
+
+
+            function saveAddress() {
+                var addressData = {
+                    addressType: $('#addressType').val(),
+                    houseNo: $('#houseNo').val(),
+                    street: $('#street').val(),
+                    landmark: $('#landmark').val(),
+                    pincode: $('#pincode').val(),
+                    city: $('#city').val(),
+                    district: $('#district').val(),
+                    state: $('#state').val(),
+                    country: $('#country').val()
+                };
+                fetch('/profile/addAddress', {
+                    method: 'POST',
+                    body: JSON.stringify(addressData),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }).then((response) => {
+                    if (response.status === 200) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'success...',
+                            text: 'Address Added Successfully',
+                            timer: 2000,
+                            timerProgressBar: true,
+                            didOpen: () => {
+                                Swal.getCloseButton().textContent = 'Close | Reloading...';
+                                setTimeout(() => {
+                                    window.location.reload();
+                                },
+                                    2000
+                                ); // Reload the page after 2 seconds (after the SweetAlert timer ends)
+                            }
+                            // });
+                        });
+
+                    } else {
+                        Swal.fire({
+                            icon: 'warnning',
+                            title: 'success...',
+                            text: 'Address added successfully',
+                            timer: 2000,
+                        });
+                    }
+
+                })
+                    .catch(function (error) {
+                        console.error(error);
+                        alert('An error occurred while saving the address.');
+                    });
+
+            }
+        })
+
+
+        //REMOVE ADDRESS
+        //Edit ADdress
+        function addressRemove(addressType) {
+            // You can use AJAX (e.g., fetch or XMLHttpRequest) to send a DELETE request to the backend
+
+            fetch(`/profile/deleteAddress?addressType=${addressType}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+
+            })
+                .then((response) => {
+                    if (response.ok) {
+                        // Address was successfully deleted
+                        // You can update the UI or display a message here
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'success...',
+                            text: 'Address Removed',
+                            timer: 2000,
+                            timerProgressBar: true,
+                            didOpen: () => {
+                                Swal.getCloseButton().textContent = 'Close | Reloading...';
+                                setTimeout(() => {
+                                    window.location.reload();
+                                },
+                                    2000
+                                ); // Reload the page after 2 seconds (after the SweetAlert timer ends)
+                            }
+                        });
+                    } else {
+                        // Handle the error and display an error message
+                        console.error('Error deleting address:', response.statusText);
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        }
+
+
+        document.addEventListener("submit", function (event) {
+            if (event.target.classList.contains("address-form")) {
+                event.preventDefault();
+
+                const form = event.target;
+                const addressTypeError = form.querySelector("#addressTypeError");
+                const houseNoError = form.querySelector("#edithouseNoError");
+                const streetError = form.querySelector("#editstreetError");
+                const pincodeError = form.querySelector("#editpincodeError");
+                const cityError = form.querySelector("#editcityError");
+                const districtError = form.querySelector("#editdistrictError");
+                const stateError = form.querySelector("#editstateError");
+                const countryError = form.querySelector("#editcountryError");
+
+                const addressType = form.querySelector("#editAddressType").value;
+                const houseNo = form.querySelector("#editHouseNo").value.trim();
+                const street = form.querySelector("#editStreet").value.trim();
+                const pincode = form.querySelector("#editPincode").value;
+                const city = form.querySelector("#editCity").value.trim();
+                const district = form.querySelector("#editDistrict").value.trim();
+                const state = form.querySelector("#editState").value;
+                const country = form.querySelector("#editCountry").value.trim();
+
+                let isValid = true;
+
+                if (addressType === "") {
+                    addressTypeError.textContent = "Address Type is required";
+                    isValid = false;
+
+                }
+
+                if (houseNo === "") {
+                    houseNoError.textContent = "House No is required";
+                    isValid = false;
+                } else {
+                    houseNoError.textContent = "";
+                }
+
+                if (street === "") {
+                    streetError.textContent = "Street is required";
+                    isValid = false;
+                } else {
+                    streetError.textContent = "";
+                }
+
+                if (!/^\d{6}$/.test(pincode)) {
+                    pincodeError.textContent = "Pincode must be 6 digits";
+                    isValid = false;
+                } else {
+                    pincodeError.textContent = "";
+                }
+
+                if (city === "") {
+                    cityError.textContent = "City is required";
+                    isValid = false;
+                } else {
+                    cityError.textContent = "";
+                }
+
+                if (district === "") {
+                    districtError.textContent = "District is required";
+                    isValid = false;
+                } else {
+                    districtError.textContent = "";
+                }
+
+                if (state === "") {
+                    stateError.textContent = "State is required";
+                    isValid = false;
+                } else {
+                    stateError.textContent = "";
+                }
+
+                if (country === "") {
+                    countryError.textContent = "Country is required";
+                    isValid = false;
+                } else {
+                    countryError.textContent = "";
+                }
+
+                if (isValid) {
+
+                    form.submit();
+                }
+            }
+        });
+
+        //CASH ON DELEIVERY 
+        const billTotalElement = document.querySelector(
+            '.card-footer span:last-child'); // Assuming this selects the correct span
+        const billTotalText = billTotalElement.textContent;
+        const billTotal = parseFloat(billTotalText.split(' ')[1]); // Extract the numeric value
+
+        console.log('Bill Total:', billTotal);
+
+        const proceedButton = document.getElementById('proceedButton');
+
+
+        // Add this condition to check 'billTotal' and initially disable the button
+        if (billTotal === 0) {
+            proceedButton.setAttribute('disabled', true);
+            Swal.fire("Error", "Please add Some Products", "error");
+            location.href = '/cart'
+        }
+
+
+        // BACKEND DATA GOINnG 
+
+        // Assuming you have a button with the id "proceedButton"
+
+        proceedButton.addEventListener("click", () => {
+
+            // Get the selected address type and payment option
+            const selectedAddressType = document.querySelector('input[name="selectedAddress"]:checked').value;
+            const paymentOption = document.querySelector('input[name="paymentOption"]:checked').value;
+
+            // You can get the product IDs, quantities, and bill total from your page as needed.
+            // For example, you might store this data in JavaScript variables.
+
+            // Create a data object to send to the server
+            const data = {
+                addressType: selectedAddressType,
+                paymentOption: paymentOption,
+                // Add other data properties as needed
+            };
+            // Send the data to the server using a fetch request
+
+            fetch("/checkout", {
+                method: "POST", // Use the appropriate HTTP method
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+            })
+                .then((response) => response.json())
+                .then((result) => {
+                    alert("before success response")
+                    if (result.success) {
+                        alert("after success response")
+
+                        if (paymentOption === 'cashOnDelivery') {
+                            Swal.fire("Success", "Cash on Delivery payment processed.", "success");
+
+                            location.href = `/order-confirmation/${result.orderId}`
+                        } else if (paymentOption === 'Wallet') {
+                            Swal.fire("Success", "Wallet payment processed.", "success");
+
+                            location.href = `/order-confirmation/${result.orderId}`
+                        } else if (paymentOption === 'Razorpay') {
+                            console.log(result)
+                            console.log("Razorpay Payment Option");
+                            initiateRazorpayPayment(result.oId, result.amount, result);
+                        } else {
+                            // Add any other payment option conditions here
+                        }
+                    } else {
+                        // If there's an error, show an error message
+                        Swal.fire("Error", "An error occurred. Please try again later." + error.message,
+                            "error");
+                    }
+
+                })
+                .catch((error) => {
+                    alert(error)
+                    console.error("Error:", error);
+                });
+        });
+
+
+        // Define a function to initiate the Razorpay payment
+        function initiateRazorpayPayment(orderId, amount, res) {
+
+            var options = {
+                key: "" + res.key_id + "", // Replace with your Razorpay key
+                amount: amount, // Amount in paise (e.g., 1000 for ₹10)
+                currency: 'INR',
+                name: 'BIKYS',
+                description: 'Payment for your order',
+                order_id: res.order.oId,
+                handler: function (response) {
+
+
+                    console.log(response)
+                    const paymentData = {
+                        razorpay_payment_id: response.razorpay_payment_id,
+                        razorpay_order_id: orderId,
+                        razorpay_signature: response.razorpay_signature,
+                        // Add any other necessary data
+                    };
+                    fetch('/order-payment-online', {
+                        method: 'POST',
+                        body: JSON.stringify(paymentData),
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    })
+                        .then((response) => response.json())
+                        .then((data) => {
+                            // Handle the response from the server (e.g., display a success message)
+                            if (data.success) {
+                                console.log(data);
+                                location.href = `/order-confirmation/${data.updatedOrder._id}`
+                            } else {
+                                alert('Payment failed');
+                                location.href = '/payment-failed'
+                            }
+                        })
+                        .catch((error) => {
+                            // Handle errors from the server
+                            console.error(error);
+                        });
+                },
+                prefill: {
+                    "contact": "" + res.contact + "",
+                    "name": "" + res.name + "",
+                    "email": "" + res.email + "" // Pre-fill customer's contact number
+                },
+                notes: {
+                    address: "" + res.address + "", // You can provide additional notes if needed
+                },
+                theme: {
+                    color: '#19B8A2', // Customize the color of the Razorpay checkout button
+                },
+            };
+
+            var rzp = new Razorpay(options);
+            rzp.on('payment.failed', function (response) {
+                alert("Payment Failed");
+            });
+
+            rzp.open();
+        }
+
+
+
+        ///wallet add money
+
+        function addMoneyToWallet(userId) {
+            Swal.fire({
+                title: 'Enter amount to add :',
+                input: 'text',
+                inputLabel: 'Amount',
+                inputPlaceholder: 'Enter the amount',
+                showCancelButton: true,
+                confirmButtonText: 'Add Money',
+                showLoaderOnConfirm: true,
+                preConfirm: (amount) => {
+                    // Validate the entered amount (you can add more validation as needed)
+                    if (!amount || isNaN(parseFloat(amount)) || amount < 0) {
+                        Swal.showValidationMessage('Please enter a valid amount');
+                        return false;
+                    }
+
+                    // Make a POST request to add money to the wallet
+                    return fetch('/create-razorpay-order', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            userId,
+                            amount
+                        }),
+                    })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Error adding money to wallet');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            if (data.success) {
+                                // Initialize Razorpay
+                                const options = {
+                                    key: data.key_id,
+                                    amount: data.amount * 100, // Amount in paise
+                                    currency: data.currency,
+                                    name: data.name,
+                                    description: 'Add Money to Wallet',
+                                    order_id: data.orderId,
+                                    handler: function (response) {
+                                        // Handle the payment success
+                                        Swal.fire('Success', 'Payment successful!', 'success');
+                                        // Send the payment confirmation to your server
+                                        confirmPayment(userId, amount, response
+                                            .razorpay_payment_id);
+                                    },
+                                    prefill: {
+                                        email: data.email,
+                                        contact: data.contact,
+                                    },
+                                    theme: {
+                                        color: '#007BFF',
+                                    },
+                                };
+
+                                const rzp = new Razorpay(options);
+                                rzp.open();
+                            } else {
+                                Swal.fire('Error', 'Failed to create Razorpay order', 'error');
+                            }
+                        })
+                        .catch(error => {
+                            Swal.showValidationMessage(`Request failed: ${error}`);
+                        });
+                },
+                allowOutsideClick: () => !Swal.isLoading(),
+            })
+                .then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire('Success',
+                            `Money added successfully. New balance: $${result.value.balance.toFixed(2)}`,
+                            'success');
+                    }
+                });
+        }
+
+
+        function confirmPayment(userId, amount, paymentId) {
+            // Send a request to your server to confirm the payment and update the wallet
+            fetch('/confirm-payment', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    userId,
+                    amount,
+                    paymentId
+                }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Handle the success response if needed
+                    } else {
+                        Swal.fire('Error', 'Failed to confirm payment', 'error');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    Swal.fire('Error', 'Something went wrong', 'error');
+                });
+        }
+
+
+
+
+
+
+    </script>
+
+    <%- include('partials/footer.ejs') %>

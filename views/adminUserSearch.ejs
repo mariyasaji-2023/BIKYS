@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Login Page </title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel='stylesheet' href='/stylesheets/userLists.css' />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+
+     
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+</head>
+<body>
+    
+    <!-- <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+        
+            <a class="navbar-brand" style="color: white;" href="#">Admin Panel</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <form class="nav col-12 md-auto flex-fill mb-2 justify-content-center mb-md-0" role="search"
+                method="POST" action="/admin/search">
+                <input type="search" name="searchTerm"
+                    class="form-control form-control-dark w-100 rounded-0 border-0" placeholder="Search..."
+                    aria-label="Search">
+            </form>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <form class="d-flex justify-content-end" action="/logout" method="post">
+                    <button type="submit" class="btn btn-outline-light justify-content-end">Logout</button>
+                </form>
+            </div>
+        
+    </nav> -->
+
+    <header class="section-header">
+        <section class="header-main border-bottom">
+            <nav class="navbar navbar-light bg-transparent justify-content-between">
+                <a class="navbar-brand ms-4 text-black-540">Search Results</a>
+                <a class="navbar-brand ms-4 text-black-540" href="/admin/searchuser"><i class="fa-solid fa-backward"></i> Back to Dashboard</a>
+                <!-- <a class="navbar-brand text-black-540">Home page</a> -->
+                <!-- <form class="form-inline me-5 w-50 d-flex"  role="search" action="/admin/users">
+                  <input class="form-control w-75 me-1" type="search" name="searchTerm"  placeholder="Search users...." aria-label="Search">
+                  <button class="border-dark-subtle border-3 bg-light  btn  btn-outline-success" type="submit">Search</button>
+                </form> -->
+              </nav>
+        </section>
+       
+      
+    </header>
+
+    <!-- Contents -->
+    <div class="d-flex ms-4 me-4 justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2 text-primary">Dashboard</h1>
+        
+        <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group me-2">
+                <a href="add/" class="btn btn-sm btn-outline-primary">+ New user</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Creating tables -->
+    <div class="container-fluid">
+        <div class="table-responsive">
+            <table class="table table-striped table-sm">
+                <thead>
+                    <tr>
+                        <th scope="col">User Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Password</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% if(Users && Users.length>0){ %>
+                    <% Users?.forEach(element => { %>
+                    <tr class="align-middle">
+                        <td><%= element.name %></td>
+                        <td><%= element.email %></td>
+                        <td><%= element.password %></td>
+                        <td class="text-end">
+                            <div class="d-flex flex-row justify-content-end gap-2">
+                                <a href="edit/<%= element._id %>" type="button"
+                                    class="btn btn-warning btn-small">
+                                    <i class="bi bi-pencil">Edit</i>
+                                </a>
+                                <!-- <a type="submit" class="btn btn-danger btn-small"
+                                    href="users/delete/<%= element._id %>">Delete<i class="bi bi-person-x"></i></a> -->
+                                    
+                                    <button class="btn btn-danger btn-small" onclick="deleteUser('<%= element._id %>')">
+                                        Delete<i class="bi bi-person-x"></i>
+                                      </button>
+
+                                      <script>
+                                        function deleteUser(userId) {
+                                          fetch('delete/' + userId, { method: 'DELETE' })
+                                            .then(response => {
+                                              if (response.ok) {
+                                                // User was successfully deleted
+                                                // Reload the page to update the list of users
+                                                alert('Sucessfully deleted')
+                                                window.location.reload();
+                                              } else {
+                                                // Handle error
+                                                alert('An error occurred while deleting the user.');
+                                              }
+                                            });
+                                        }
+                                      </script>
+
+                                </div>
+                        </td>
+                      
+                    </tr>
+                    <% }) %>
+                    <% }else{ %>
+                        <tr>
+                            <td colspan="4" class="text-center">Users not found.</td>
+                        </tr>
+                        <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>

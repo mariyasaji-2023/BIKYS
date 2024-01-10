@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title> Login Page </title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="/node_modules/toastr/build/toastr.min.css">
+    
+</head>
+
+
+
+<body onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload="">
+    <div class="container">
+       <div class="logo">
+            <a href="/"><img src="/assets/imgs/shop/BIKYS.png" alt="logo"></a>
+          </div>
+           
+        <div class="wrapper form-pad">
+         
+            <form action="/login" method="post" name="Login_Form" onsubmit="return validateForm()" class="form-signin">
+                <h3 class="form-signin-heading">Welcome! Please Login In</h3>
+                <% if (locals.errorMessage) { %>
+                  <h5 class="text-danger form-signin-heading2" ><%= errorMessage %></h5>
+                  <% } %>
+                  <% if (locals.logoutMessage) { %>
+                    <h5 class="text-sucess form-signin-heading2" ><%= logoutMessage %></h5>
+                    <% } %>
+
+                  <label for="email">Email:</label>
+                <input type="text" id="email" class="form-control" name="email" placeholder="Email Address" required autofocus="" />
+                <span id="emailError" style="color: red;"></span><br>
+
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" class="form-control" name="password" placeholder="Password" required/>
+                <span id="passwordError" style="color: red;"></span><br>
+                <p class="forgot" ><a href="/forgot-password">Forgot Password?</a></p>
+
+                <button class="btn btn-lg  btn-block  btn-success" name="Submit" value="Login" type="Submit">Login</button>
+
+                <p class="text-center signup"  >Don't have an account? <a href="/signup" style="color: rgb(55, 1, 1);">Sign Up</a></p>
+            </form>
+            
+        </div>
+       
+    </div>
+
+    <script>
+        window.history.forward();
+        function noBack() { window.history.forward(); }
+      </script>
+      
+    <script src = '/javascripts/vaildate.js'></script>
+    <script src="/node_modules/toastr/build/toastr.min.js"></script>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+</html>

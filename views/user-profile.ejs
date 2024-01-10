@@ -1,0 +1,2261 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>BIKYS</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/imgs/theme/favicon1.png">
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="assets/css/main.css?v=3.4">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        .wallet-container {
+            background: #088178;
+            width: 100%;
+            color: #fff;
+            font-size: 15px;
+            padding: 20px 20px 0;
+
+
+        }
+
+        .page-title {
+            text-align: left;
+        }
+
+        .fa-user {
+            float: right;
+        }
+
+        .fa-align-left {
+            margin-right: 15px;
+        }
+
+        .amount-box img {
+            width: 50px;
+        }
+
+        .amount {
+            font-size: 35px;
+        }
+
+        .amount-box p {
+            margin-top: 10px;
+            margin-bottom: -10px;
+        }
+
+        .btn-group {
+            margin: 20px 0;
+        }
+
+        .btn-group .btn {
+            margin: 8px;
+            border-radius: 20px !important;
+            font-size: 12px;
+        }
+
+        .txn-history {
+            text-align: left;
+        }
+
+        .txn-list {
+            background-color: #fff;
+            padding: 12px 10px;
+            color: #777;
+            font-size: 14px;
+            margin: 7px 0;
+        }
+
+        .debit-amount {
+            color: red;
+            float: right;
+        }
+
+        .credit-amount {
+            color: green;
+            float: right;
+        }
+
+        .footer-menu {
+
+            bottom: 0;
+            border-top: 1px solid #ccc;
+            padding: 10px 10px 0;
+        }
+
+        @media screen and (max-width: 800px) {
+            .wallet-container {
+                height: 100%;
+                bottom: 20px;
+                margin-top: 100px;
+            }
+        }
+
+
+
+        /* refreal modal styles */
+
+
+        #shareBtn {
+            letter-spacing: 2px;
+            font-weight: 600;
+            box-shadow: none;
+            background-color: #eee;
+            color: #088178;
+            border: none;
+        }
+
+        .modal {
+            top: 20%;
+        }
+
+        .btn-close {
+            box-shadow: none;
+            border: none;
+            outline: none;
+        }
+
+        .modal-body .icons {
+            margin: 15px 0px 20px 0px;
+        }
+
+        .modal-body .icons a {
+            text-decoration: none;
+            border: 1px solid transparent;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 20px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .modal-body .icons a:nth-child(1) {
+            color: #1877F2;
+            border-color: #B7D4FB;
+        }
+
+        .modal-body .icons a:nth-child(1):hover {
+            background-color: #1877F2;
+            color: #fff;
+        }
+
+        .modal-body .icons a:nth-child(2) {
+            color: #46C1F6;
+            border-color: #b6e7fc;
+        }
+
+        .modal-body .icons a:nth-child(2):hover {
+            background-color: #46C1F6;
+            color: #fff;
+        }
+
+        .modal-body .icons a:nth-child(3) {
+            color: #e1306c;
+            border-color: #f5bccf;
+        }
+
+        .modal-body .icons a:nth-child(3):hover {
+            background-color: #e1306c;
+            color: #fff;
+        }
+
+        .modal-body .icons a:nth-child(4) {
+            color: #25d366;
+            border-color: #bef4d2;
+        }
+
+        .modal-body .icons a:nth-child(4):hover {
+            background-color: #25d366;
+            color: #fff;
+        }
+
+
+        .modal-body .icons a:nth-child(5) {
+            color: #0088cc;
+            border-color: #b3e6ff;
+        }
+
+        .modal-body .icons a:nth-child(5):hover {
+            background-color: #0088cc;
+            color: #fff;
+        }
+
+        .modal-body .icons a:hover {
+            border-color: transparent;
+        }
+
+        .modal-body .icons a span {
+            transition: all 0.09s ease-in-out;
+        }
+
+        .modal-body .icons a:hover span {
+            transform: scaleX(1.1);
+        }
+
+        .modal-body .field {
+            margin: 15px 0px -5px 0px;
+            height: 45px;
+            border: 1px solid #dfdfdf;
+            border-radius: 5px;
+            padding: 0 5px;
+        }
+
+        .modal-body .field.active {
+            border-color: #088178;
+        }
+
+        .field span {
+            width: 50px;
+            font-size: 1.1rem;
+        }
+
+        .field.active span {
+            color: #088178;
+        }
+
+        .field input {
+            border: none;
+            outline: none;
+            font-size: 0.89rem;
+            width: 100%;
+            height: 100%;
+        }
+
+        .field button {
+            padding: 5px 16px;
+            color: #fff;
+            background: #088178;
+            border: 2px solid transparent;
+            border-radius: 5px;
+            font-weight: 500;
+        }
+
+        @media (max-width: 330px) {
+            .modal-body .icons a {
+                margin-right: 15px;
+                width: 35px;
+                height: 35px;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <header class="header-area header-style-5">
+        <div class="header-top header-top-ptb-1 d-none d-lg-block">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-xl-3 col-lg-4">
+                        <div class="header-info">
+                            <ul>
+                                <li><i class="fi-rs-smartphone"></i> <a href="#">(+01) - 2345 - 6789</a></li>
+                                <li><i class="fi-rs-marker"></i><a href="page-contact.html">Our location</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-4">
+                        <!-- <div class="text-center">
+                            <div id="news-flash" class="d-inline-block">
+                                <ul>
+                                    <li>Get great devices up to 50% off <a href="shop-grid-right.html">View details</a>
+                                    </li>
+                                    <li>Supper Value Deals - Save more with coupons</li>
+                                    <li>Trendy 25silver jewelry, save up 35% off today <a
+                                            href="shop-grid-right.html">Shop now</a></li>
+                                </ul>
+                            </div>
+                        </div> -->
+                    </div>
+                    <div class="col-xl-3 col-lg-4">
+                        <div class="header-info header-info-right">
+                            <ul>
+                                <li>
+                                    <a class="language-dropdown-active" href="#"> <i class="fi-rs-world"></i> English <i
+                                            class="fi-rs-angle-small-down"></i></a>
+                                    <ul class="language-dropdown">
+                                        <li><a href="#"><img src="assets/imgs/theme/flag-fr.png" alt="">Français</a>
+                                        </li>
+                                        <li><a href="#"><img src="assets/imgs/theme/flag-dt.png" alt="">Deutsch</a></li>
+                                        <li><a href="#"><img src="assets/imgs/theme/flag-ru.png" alt="">Pусский</a></li>
+                                    </ul>
+                                </li>
+                                <li><i class="fi-rs-user"></i><a href="/logout">Logout</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-bottom sticky-bar sticky-white-bg">
+            <div class="container">
+                <div class="header-wrap header-space-between position-relative">
+                    <div class="logo logo-width-1">
+                        <a href="/"><img src="/assets/imgs/shop/BIKYS.png" alt="logo"></a>
+                    </div>
+                    <div
+                        class="main-menu main-menu-grow main-menu-padding-1 main-menu-lh-1 main-menu-mrg-1 hm3-menu-padding d-none d-lg-block hover-boder">
+                        <nav>
+                            <ul>
+                                <li><a class="active" href="/">Home</a>
+                                    <!-- <ul class="sub-menu">
+                                        <li><a href="index.html">Home 1</a></li>
+                                        <li><a href="index-2.html">Home 2</a></li>
+                                        <li><a href="index-3.html">Home 3</a></li>
+                                        <li><a href="index-4.html">Home 4</a></li>
+                                    </ul> -->
+                                </li>
+                                <li><a href="/shop">Shop</a>
+                                    <!-- <ul class="sub-menu"> -->
+                                    <!-- <li><a href="shop-grid-right.html">Shop Grid – Right Sidebar</a></li>
+                                        <li><a href="shop-grid-left.html">Shop Grid – Left Sidebar</a></li>
+                                        <li><a href="shop-list-right.html">Shop List – Right Sidebar</a></li>
+                                        <li><a href="shop-list-left.html">Shop List – Left Sidebar</a></li>
+                                        <li><a href="shop-fullwidth.html">Shop - Wide</a></li>
+                                        <li><a href="#">Single Product <i class="fi-rs-angle-right"></i></a>
+                                            <ul class="level-menu">
+                                                <li><a href="shop-product-right.html">Product – Right Sidebar</a></li>
+                                                <li><a href="shop-product-left.html">Product – Left Sidebar</a></li>
+                                                <li><a href="shop-product-full.html">Product – No sidebar</a></li>
+                                            </ul>
+                                        </li> -->
+                                    <!-- <li><a href="shop-filter.html">Shop – Filter</a></li>
+                                        <li><a href="shop-wishlist.html">Shop – Wishlist</a></li>
+                                        <li><a href="shop-cart.html">Shop – Cart</a></li>
+                                        <li><a href="shop-checkout.html">Shop – Checkout</a></li>
+                                        <li><a href="shop-compare.html">Shop – Compare</a></li>
+                                    </ul>
+                                </li> -->
+
+                                <li><a href="#">Pages <i class="fi-rs-angle-down"></i></a>
+                                    <ul class="sub-menu">
+                                        <li><a href="page-about.html">About Us</a></li>
+                                        <li><a href="page-contact.html">Contact</a></li>
+                                        <li><a href="page-account.html">My Account</a></li>
+                                        <li><a href="page-login-register.html">login/register</a></li>
+                                        <li><a href="page-purchase-guide.html">Purchase Guide</a></li>
+                                        <li><a href="page-privacy-policy.html">Privacy Policy</a></li>
+                                        <li><a href="page-terms.html">Terms of Service</a></li>
+                                        <li><a href="page-404.html">404 Page</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="page-contact.html">Contact</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="header-action-right">
+                        <div class="search-style-2">
+                            <form action="#">
+                                <select class="select-active">
+                                    <option>Search in</option>
+                                    <option>Women's Clothing</option>
+                                    <option>Men's Clothing</option>
+                                    <option>Cellphones</option>
+                                    <option>Computer & Office</option>
+                                    <option>Consumer Electronics</option>
+                                    <option>Jewelry & Accessories</option>
+                                    <option>Home & Garden</option>
+                                    <option>Luggage & Bags</option>
+                                    <option>Shoes</option>
+                                    <option>Mother & Kids</option>
+                                </select>
+                                <input type="text" placeholder="Search for items…">
+                            </form>
+                        </div>
+                        <div class="header-action-2">
+                            <div class="header-action-icon-2">
+                                <a href="shop-wishlist.html">
+                                    <img class="svgInject" alt="Evara" src="assets/imgs/theme/icons/icon-heart.svg">
+                                    <!-- <span class="pro-count blue">4</span> -->
+                                </a>
+                            </div>
+                            <div class="header-action-icon-2">
+                                <a class="mini-cart-icon" href="/cart">
+                                    <img alt="Evara" src="assets/imgs/theme/icons/icon-cart.svg">
+                                    <!-- <span class="pro-count blue"></span> -->
+                                </a>
+                                <!-- <div class="cart-dropdown-wrap cart-dropdown-hm2">
+                                    <ul>
+                                        <li>
+                                            <div class="shopping-cart-img">
+                                                <a href="shop-product-right.html"><img alt="Evara"
+                                                        src="assets/imgs/shop/thumbnail-3.jpg"></a>
+                                            </div>
+                                            <div class="shopping-cart-title">
+                                                <h4><a href="shop-product-right.html">Plain Striola Shirts</a></h4>
+                                                <h3><span>1 × </span>$800.00</h3>
+                                            </div>
+                                            <div class="shopping-cart-delete">
+                                                <a href="#"><i class="fi-rs-cross-small"></i></a>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="shopping-cart-img">
+                                                <a href="shop-product-right.html"><img alt="Evara"
+                                                        src="assets/imgs/shop/thumbnail-1.jpg"></a>
+                                            </div>
+                                            <div class="shopping-cart-title">
+                                                <h4><a href="shop-product-right.html">Macbook Pro 2022</a></h4>
+                                                <h3><span>1 × </span>$3200.00</h3>
+                                            </div>
+                                            <div class="shopping-cart-delete">
+                                                <a href="#"><i class="fi-rs-cross-small"></i></a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <div class="shopping-cart-footer">
+                                        <div class="shopping-cart-total">
+                                            <h4>Total <span>$4000.00</span></h4>
+                                        </div>
+                                        <div class="shopping-cart-button">
+                                            <a href="shop-cart.html">View cart</a>
+                                            <a href="shop-checkout.html">Checkout</a>
+                                        </div>
+                                    </div>
+                                </div> -->
+                            </div>
+                            <div class="header-action-icon d-block d-lg-none">
+                                <div class="burger-icon">
+                                    <span class="burger-icon-top"></span>
+                                    <span class="burger-icon-mid"></span>
+                                    <span class="burger-icon-bottom"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="mobile-header-active mobile-header-wrapper-style">
+        <div class="mobile-header-wrapper-inner">
+            <div class="mobile-header-top">
+                <div class="mobile-header-logo">
+                    <a href="/"><img src="/assets/imgs/shop/BIKYS.png" alt="logo"></a>
+                </div>
+                <div class="mobile-menu-close close-style-wrap close-style-position-inherit">
+                    <button class="close-style search-close">
+                        <i class="icon-top"></i>
+                        <i class="icon-bottom"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="mobile-header-content-area">
+                <div class="mobile-search search-style-3 mobile-header-border">
+                    <form action="#">
+                        <input type="text" placeholder="Search for items…">
+                        <button type="submit"><i class="fi-rs-search"></i></button>
+                    </form>
+                </div>
+                <div class="mobile-menu-wrap mobile-header-border">
+                    <div class="main-categori-wrap mobile-header-border">
+                        <a class="categori-button-active-2" href="#">
+                            <span class="fi-rs-apps"></span> Browse Categories
+                        </a>
+                        <div class="categori-dropdown-wrap categori-dropdown-active-small">
+                            <ul>
+                                <li><a href="shop-grid-right.html"><i class="evara-font-dress"></i>Women's Clothing</a>
+                                </li>
+                                <li><a href="shop-grid-right.html"><i class="evara-font-tshirt"></i>Men's Clothing</a>
+                                </li>
+                                <li> <a href="shop-grid-right.html"><i class="evara-font-smartphone"></i> Cellphones</a>
+                                </li>
+                                <li><a href="shop-grid-right.html"><i class="evara-font-desktop"></i>Computer &
+                                        Office</a></li>
+                                <li><a href="shop-grid-right.html"><i class="evara-font-cpu"></i>Consumer
+                                        Electronics</a></li>
+                                <li><a href="shop-grid-right.html"><i class="evara-font-home"></i>Home & Garden</a></li>
+                                <li><a href="shop-grid-right.html"><i class="evara-font-high-heels"></i>Shoes</a></li>
+                                <li><a href="shop-grid-right.html"><i class="evara-font-teddy-bear"></i>Mother &
+                                        Kids</a></li>
+                                <li><a href="shop-grid-right.html"><i class="evara-font-kite"></i>Outdoor fun</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- mobile menu start -->
+                    <nav>
+                        <ul class="mobile-menu">
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a href="/">Home</a>
+                            </li>
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a href="/shop">shop</a>
+
+                            </li>
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Mega
+                                    menu</a>
+                                <ul class="dropdown">
+                                    <li class="menu-item-has-children"><span class="menu-expand"></span><a
+                                            href="#">Women's Fashion</a>
+                                        <ul class="dropdown">
+                                            <li><a href="shop-product-right.html">Dresses</a></li>
+                                            <li><a href="shop-product-right.html">Blouses & Shirts</a></li>
+                                            <li><a href="shop-product-right.html">Hoodies & Sweatshirts</a></li>
+                                            <li><a href="shop-product-right.html">Women's Sets</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="menu-item-has-children"><span class="menu-expand"></span><a
+                                            href="#">Men's Fashion</a>
+                                        <ul class="dropdown">
+                                            <li><a href="shop-product-right.html">Jackets</a></li>
+                                            <li><a href="shop-product-right.html">Casual Faux Leather</a></li>
+                                            <li><a href="shop-product-right.html">Genuine Leather</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="menu-item-has-children"><span class="menu-expand"></span><a
+                                            href="#">Technology</a>
+                                        <ul class="dropdown">
+                                            <li><a href="shop-product-right.html">Gaming Laptops</a></li>
+                                            <li><a href="shop-product-right.html">Ultraslim Laptops</a></li>
+                                            <li><a href="shop-product-right.html">Tablets</a></li>
+                                            <li><a href="shop-product-right.html">Laptop Accessories</a></li>
+                                            <li><a href="shop-product-right.html">Tablet Accessories</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a
+                                    href="blog-category-fullwidth.html">Blog</a>
+                                <ul class="dropdown">
+                                    <li><a href="blog-category-grid.html">Blog Category Grid</a></li>
+                                    <li><a href="blog-category-list.html">Blog Category List</a></li>
+                                    <li><a href="blog-category-big.html">Blog Category Big</a></li>
+                                    <li><a href="blog-category-fullwidth.html">Blog Category Wide</a></li>
+                                    <li class="menu-item-has-children"><span class="menu-expand"></span><a
+                                            href="#">Single Product Layout</a>
+                                        <ul class="dropdown">
+                                            <li><a href="blog-post-left.html">Left Sidebar</a></li>
+                                            <li><a href="blog-post-right.html">Right Sidebar</a></li>
+                                            <li><a href="blog-post-fullwidth.html">No Sidebar</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Pages</a>
+                                <ul class="dropdown">
+                                    <li><a href="page-about.html">About Us</a></li>
+                                    <li><a href="page-contact.html">Contact</a></li>
+                                    <li><a href="page-account.html">My Account</a></li>
+                                    <li><a href="page-login-register.html">login/register</a></li>
+                                    <li><a href="page-purchase-guide.html">Purchase Guide</a></li>
+                                    <li><a href="page-privacy-policy.html">Privacy Policy</a></li>
+                                    <li><a href="page-terms.html">Terms of Service</a></li>
+                                    <li><a href="page-404.html">404 Page</a></li>
+                                </ul>
+                            </li>
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Language</a>
+                                <ul class="dropdown">
+                                    <li><a href="#">English</a></li>
+                                    <li><a href="#">French</a></li>
+                                    <li><a href="#">German</a></li>
+                                    <li><a href="#">Spanish</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                    <!-- mobile menu end -->
+                </div>
+                <div class="mobile-header-info-wrap mobile-header-border">
+                    <div class="single-mobile-header-info mt-30">
+                        <a href="page-contact.html"> Our location </a>
+                    </div>
+                    <div class="single-mobile-header-info">
+                        <a href="/logout">Log out</a>
+                    </div>
+                    <div class="single-mobile-header-info">
+                        <a href="#">(+01) - 2345 - 6789 </a>
+                    </div>
+                </div>
+                <div class="mobile-social-icon">
+                    <h5 class="mb-15 text-grey-4">Follow Us</h5>
+                    <a href="#"><img src="assets/imgs/theme/icons/icon-facebook.svg" alt=""></a>
+                    <a href="#"><img src="assets/imgs/theme/icons/icon-twitter.svg" alt=""></a>
+                    <a href="#"><img src="assets/imgs/theme/icons/icon-instagram.svg" alt=""></a>
+                    <a href="#"><img src="assets/imgs/theme/icons/icon-pinterest.svg" alt=""></a>
+                    <a href="#"><img src="assets/imgs/theme/icons/icon-youtube.svg" alt=""></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <main class="main">
+        <!-- <div class="page-header breadcrumb-wrap">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="index.html" rel="nofollow">Home</a>
+                    <span></span> Pages
+                    <span></span> Account
+                </div>
+            </div>
+        </div> -->
+        <section class="pt-150 pb-150">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-10 m-auto">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="dashboard-menu">
+                                    <ul class="nav flex-column" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" id="dashboard-tab" data-bs-toggle="tab"
+                                                href="#dashboard" role="tab" aria-controls="dashboard"
+                                                aria-selected="false"><i
+                                                    class="fi-rs-settings-sliders mr-10"></i>Dashboard</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="Edit-Profile-tab" data-bs-toggle="tab"
+                                                href="#Edit-Profile" role="tab" aria-controls="Edit-Profile"
+                                                aria-selected="true"><i class="fi-rs-user mr-10"></i>Edit Account</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="orders-tab" data-bs-toggle="tab" href="#orders"
+                                                role="tab" aria-controls="orders" aria-selected="false"><i
+                                                    class="fi-rs-shopping-bag mr-10"></i>Orders</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="track-orders-tab" data-bs-toggle="tab"
+                                                href="#track-orders" role="tab" aria-controls="track-orders"
+                                                aria-selected="false"><i
+                                                    class="fi-rs-shopping-cart-check mr-10"></i>Track Your Order</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="address-tab" data-bs-toggle="tab" href="#address"
+                                                role="tab" aria-controls="address" aria-selected="true"><i
+                                                    class="fi-rs-marker mr-10"></i>My Address</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="account-detail-tab" data-bs-toggle="tab"
+                                                href="#account-detail" role="tab" aria-controls="account-detail"
+                                                aria-selected="true"><i class="fi-rs-user mr-10"></i>BIKYS
+                                                Wallet</a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/logout"><i
+                                                    class="fi-rs-sign-out mr-10"></i>Logout</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-8">
+                                
+                                <div class="tab-content dashboard-content">
+                                    <div class="tab-pane fade active show" id="dashboard" role="tabpanel"
+                                        aria-labelledby="dashboard-tab">
+                                        <div class="p-4 text-black" style="background-color: #ffffff;">
+                                            <% if (user) { %>
+                                                <div class="justify-content-center text-center py-1">
+                                                    <h4 class="mb-2 text-brand">Profile Details</h4>
+
+                                                    <ul class="list-group text-md-center">
+                                                        <li class="list-group-item">
+                                                            <strong>Name: </strong>
+                                                            <%= user.name%>
+                                                        </li>
+                                                        <li class="list-group-item">
+                                                            <strong>Email: </strong>
+                                                            <%= user.email %>
+                                                        </li>
+                                                        <li class="list-group-item">
+                                                            <strong>Phone No: </strong>
+                                                            <%= user.phone%>
+                                                        </li>
+
+                                                    </ul>
+
+
+                                                    <!-- //Change password / -->
+                                                    <div class="row mt-4 w-75 mx-auto ">
+                                                        <button type="button" id="changePasswordbtn" class="btn">Change
+                                                            Password</button>
+
+                                                    </div>
+                                                </div>
+                                                <% } else { %>
+                                                    <p>User details not available</p>
+                                                    <% } %>
+                                        </div>
+
+                                    </div>
+
+
+
+                                    <div class="tab-pane fade" id="Edit-Profile" role="tabpanel"
+                                        aria-labelledby="Edit-Profile-tab">
+                                        <div class="card border-0 bg-light">
+                                            <div class="card-header text-center">
+                                                <h5 class="mb-0 text-brand">Edit Account</h5>
+                                            </div>
+                                            <form id="editprofile" class="p-4" method="POST" action="/update-profile">
+
+                                                <div class="row mb-3">
+                                                    <div class="col-12">
+                                                        <label for="username" class="form-label">Username</label>
+                                                        <input type="text" id="username" value="<%= user.name %>"
+                                                            name="username" required class="form-control" />
+                                                        <span id="usernameError"
+                                                            class="error-message text-danger"></span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="email" class="form-label">Email</label>
+                                                    <input type="email" id="email" value="<%= user.email %>"
+                                                        name="email" required class="form-control" />
+                                                    <span id="emailError" class="error-message text-danger"></span>
+                                                </div>
+
+                                                <!-- Gender section removed -->
+
+                                                <div class="mb-3">
+                                                    <label for="phone" class="form-label">Phone</label>
+                                                    <input type="tel" id="phone" value="<%= user.phone %>" name="phone"
+                                                        required class="form-control" />
+                                                    <span id="phoneError" class="error-message text-danger"></span>
+                                                </div>
+
+                                                <button type="submit" class="btn btn-success btn-block">Save
+                                                    Changes</button>
+                                            </form>
+                                        </div>
+                                    </div>
+
+
+
+
+
+
+                                    <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">
+                                        <div class="row">
+                                            <div class="col">
+                                                <center>
+                                                    <h2 class="text-brand my-3">Your Orders</h2>
+                                                </center>
+                                                <% if (orderDetails && orderDetails.length> 0) { %>
+                                                    <% orderDetails.forEach((order)=> { %>
+                                                        <div class="card card-2 my-3">
+                                                            <div class="card-body ">
+                                                                <div class="row">
+                                                                    <div class="col-md-4">
+                                                                        <h6 class="mb-0 ">Order ID:</h6>
+                                                                        <p class="text-brand">
+                                                                            <%= order.oId %>
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="col-md-2">
+                                                                        <h6 class="mb-0">Status:</h6>
+                                                                        <p>
+                                                                            <%= order.status %>
+                                                                        </p>
+                                                                    </div>
+                                                                    <!-- Add more columns as needed -->
+                                                                    <div class="col-md-2">
+                                                                        <h6 class="mb-0">Date:</h6>
+                                                                        <p>
+                                                                            <%= order.orderDate.toLocaleDateString() %>
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="col-md-2">
+                                                                        <h6 class="mb-0">Payment Method:</h6>
+                                                                        <p>
+                                                                            <%= order.paymentMethod %>
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="col-md-2">
+                                                                        <h6 class="mb-0">Total:</h6>
+                                                                        <p>&#8377;<%= order.billTotal %>
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+
+                                                                <hr class="my-3">
+                                                                <% if(order.status==='Canceled' ){ %>
+                                                                    <div class="row d-flex" id="cancellationMessage">
+                                                                        <p class="text-danger">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                                                width="24px" height="24px"
+                                                                                viewBox="0 0 24 24">
+                                                                                <path fill="#282C3F" fill-rule="nonzero"
+                                                                                    d="M15.854 8.146a.495.495 0 0 0-.703 0L12 11.296l-3.15-3.15a.495.495 0 0 0-.704 0 .495.495 0 0 0 0 .703L11.297 12l-3.15 3.15a.5.5 0 1 0 .35.85.485.485 0 0 0 .349-.146l3.15-3.15 3.151 3.15a.5.5 0 0 0 .35.147.479.479 0 0 0 .35-.147.495.495 0 0 0 0-.703L12.702 12l3.15-3.15a.495.495 0 0 0 0-.704z">
+                                                                                </path>
+                                                                            </svg> Order has been canceled.
+                                                                        </p>
+                                                                    </div>
+
+
+                                                                    <% }else{ %>
+
+                                                                        <div class="row d-flex justify-content-evenly">
+                                                                            <% if(order.status!=='Returned' &&
+                                                                                order.status !=='Delivered' &&
+                                                                                order.status !=='Canceled' ) { %>
+                                                                                <button type="button"
+                                                                                    class="btn btn-small w-25 h-25"
+                                                                                    onclick="cancelOrder('<%= order._id %>')">cancel
+                                                                                    order
+                                                                                </button>
+                                                                                <% } %>
+
+                                                                                    <a href="/order-details/<%= order._id %>"
+                                                                                        class="btn btn-small w-25 h-25">Order
+                                                                                        Details</a>
+                                                                        </div>
+                                                                        <!-- Bootstrap Confirmation Modal -->
+                                                                        <div class="modal" id="confirmationModal"
+                                                                            tabindex="-1"
+                                                                            aria-labelledby="confirmationModalLabel"
+                                                                            aria-hidden="true">
+                                                                            <div class="modal-dialog">
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header">
+                                                                                        <h5 class="modal-title"
+                                                                                            id="confirmationModalLabel">
+                                                                                            Confirm Order Cancellation
+                                                                                        </h5>
+                                                                                        <button id="closeModalButton"
+                                                                                            type="button"
+                                                                                            class="btn-close"
+                                                                                            data-bs-dismiss="modal"
+                                                                                            aria-label="Close"></button>
+                                                                                    </div>
+                                                                                    <div class="modal-body">
+                                                                                        Are you sure you want to cancel
+                                                                                        this order?
+                                                                                        Please
+                                                                                        provide a reason below
+                                                                                        (optional):
+                                                                                        <textarea
+                                                                                            id="cancellationReason"
+                                                                                            class="form-control"
+                                                                                            rows="3"></textarea>
+                                                                                    </div>
+                                                                                    <div class="modal-footer">
+                                                                                        <button type="button"
+                                                                                            class="btn btn-secondary"
+                                                                                            data-bs-dismiss="modal">Close</button>
+                                                                                        <button type="button"
+                                                                                            class="btn btn-danger"
+                                                                                            id="confirmCancellationButton">Confirm
+                                                                                            Cancellation</button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <% } %>
+                                                            </div>
+
+                                                        </div>
+
+
+                                                        <% }) %>
+
+                                                            <!-- pagination -->
+                                                            <div class="pagination-area mt-15 mb-sm-5 mb-lg-0">
+                                                                <nav aria-label="Page navigation example">
+                                                                    <ul class="pagination justify-content-start">
+                                                                        <% if (currentPage> 1) { %>
+                                                                            <li class="page-item">
+                                                                                <a class="page-link"
+                                                                                    href="?page=<%= currentPage - 1 %>"><i
+                                                                                        class="fa-solid fa-chevron-left"></i></i></a>
+                                                                            </li>
+                                                                            <% } %>
+
+                                                                                <% for (let i=1; i <=totalPages; i++) {
+                                                                                    %>
+                                                                                    <li
+                                                                                        class="page-item <%= currentPage === i ? 'active' : '' %>">
+                                                                                        <a class="page-link"
+                                                                                            href="?page=<%= i %>">
+                                                                                            <%= i %>
+                                                                                        </a>
+                                                                                    </li>
+                                                                                    <% } %>
+
+                                                                                        <% if (currentPage < totalPages)
+                                                                                            { %>
+                                                                                            <li class="page-item">
+                                                                                                <a class="page-link"
+                                                                                                    href="?page=<%= currentPage + 1 %>"><i
+                                                                                                        class="fa-solid fa-chevron-right"></i></i></a>
+                                                                                            </li>
+                                                                                            <% } %>
+                                                                    </ul>
+                                                                </nav>
+                                                            </div>
+
+
+
+                                                            <% }else{ %>
+                                                                <div class="row">
+                                                                    <h4>No Orders Found Please continue Shopping</h4>
+                                                                    <a href="/shop" type="button" class="btn">continue
+                                                                        Shoping</a>
+                                                                </div>
+                                                                <% } %>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="tab-pane fade" id="track-orders" role="tabpanel"
+                                        aria-labelledby="track-orders-tab">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h5 class="mb-0">Orders tracking</h5>
+                                            </div>
+                                            <div class="card-body contact-from-area">
+                                                <p>To track your order please enter your OrderID in the box below and
+                                                    press
+                                                    "Track" button. This was given to you on your receipt and in the
+                                                    confirmation email you should have received.</p>
+                                                <div class="row">
+                                                    <div class="col-lg-8">
+                                                        <form class="contact-form-style mt-30 mb-50" action="#"
+                                                            method="post">
+                                                            <div class="input-style mb-20">
+                                                                <label>Order ID</label>
+                                                                <input name="order-id"
+                                                                    placeholder="Found in your order confirmation email"
+                                                                    type="text" class="square">
+                                                            </div>
+                                                            <div class="input-style mb-20">
+                                                                <label>Billing email</label>
+                                                                <input name="billing-email"
+                                                                    placeholder="Email you used during checkout"
+                                                                    type="email" class="square">
+                                                            </div>
+                                                            <button class="submit submit-auto-width"
+                                                                type="submit">Track</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="tab-pane fade" id="address" role="tabpanel"
+                                        aria-labelledby="address-tab">
+
+
+                                        <!-- New card for adding an address -->
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="card">
+                                                    <!-- <div class="card-header">
+                                                        <h5 class="mb-0">Add New Address</h5>
+                                                    </div> -->
+                                                    <div class="card-body">
+                                                        <!-- Content for new address card -->
+
+                                                        <button class="btn" id="addressModal" data-toggle="modal"
+                                                            data-target="#addNewAddressModal">Add Address</button>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal fade" id="addNewAddressModal" tabindex="-1" role="dialog"
+                                            aria-labelledby="addressModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content modal-dialog-scrollable">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="addressModalLabel">Add Address</h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <!-- Your form content goes here -->
+                                                        <form id="addressForm">
+                                                            <!-- Form fields for address details -->
+                                                            <div class="form-group mb-3">
+                                                                <label for="addressType">Address Type</label>
+                                                                <select class="form-control" id="addressType"
+                                                                    name="addressType">
+                                                                    <option value="home">Home</option>
+                                                                    <option value="work">Work</option>
+                                                                    <option value="temp">Temporary</option>
+                                                                </select>
+                                                                <span id="addressTypeError" class="text-danger"></span>
+                                                            </div>
+                                                            <div class="form-group mb-3">
+                                                                <label for="houseNo">House No</label>
+                                                                <input type="text" class="form-control" id="houseNo"
+                                                                    placeholder="House Number">
+                                                                <span id="houseNoError" class="text-danger"></span>
+                                                            </div>
+                                                            <div class="form-group mb-3">
+                                                                <label for="street">Street</label>
+                                                                <input type="text" class="form-control" id="street"
+                                                                    placeholder="Street">
+                                                                <span id="streetError" class="text-danger"></span>
+                                                            </div>
+                                                            <div class="form-group mb-3">
+                                                                <label for="landmark">Landmark</label>
+                                                                <input type="text" class="form-control" id="landmark"
+                                                                    placeholder="Landmark">
+
+                                                            </div>
+                                                            <div class="form-group mb-3">
+                                                                <label for="pincode">Pincode</label>
+                                                                <input type="number" class="form-control" id="pincode"
+                                                                    placeholder="Pincode">
+                                                                <span id="pincodeError" class="text-danger"></span>
+                                                            </div>
+                                                            <div class="form-group mb-3">
+                                                                <label for="city">City</label>
+                                                                <input type="text" class="form-control" id="city"
+                                                                    placeholder="City">
+                                                                <span id="cityError" class="text-danger"></span>
+                                                            </div>
+                                                            <div class="form-group mb-3">
+                                                                <label for="district">District</label>
+                                                                <input type="text" class="form-control" id="district"
+                                                                    placeholder="district">
+                                                                <span id="districtError" class="text-danger"></span>
+                                                            </div>
+                                                            <div class="form-group mb-3">
+                                                                <label for="state" class="mb-2 d-block">State</label>
+                                                                <select id="state" class="form-control border" required
+                                                                    name="state">
+                                                                    <option value="">Select A State</option>
+                                                                    <option value="Andhra Pradesh">Andhra Pradesh
+                                                                    </option>
+                                                                    <option value="Arunachal Pradesh">Arunachal Pradesh
+                                                                    </option>
+                                                                    <option value="Assam">Assam</option>
+                                                                    <option value="Bihar">Bihar</option>
+                                                                    <option value="Chhattisgarh">Chhattisgarh</option>
+                                                                    <option value="Goa">Goa</option>
+                                                                    <option value="Gujarat">Gujarat</option>
+                                                                    <option value="Haryana">Haryana</option>
+                                                                    <option value="Himachal Pradesh">Himachal Pradesh
+                                                                    </option>
+                                                                    <option value="Jharkhand">Jharkhand</option>
+                                                                    <option value="Karnataka">Karnataka</option>
+                                                                    <option value="Kerala">Kerala</option>
+                                                                    <option value="Madhya Pradesh">Madhya Pradesh
+                                                                    </option>
+                                                                    <option value="Maharashtra">Maharashtra</option>
+                                                                    <option value="Manipur">Manipur</option>
+                                                                    <option value="Meghalaya">Meghalaya</option>
+                                                                    <option value="Mizoram">Mizoram</option>
+                                                                    <option value="Nagaland">Nagaland</option>
+                                                                    <option value="Odisha">Odisha</option>
+                                                                    <option value="Punjab">Punjab</option>
+                                                                    <option value="Rajasthan">Rajasthan</option>
+                                                                    <option value="Sikkim">Sikkim</option>
+                                                                    <option value="Tamil Nadu">Tamil Nadu</option>
+                                                                    <option value="Telangana">Telangana</option>
+                                                                    <option value="Tripura">Tripura</option>
+                                                                    <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                                                    <option value="Uttarakhand">Uttarakhand</option>
+                                                                    <option value="West Bengal">West Bengal</option>
+                                                                    <!-- Add more states as needed -->
+                                                                </select>
+                                                                <span id="stateError" class="text-danger"></span>
+
+                                                            </div>
+                                                            <div class="form-group mb-3">
+                                                                <label for="country">Country</label>
+                                                                <input type="text" class="form-control" id="country"
+                                                                    placeholder="Country">
+                                                                <span id="countryError" class="text-danger"></span>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn "
+                                                            data-dismiss="modal">Close</button>
+
+                                                        <button type="button" class="btn "
+                                                            id="saveAddress">Save</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <% if(addresses && addresses.addresses.length>0){ %>
+                                                <% addresses.addresses.forEach((item,index)=>{ %>
+                                                    <div class="col-lg-12">
+                                                        <div class="card">
+                                                            <% if(item.addressType==='temp' ){ %>
+                                                                <div class="card-header">
+                                                                    <h5 class="mb-0">Temporary Address</h5>
+                                                                </div>
+                                                                <% }else{ %>
+                                                                    <div class="card-header">
+                                                                        <h5 class="mb-0">
+                                                                            <%= item.addressType.toUpperCase() %>
+                                                                                Address
+                                                                        </h5>
+                                                                    </div>
+                                                                    <% } %>
+                                                                        <div class="card-body">
+                                                                            <address>
+                                                                                <%= item.HouseNo %>
+                                                                                    <%= item.Street %><br>
+                                                                                        <%= item.city %>, <%= item.State
+                                                                                                %>
+                                                                                                <%= item.pincode %>
+                                                                                                    <%= item.Country %>
+                                                                                                        <br>
+
+                                                                            </address>
+                                                                            <p>
+                                                                                <%= item.district %>
+                                                                            </p>
+                                                                        </div>
+                                                                        <div
+                                                                            class="card-footer d-flex  justify-content-between">
+                                                                            <button class="btn" data-toggle="modal"
+                                                                                data-target="#editAddressModal<%= index %>"
+                                                                                data-index="<%= index %>">Edit</button>
+                                                                            <button class="btn" type="button"
+                                                                                onclick="addressRemove('<%= item.addressType  %>')">Remove</button>
+                                                                        </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Modal for Editing Address -->
+                                                    <div class="modal" id="editAddressModal<%= index %>">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title">Edit Address</h5>
+                                                                    <button type="button" class="close"
+                                                                        data-dismiss="modal">&times;</button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <form id="editaddressForm"
+                                                                        action="/profile/editAddress" method="post">
+                                                                        <!-- Form fields for address details -->
+                                                                        <div class="form-group mb-3">
+                                                                            <label for="addressType">Address
+                                                                                Type</label>
+                                                                            <select class="form-control"
+                                                                                id="editAddressType"
+                                                                                value="<%= item.addressType %>"
+                                                                                name="addressType" required>
+                                                                                <option value="home" <% if
+                                                                                    (item.addressType==='home' ) { %>
+                                                                                    selected<% } %>>
+                                                                                        Home</option>
+                                                                                <option value="work" <% if
+                                                                                    (item.addressType==='work' ) { %>
+                                                                                    selected<% } %>>
+                                                                                        Work</option>
+                                                                                <option value="temp" <% if
+                                                                                    (item.addressType==='temp' ) { %>
+                                                                                    selected<% } %>>
+                                                                                        Temporary</option>
+                                                                            </select>
+                                                                            <span id="addressTypeError"
+                                                                                class="text-danger"></span>
+                                                                        </div>
+                                                                        <div class="form-group mb-3">
+                                                                            <label for="houseNo">House No</label>
+                                                                            <input type="text" class="form-control"
+                                                                                id="editHouseNo" required name="HouseNo"
+                                                                                value="<%= item.HouseNo %>"
+                                                                                placeholder="House Number">
+                                                                            <span id="edithouseNoError"
+                                                                                class="text-danger"></span>
+                                                                        </div>
+                                                                        <div class="form-group mb-3">
+                                                                            <label for="street">Street</label>
+                                                                            <input type="text" class="form-control"
+                                                                                id="editStreet" required name="Street"
+                                                                                value="<%= item.Street %>"
+                                                                                placeholder="Street">
+                                                                            <span id="editstreetError"
+                                                                                class="text-danger"></span>
+                                                                        </div>
+                                                                        <div class="form-group mb-3">
+                                                                            <label for="landmark">Landmark</label>
+                                                                            <input type="text" class="form-control"
+                                                                                id="landmark" name="Landmark"
+                                                                                value="<%= item.Landmark%>"
+                                                                                placeholder="Landmark">
+
+                                                                        </div>
+                                                                        <div class="form-group mb-3">
+                                                                            <label for="pincode">Pincode</label>
+                                                                            <input type="number" class="form-control"
+                                                                                id="pincode" required name="pincode"
+                                                                                value="<%= item.pincode %>"
+                                                                                placeholder="Pincode">
+                                                                            <span id="editpincodeError"
+                                                                                class="text-danger"></span>
+                                                                        </div>
+                                                                        <div class="form-group mb-3">
+                                                                            <label for="city">City</label>
+                                                                            <input type="text" class="form-control"
+                                                                                id="city" name="city" required
+                                                                                value="<%= item.city %>"
+                                                                                placeholder="City">
+                                                                            <span id="editcityError"
+                                                                                class="text-danger"></span>
+                                                                        </div>
+                                                                        <div class="form-group mb-3">
+                                                                            <label for="district">District</label>
+                                                                            <input type="text" class="form-control"
+                                                                                id="district" required
+                                                                                value="<%= item.district %>"
+                                                                                name="district" placeholder="district">
+                                                                            <span id="editdistrictError"
+                                                                                class="text-danger"></span>
+                                                                        </div>
+                                                                        <div class="form-group mb-3">
+                                                                            <label for="state"
+                                                                                class="mb-2 d-block">State</label>
+                                                                            <select id="state"
+                                                                                class="form-control border" required
+                                                                                name="state">
+                                                                                <option value="">Select A State</option>
+                                                                                <option value="Andhra Pradesh" <% if
+                                                                                    (item.State==='Andhra Pradesh' ) {
+                                                                                    %>
+                                                                                    selected<% } %>>
+                                                                                        Andhra Pradesh</option>
+                                                                                <option value="Arunachal Pradesh" <% if
+                                                                                    (item.State==='Arunachal Pradesh' )
+                                                                                    { %>
+                                                                                    selected<% } %>>
+                                                                                        Arunachal Pradesh</option>
+                                                                                <option value="Assam" <% if
+                                                                                    (item.State==='Assam' ) { %>selected
+                                                                                    <% } %>>
+                                                                                        Assam
+                                                                                </option>
+                                                                                <option value="Bihar" <% if
+                                                                                    (item.State==='Bihar' ) { %>selected
+                                                                                    <% } %>>
+                                                                                        Bihar
+                                                                                </option>
+                                                                                <option value="Chhattisgarh" <% if
+                                                                                    (item.State==='Chhattisgarh' ) { %>
+                                                                                    selected<% } %>>
+                                                                                        Chhattisgarh</option>
+                                                                                <option value="Goa" <% if
+                                                                                    (item.State==='Goa' ) { %>selected<%
+                                                                                        } %>>
+                                                                                        Goa</option>
+                                                                                <option value="Gujarat" <% if
+                                                                                    (item.State==='Gujarat' ) { %>
+                                                                                    selected<% } %>>
+                                                                                        Gujarat</option>
+                                                                                <option value="Haryana" <% if
+                                                                                    (item.State==='Haryana' ) { %>
+                                                                                    selected<% } %>>
+                                                                                        Haryana</option>
+                                                                                <option value="Himachal Pradesh" <% if
+                                                                                    (item.State==='Himachal Pradesh' ) {
+                                                                                    %>
+                                                                                    selected<% } %>>
+                                                                                        Himachal Pradesh</option>
+                                                                                <option value="Jharkhand" <% if
+                                                                                    (item.State==='Jharkhand' ) { %>
+                                                                                    selected
+                                                                                    <% } %>>
+                                                                                        Jharkhand
+                                                                                </option>
+                                                                                <option value="Karnataka" <% if
+                                                                                    (item.State==='Karnataka' ) { %>
+                                                                                    selected
+                                                                                    <% } %>>
+                                                                                        Karnataka
+                                                                                </option>
+                                                                                <option value="Kerala" <% if
+                                                                                    (item.State==='Kerala' ) { %>
+                                                                                    selected<% } %>>
+                                                                                        Kerala</option>
+                                                                                <option value="Madhya Pradesh" <% if
+                                                                                    (item.State==='Madhya Pradesh' ) {
+                                                                                    %>
+                                                                                    selected<% } %>>
+                                                                                        Madhya Pradesh</option>
+                                                                                <option value="Maharashtra" <% if
+                                                                                    (item.State==='Maharashtra' ) { %>
+                                                                                    selected<% } %>>
+                                                                                        Maharashtra</option>
+                                                                                <option value="Manipur" <% if
+                                                                                    (item.State==='Manipur' ) { %>
+                                                                                    selected<% } %>>
+                                                                                        Manipur</option>
+                                                                                <option value="Meghalaya" <% if
+                                                                                    (item.State==='Meghalaya' ) { %>
+                                                                                    selected
+                                                                                    <% } %>>
+                                                                                        Meghalaya
+                                                                                </option>
+                                                                                <option value="Mizoram" <% if
+                                                                                    (item.State==='Mizoram' ) { %>
+                                                                                    selected<% } %>>
+                                                                                        Mizoram</option>
+                                                                                <option value="Nagaland" <% if
+                                                                                    (item.State==='Nagaland' ) { %>
+                                                                                    selected
+                                                                                    <% } %>>
+                                                                                        Nagaland
+                                                                                </option>
+                                                                                <option value="Odisha" <% if
+                                                                                    (item.State==='Odisha' ) { %>
+                                                                                    selected<% } %>>
+                                                                                        Odisha</option>
+                                                                                <option value="Punjab" <% if
+                                                                                    (item.State==='Punjab' ) { %>
+                                                                                    selected<% } %>>
+                                                                                        Punjab</option>
+                                                                                <option value="Rajasthan" <% if
+                                                                                    (item.State==='Rajasthan' ) { %>
+                                                                                    selected
+                                                                                    <% } %>>
+                                                                                        Rajasthan
+                                                                                </option>
+                                                                                <option value="Sikkim" <% if
+                                                                                    (item.State==='Sikkim' ) { %>
+                                                                                    selected<% } %>>
+                                                                                        Sikkim</option>
+                                                                                <option value="Tamil Nadu" <% if
+                                                                                    (item.State==='Tamil Nadu' ) { %>
+                                                                                    selected<% } %>>
+                                                                                        Tamil Nadu</option>
+                                                                                <option value="Telangana" <% if
+                                                                                    (item.State==='Telangana' ) { %>
+                                                                                    selected
+                                                                                    <% } %>>
+                                                                                        Telangana
+                                                                                </option>
+                                                                                <option value="Tripura" <% if
+                                                                                    (item.State==='Tripura' ) { %>
+                                                                                    selected<% } %>>
+                                                                                        Tripura</option>
+                                                                                <option value="Uttar Pradesh" <% if
+                                                                                    (item.State==='Uttar Pradesh' ) { %>
+                                                                                    selected<% } %>>
+                                                                                        Uttar Pradesh</option>
+                                                                                <option value="Uttarakhand" <% if
+                                                                                    (item.State==='Uttarakhand' ) { %>
+                                                                                    selected<% } %>>
+                                                                                        Uttarakhand</option>
+                                                                                <option value="West Bengal" <% if
+                                                                                    (item.State==='West Bengal' ) { %>
+                                                                                    selected<% } %>>
+                                                                                        West Bengal</option>
+                                                                                <!-- Add more states as needed -->
+                                                                            </select>
+                                                                            <span id="editstateError"
+                                                                                class="text-danger"></span>
+                                                                        </div>
+                                                                        <div class="form-group mb-3">
+                                                                            <label for="country">Country</label>
+                                                                            <input type="text" required
+                                                                                class="form-control" id="country"
+                                                                                value="<%= item.Country %>"
+                                                                                name="Country" placeholder="Country">
+                                                                            <span id="editcountryError"
+                                                                                class="text-danger"></span>
+                                                                        </div>
+                                                                        <!-- Other address fields here... -->
+
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="submit"
+                                                                        class="btn btn-primary">Save</button>
+                                                                    <button type="button" class="btn btn-secondary"
+                                                                        data-dismiss="modal">Close</button>
+                                                                </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <% }) %>
+                                                        <% } else{ %>
+                                                            <div class="col-lg-12">
+                                                                <h5>No Address Found</h5>
+                                                            </div>
+                                                            <% } %>
+                                        </div>
+                                    </div>
+                                    <!-- wallet new aside section  -->
+                                    <div class="tab-pane fade" id="account-detail" role="tabpanel"
+                                        aria-labelledby="account-detail-tab">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <!-- <div class="wallet-container text-center">
+                                                    <p class="page-title"><i class="fa fa-align-left"></i>My E-wallet<i class="fa fa-user"></i></p>
+                                    
+                                                    <div class="amount-box text-center">
+                                                        <img src="https://lh3.googleusercontent.com/ohLHGNvMvQjOcmRpL4rjS3YQlcpO0D_80jJpJ-QA7-fQln9p3n7BAnqu3mxQ6kI4Sw"
+                                                            alt="wallet">
+                                                        <p>Total Balance</p>
+                                                        <p class="amount">₹ <%= wallet ? wallet.balance : 0 %></p>
+                                                    </div>
+                                    
+                                                    <div class="btn-group text-center">
+                                                        <button type="button" class="btn btn-outline-light"
+                                                            onclick="addMoneyToWallet('<%= userDetails._id %>')">Add Money</button>
+                                                        <button
+                                                            onclick="showWithdrawalPrompt('<%= wallet ? wallet.balance : 0 %>')"
+                                                            class="btn btn-outline-light">Withdraw</button>
+                                                    </div>
+                                    
+                                                    <div class="txn-history">
+                                                        <p><b>History</b></p>
+                                                        <% if (wallet && wallet.transactions) { %>
+                                                            <% wallet.transactions.slice().reverse().forEach((transaction, index) => { %>
+                                                                <% if (index < 5) { %>
+                                                                    <p class="txn-list">
+                                                                        <% if (transaction.type === 'debit') { %>
+                                                                            Paid <span class="debit-amount">-₹<%= Math.abs(transaction.amount) %></span>
+                                                                        <% } else if (transaction.type === 'credit') { %>
+                                                                            Credited <span class="credit-amount">+₹<%= transaction.amount %></span>
+                                                                        <% } %>
+                                                                    </p>
+                                                                <% } %>
+                                                            <% }) %>
+                                                        <% } else { %>
+                                                            <p>No transaction history available.</p>
+                                                        <% } %>
+                                                    </div>
+                                                    <div class="footer-menu"></div>
+                                                </div> -->
+                                                <div class="wallet-container text-center">
+                                                    <p class="page-title text-light">BIKYS E-wallet</p>
+
+                                                    <div class="amount-box text-center">
+                                                        <!-- <img src="https://lh3.googleusercontent.com/ohLHGNvMvQjOcmRpL4rjS3YQlcpO0D_80jJpJ-QA7-fQln9p3n7BAnqu3mxQ6kI4Sw"
+                                                            alt="wallet"> -->
+                                                        <i class="fa-solid fa-wallet fa-2xl"
+                                                            style="color: #ffffff;"></i>
+                                                        <p class="text-light">Total Balance</p>
+                                                        <p class="amount text-light">₹
+                                                            <%= wallet ? wallet.balance : 0 %>.00
+                                                        </p>
+                                                    </div>
+
+                                                    <div class="btn-group text-center">
+                                                        <button type="button"
+                                                            class="btn bg-light text-brand btn-outline-light"
+                                                            onclick="addMoneyToWallet('<%= userDetails._id %>')">Add
+                                                            Money</button>
+                                                        <button
+                                                            onclick="showWithdrawalPrompt('<%= wallet ? wallet.balance : 0 %>')"
+                                                            class="btn btn-outline-primary">Withdraw</button>
+                                                    </div>
+
+                                                    <div class="txn-history">
+                                                        <p class="text-light"><b>Transaction History</b></p>
+                                                        <% if (wallet &&
+                                                            wallet.transactions) { %>
+                                                            <% wallet.transactions.slice().reverse().forEach((transaction,
+                                                                index)=> { %>
+                                                                <% if (index < 5) { %>
+                                                                    <p class="txn-list">
+                                                                        <% if (transaction.type==='debit' ) { %>
+                                                                            Paid <span class="debit-amount">-₹<%=
+                                                                                    Math.abs(transaction.amount) %>
+                                                                                    </span>
+                                                                            <% } else if (transaction.type==='credit' )
+                                                                                { %>
+                                                                                Credited <span class="credit-amount">+₹
+                                                                                    <%= transaction.amount %></span>
+                                                                                <% } %>
+                                                                    </p>
+                                                                    <% } %>
+                                                                        <% }) %>
+                                                                            <% } else { %>
+                                                                                <p>No transaction history available.</p>
+                                                                                <% } %>
+                                                    </div>
+                                                    <div class="footer-menu"></div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+                                
+
+
+
+
+                                    <div class="tab-pane fade" id="Edit-Profile" role="tabpanel"
+                                        aria-labelledby="Edit-Profile-tab">
+                                        <div class="card border-0 bg-light">
+                                            <div class="card-header text-center">
+                                                <h5 class="mb-0 text-brand">Edit Account</h5>
+                                            </div>
+                                            <form id="editprofile" class="p-4">
+                                                <div class="row mb-3">
+                                                    <div class="col-12">
+                                                        <label for="username" class="form-label">Username</label>
+                                                        <input type="text" id="username" value="<%= user.username %>"
+                                                            name="username" required class="form-control" />
+                                                        <span id="usernameError"
+                                                            class="error-message text-danger"></span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="email" class="form-label">Email</label>
+                                                    <input type="email" id="email" value="<%= user.email %>"
+                                                        name="email" required class="form-control" />
+                                                    <span id="emailError" class="error-message text-danger"></span>
+                                                </div>
+
+                                                <!-- Gender section removed -->
+
+                                                <div class="mb-3">
+                                                    <label for="phone" class="form-label">Phone</label>
+                                                    <input type="tel" id="phone" value="<%= user.phone %>" name="phone"
+                                                        required class="form-control" />
+                                                    <span id="phoneError" class="error-message text-danger"></span>
+                                                </div>
+
+                                                <button type="submit" class="btn btn-success btn-block">Save
+                                                    Changes</button>
+                                            </form>
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="main">
+        <section class="newsletter p-30 text-white wow fadeIn animated">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-7 mb-md-3 mb-lg-0">
+                        <div class="row align-items-center">
+                            <div class="col flex-horizontal-center">
+                                <img class="icon-email" src="assets/imgs/theme/icons/icon-email.svg" alt="">
+                                <h4 class="font-size-20 mb-0 ml-3">Sign up to Newsletter</h4>
+                            </div>
+                            <div class="col my-4 my-md-0 des">
+                                <h5 class="font-size-15 ml-4 mb-0">...and receive <strong>$25 coupon for first
+                                        shopping.</strong></h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-5">
+                        <!-- Subscribe Form -->
+                        <form class="form-subcriber d-flex wow fadeIn animated">
+                            <input type="email" class="form-control bg-white font-small" placeholder="Enter your email">
+                            <button class="btn bg-dark text-white" type="submit">Subscribe</button>
+                        </form>
+                        <!-- End Subscribe Form -->
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="section-padding footer-mid">
+            <div class="container pt-15 pb-20">
+                <div class="row">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="widget-about font-md mb-md-5 mb-lg-0">
+                            <div class="logo logo-width-1 wow fadeIn animated">
+                                <a href="/"><img src="/assets/imgs/shop/BIKYS.png" alt="logo"></a>
+                            </div>
+                            <h5 class="mt-20 mb-10 fw-600 text-grey-4 wow fadeIn animated">Contact</h5>
+                            <p class="wow fadeIn animated">
+                                <strong>Address: </strong>562 Wellington Road, Street 32, San Francisco
+                            </p>
+                            <p class="wow fadeIn animated">
+                                <strong>Phone: </strong>+01 2222 365 /(+91) 01 2345 6789
+                            </p>
+                            <p class="wow fadeIn animated">
+                                <strong>Hours: </strong>10:00 - 18:00, Mon - Sat
+                            </p>
+                            <h5 class="mb-10 mt-30 fw-600 text-grey-4 wow fadeIn animated">Follow Us</h5>
+                            <div class="mobile-social-icon wow fadeIn animated mb-sm-5 mb-md-0">
+                                <a href="#"><img src="assets/imgs/theme/icons/icon-facebook.svg" alt=""></a>
+                                <a href="#"><img src="assets/imgs/theme/icons/icon-twitter.svg" alt=""></a>
+                                <a href="#"><img src="assets/imgs/theme/icons/icon-instagram.svg" alt=""></a>
+                                <a href="#"><img src="assets/imgs/theme/icons/icon-pinterest.svg" alt=""></a>
+                                <a href="#"><img src="assets/imgs/theme/icons/icon-youtube.svg" alt=""></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-3">
+                        <h5 class="widget-title wow fadeIn animated">About</h5>
+                        <ul class="footer-list wow fadeIn animated mb-sm-5 mb-md-0">
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="#">Delivery Information</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Terms &amp; Conditions</a></li>
+                            <li><a href="#">Contact Us</a></li>
+                            <li><a href="#">Support Center</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-2  col-md-3">
+                        <h5 class="widget-title wow fadeIn animated">My Account</h5>
+                        <ul class="footer-list wow fadeIn animated">
+                            <li><a href="#">Sign In</a></li>
+                            <li><a href="#">View Cart</a></li>
+                            <li><a href="#">My Wishlist</a></li>
+                            <li><a href="#">Track My Order</a></li>
+                            <li><a href="#">Help</a></li>
+                            <li><a href="#">Order</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-4">
+                        <h5 class="widget-title wow fadeIn animated">Install App</h5>
+                        <div class="row">
+                            <div class="col-md-8 col-lg-12">
+                                <p class="wow fadeIn animated">From App Store or Google Play</p>
+                                <div class="download-app wow fadeIn animated">
+                                    <a href="#" class="hover-up mb-sm-4 mb-lg-0"><img class="active"
+                                            src="assets/imgs/theme/app-store.jpg" alt=""></a>
+                                    <a href="#" class="hover-up"><img src="assets/imgs/theme/google-play.jpg"
+                                            alt=""></a>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-lg-12 mt-md-3 mt-lg-0">
+                                <p class="mb-20 wow fadeIn animated">Secured Payment Gateways</p>
+                                <img class="wow fadeIn animated" src="assets/imgs/theme/payment-method.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="container pb-20 wow fadeIn animated">
+            <div class="row">
+                <div class="col-12 mb-20">
+                    <div class="footer-bottom"></div>
+                </div>
+                <div class="col-lg-6">
+                    <p class="float-md-left font-sm text-muted mb-0">&copy; 2022, <strong
+                            class="text-brand">BYKYZ</strong> - HTML Ecommerce Template </p>
+                </div>
+                <div class="col-lg-6">
+                    <p class="text-lg-end text-start font-sm text-muted mb-0">
+                        Designed by <a href="http://alithemes.com" target="_blank">Alithemes.com</a>. All rights
+                        reserved
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Preloader Start -->
+    <div id="preloader-active">
+        <div class="preloader d-flex align-items-center justify-content-center">
+            <div class="preloader-inner position-relative">
+                <div class="text-center">
+                    <h5 class="mb-5">Now Loading</h5>
+                    <div class="loader">
+                        <div class="bar bar1"></div>
+                        <div class="bar bar2"></div>
+                        <div class="bar bar3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <!-- Vendor JS-->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    
+    <script src="assets/js/vendor/modernizr-3.6.0.min.js"></script>
+    <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
+    <script src="assets/js/vendor/jquery-migrate-3.3.0.min.js"></script>
+    <script src="assets/js/vendor/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/plugins/slick.js"></script>
+    <script src="assets/js/plugins/jquery.syotimer.min.js"></script>
+    <script src="assets/js/plugins/wow.js"></script>
+    <script src="assets/js/plugins/jquery-ui.js"></script>
+    <script src="assets/js/plugins/perfect-scrollbar.js"></script>
+    <script src="assets/js/plugins/magnific-popup.js"></script>
+    <script src="assets/js/plugins/select2.min.js"></script>
+    <script src="assets/js/plugins/waypoints.js"></script>
+    <script src="assets/js/plugins/counterup.js"></script>
+    <script src="assets/js/plugins/jquery.countdown.min.js"></script>
+    <script src="assets/js/plugins/images-loaded.js"></script>
+    <script src="assets/js/plugins/isotope.js"></script>
+    <script src="assets/js/plugins/scrollup.js"></script>
+    <script src="assets/js/plugins/jquery.vticker-min.js"></script>
+    <script src="assets/js/plugins/jquery.theia.sticky.js"></script>
+    <!-- Template  JS -->
+    <script src="./assets/js/main.js?v=3.4"></script>
+</body>
+</html>
+
+<script>
+
+
+
+
+    // Function to validate the form
+    console.log('Document is ready.');
+
+
+    document.getElementById('saveAddress').addEventListener('click', function () {
+        // Validate and save the address
+        if (validateForm()) {
+            saveAddress();
+        }
+    });
+
+
+
+
+    function validateForm() {
+        var valid = true;
+        var addressType = $('#addressType').val().trim();
+        var houseNo = $('#houseNo').val().trim();
+        var street = $('#street').val().trim();
+        var landmark = $('#landmark').val().trim();
+        var pincode = $('#pincode').val().trim();
+        var city = $('#city').val().trim();
+        var district = $('#district').val().trim();
+        var state = $('#state').val().trim();
+        var country = $('#country').val().trim();
+
+        // Clear previous errors
+        clearErrors();
+
+        // Validation rules
+        if (!addressType) {
+            valid = false;
+            $('#addressTypeError').text('Type of Address is required');
+        }
+        if (!houseNo || !/^\d+$/.test(houseNo)) {
+            valid = false;
+            if (!houseNo) {
+                $('#houseNoError').text('House No is required.');
+            } else {
+                $('#houseNoError').text('House No must contain only numbers.');
+            }
+        }
+        if (!street) {
+            valid = false;
+            $('#streetError').text('Street is required.');
+        }
+        if (!landmark) {
+            valid = false;
+            $('#landmarkError').text('Landmark is required.');
+        }
+        if (!pincode || !/^\d{6}$/.test(pincode) || /^0{6}$/.test(pincode)) {
+            valid = false;
+            if (!pincode) {
+                $('#pincodeError').text('Pincode is required.');
+            } else if (/^0{6}$/.test(pincode)) {
+                $('#pincodeError').text('Pincode cannot be full of zeros.');
+            } else {
+                $('#pincodeError').text('Pincode must be a 6-digit number.');
+            }
+        }
+        if (!city || !/^[A-Za-z\s]+$/.test(city)) {
+            valid = false;
+            $('#cityError').text('City is required.');
+        }
+        if (!district) {
+            valid = false;
+            $('#districtError').text('District is Required');
+        }
+        if (!state) {
+            valid = false;
+            $('#stateError').text('State is required.');
+        }
+        if (!country || /\d/.test(country)) {
+            valid = false;
+            $('#countryError').text('Country is required and should not contain numbers.');
+        }
+
+        return valid;
+    }
+
+
+
+
+    function clearErrors() {
+        $('#addressTypeError').text();
+        $('#houseNoError').text('');
+        $('#streetError').text('');
+        $('#pincodeError').text('');
+        $('#cityError').text('');
+        $('#districtError').text('')
+        $('#stateError').text('');
+        $('#countryError').text('');
+    }
+    function saveAddress() {
+        var addressData = {
+            addressType: $('#addressType').val(),
+            houseNo: $('#houseNo').val(),
+            street: $('#street').val(),
+            landmark: $('#landmark').val(),
+            pincode: $('#pincode').val(),
+            city: $('#city').val(),
+            district: $('#district').val(),
+            state: $('#state').val(),
+            country: $('#country').val()
+        };
+        fetch('/profile/addAddress', {
+            method: 'POST',
+            body: JSON.stringify(addressData),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then((response) => {
+            if (response.status === 200) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'success...',
+                    text: 'Address Added Successfully',
+                    timer: 2000,
+                    timerProgressBar: true,
+                    didOpen: () => {
+                        Swal.getCloseButton().textContent = 'Close | Reloading...';
+                        setTimeout(() => {
+                            window.location.reload();
+                        },
+                            2000
+                        ); // Reload the page after 2 seconds (after the SweetAlert timer ends)
+                    }
+                    // });
+                });
+
+            } else {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'success...',
+                    text: 'Address added successfully',
+                    timer: 2000,
+                });
+            }
+
+        })
+            .catch(function (error) {
+                console.error(error);
+                alert('An error occurred while saving the address.');
+            });
+    }
+
+
+
+
+
+    //REMOVE ADDRESS
+    //Edit ADdress
+    function addressRemove(addressType) {
+        // You can use AJAX (e.g., fetch or XMLHttpRequest) to send a DELETE request to the backend
+
+        fetch(`/profile/deleteAddress?addressType=${encodeURIComponent(addressType)}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+            .then((response) => {
+                if (response.ok) {
+                    // Address was successfully deleted
+                    // You can update the UI or display a message here
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'success...',
+                        text: 'Address Removed',
+                        timer: 2000,
+                        timerProgressBar: true,
+                        didOpen: () => {
+                            Swal.getCloseButton().textContent = 'Close | Reloading...';
+                            setTimeout(() => {
+                                window.location.reload();
+                            },
+                                2000
+                            ); // Reload the page after 2 seconds (after the SweetAlert timer ends)
+                        }
+                    });
+                } else {
+                    // Handle the error and display an error message
+                    console.error('Error deleting address:', response.statusText);
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
+
+
+
+    document.addEventListener("submit", function (event) {
+        if (event.target.classList.contains("address-form")) {
+            event.preventDefault();
+
+            const form = event.target;
+            const addressTypeError = form.querySelector("#addressTypeError");
+            const houseNoError = form.querySelector("#edithouseNoError");
+            const streetError = form.querySelector("#editstreetError");
+            const pincodeError = form.querySelector("#editpincodeError");
+            const cityError = form.querySelector("#editcityError");
+            const districtError = form.querySelector("#editdistrictError");
+            const stateError = form.querySelector("#editstateError");
+            const countryError = form.querySelector("#editcountryError");
+
+            const addressType = form.querySelector("#editAddressType").value;
+            const houseNo = form.querySelector("#editHouseNo").value.trim();
+            const street = form.querySelector("#editStreet").value.trim();
+            const pincode = form.querySelector("#editPincode").value;
+            const city = form.querySelector("#editCity").value.trim();
+            const district = form.querySelector("#editDistrict").value.trim();
+            const state = form.querySelector("#editState").value;
+            const country = form.querySelector("#editCountry").value.trim();
+
+            let isValid = true;
+
+            if (addressType === "") {
+                addressTypeError.textContent = "Address Type is required";
+                isValid = false;
+
+            }
+
+            if (houseNo === "") {
+                houseNoError.textContent = "House No is required";
+                isValid = false;
+            } else {
+                houseNoError.textContent = "";
+            }
+
+            if (street === "") {
+                streetError.textContent = "Street is required";
+                isValid = false;
+            } else {
+                streetError.textContent = "";
+            }
+
+            if (!/^\d{6}$/.test(pincode)) {
+                pincodeError.textContent = "Pincode must be 6 digits";
+                isValid = false;
+            } else {
+                pincodeError.textContent = "";
+            }
+
+            if (city === "") {
+                cityError.textContent = "City is required";
+                isValid = false;
+            } else {
+                cityError.textContent = "";
+            }
+
+            if (district === "") {
+                districtError.textContent = "District is required";
+                isValid = false;
+            } else {
+                districtError.textContent = "";
+            }
+
+            if (state === "") {
+                stateError.textContent = "State is required";
+                isValid = false;
+            } else {
+                stateError.textContent = "";
+            }
+
+            if (country === "") {
+                countryError.textContent = "Country is required";
+                isValid = false;
+            } else {
+                countryError.textContent = "";
+            }
+
+            if (isValid) {
+
+                form.submit();
+            }
+        }
+    });
+
+
+    // wallet add money
+
+    function addMoneyToWallet(userId) {
+      Swal.fire({
+        title: 'Enter amount to add :',
+        input: 'text',
+        inputLabel: 'Amount',
+        inputPlaceholder: 'Enter the amount',
+        showCancelButton: true,
+        confirmButtonText: 'Add Money',
+        showLoaderOnConfirm: true,
+        preConfirm: (amount) => {
+          // Validate the entered amount (you can add more validation as needed)
+          if (!amount || isNaN(parseFloat(amount)) || amount < 0) {
+            Swal.showValidationMessage('Please enter a valid amount');
+            return false;
+          }
+
+          // Make a POST request to add money to the wallet
+          return fetch('/create-razorpay-order', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              userId,
+              amount
+            }),
+          })
+            .then(response => {
+              if (!response.ok) {
+                throw new Error('Error adding money to wallet');
+              }
+              return response.json();
+            })
+            .then(data => {
+              if (data.success) {
+                // Initialize Razorpay
+                const options = {
+                  key: data.key_id,
+                  amount: data.amount * 100, // Amount in paise
+                  currency: data.currency,
+                  name: data.name,
+                  description: 'Add Money to Wallet',
+                  order_id: data.orderId,
+                  handler: function (response) {
+                    // Handle the payment success
+                    Swal.fire('Success', 'Payment successful!', 'success');
+                    // Send the payment confirmation to your server
+                    confirmPayment(userId, amount, response
+                      .razorpay_payment_id);
+                  },
+                  prefill: {
+                    email: data.email,
+                    contact: data.contact,
+                  },
+                  theme: {
+                    color: '#007BFF',
+                  },
+                };
+
+                const rzp = new Razorpay(options);
+                rzp.open();
+              } else {
+                Swal.fire('Error', 'Failed to create Razorpay order', 'error');
+              }
+            })
+            .catch(error => {
+              Swal.showValidationMessage(`Request failed: ${error}`);
+            });
+        },
+        allowOutsideClick: () => !Swal.isLoading(),
+      })
+        .then((result) => {
+          if (result.isConfirmed) {
+            Swal.fire('Success',
+             ` Money added successfully. New balance: $${result.value.balance.toFixed(2)}`,
+              'success');
+          }
+        });
+    }
+
+
+
+
+
+    document.querySelector('#changePasswordbtn').addEventListener('click', () => {
+        // Show a SweetAlert confirmation before making the fetch request
+        Swal.fire({
+            title: 'Are you sure you want to change the password?',
+            // text: 'If yes, please check you mail. we will share a link for to change your password.'
+            html: '<span style="color: red;">If yes, please check your email. We will share a link to change your password.</span>',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, change password'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // If user confirms, make the fetch request
+                fetch('/profile/change-password', {
+                    method: 'GET', // You can adjust the HTTP method as needed
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            // Handle success with a success toast message
+                            toastr.success('Password Reset link sent successfully', 'Success');
+                        } else {
+                            // Handle errors with an error toast message
+                            toastr.error('Error changing password', 'Error');
+                        }
+                    })
+                    .catch(error => {
+                        // Handle fetch errors with an error toast message
+                        toastr.error('Fetch error', 'Error');
+                    });
+            }
+        });
+    });
+
+
+    function cancelOrder(orderId) {
+        // Open the confirmation modal
+        const confirmationModal = new bootstrap.Modal(document.getElementById('confirmationModal'));
+        $("#confirmationModal").show();
+
+        // Handle the "Confirm Cancellation" button click
+        const confirmCancellationButton = document.getElementById('confirmCancellationButton');
+        confirmCancellationButton.addEventListener('click', function () {
+            const cancellationReason = document.getElementById('cancellationReason').value;
+            // Send an AJAX request to the server to cancel the order with the reason
+            fetch(`/cancel-order/${orderId}`, {
+                method: 'POST',
+                body: JSON.stringify({
+                    reason: cancellationReason
+                }),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+                .then((response) => response.json())
+                .then((result) => {
+                    if (result.success) {
+                        // Handle success, e.g., display a success message or update the UI
+                        Swal.fire('Success', 'Order has been canceled successfully', 'success');
+                        location.reload(); // Reload the page or refresh the order list
+                    } else {
+                        // Handle the case when the cancellation fails
+                        alert('Order cancellation failed. Please try again.');
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    alert('An error occurred. Please try again later.');
+                });
+
+            // Close the modal
+            $("#confirmationModal").modal("hide");
+        });
+
+        // Handle the "Close" button click
+        const closeModalButton = document.getElementById('closeModalButton');
+        closeModalButton.addEventListener('click', function () {
+            // Close the modal without canceling the order
+            $("confirmationModal").hide();
+        });
+    }
+
+
+    function confirmPayment(userId, amount, paymentId) {
+            // Send a request to your server to confirm the payment and update the wallet
+            fetch('/confirm-payment', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    userId,
+                    amount,
+                    paymentId
+                }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Handle the success response if needed
+                    } else {
+                        Swal.fire('Error', 'Failed to confirm payment', 'error');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    Swal.fire('Error', 'Something went wrong', 'error');
+                });
+        }
+
+
+
+        function showWithdrawalPrompt(balance) {
+            Swal.fire({
+                title: 'Enter withdrawal amount',
+                input: 'text',
+                inputAttributes: {
+                    autocapitalize: 'off',
+                },
+                showCancelButton: true,
+                confirmButtonText: 'Withdraw',
+                showLoaderOnConfirm: true,
+                preConfirm: (amount) => {
+                    // Client-side validation
+                    if (parseFloat(amount) < 1 || isNaN(parseFloat(amount))) {
+                        Swal.showValidationMessage('Invalid withdrawal amount. Amount must be at least 1.');
+                        return false;
+                    } else if (parseFloat(amount) > balance) {
+                        Swal.showValidationMessage(` don't have enough balance`);
+                        return false;
+                    }
+
+                    // You can perform client-side validation here if needed
+                    return fetch('/withdraw', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            amount
+                        }),
+                    })
+                        .then((response) => {
+                            if (!response.ok) {
+                                throw new Error(response.statusText);
+                            }
+                            return response.json();
+                        })
+                        .catch((error) => {
+                            Swal.showValidationMessage(`Request failed: ${error}`);
+                        });
+                },
+                allowOutsideClick: () => !Swal.isLoading(),
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: 'Withdrawal successful!',
+                        icon: 'success',
+                    });
+                }
+            });
+        }
+
+    
+
+
+</script>
