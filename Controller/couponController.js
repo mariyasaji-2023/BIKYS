@@ -10,7 +10,6 @@ cron.schedule('0 0 * * *', () => {
 // Coupon validation middleware (app.js or a separate file)
 function validateCoupon(req, res, next) {
     const couponCode = req.body.couponCode; // Assuming the coupon code is sent in the request body
-  
     couponModel.findOne({ code: couponCode })
       .populate('usersUsed') // Populate the usersUsed array with user documents
       .exec((err, coupon) => {
