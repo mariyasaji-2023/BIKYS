@@ -1,7 +1,8 @@
 const mongoose = require('mongoose')
 require('dotenv').config()
 
-const databaseURI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/CRUD';
+
+const databaseURI = process.env.MONGODB_URI || 'mongodb+srv://mariyasajichiramel:s2I9BY5key9yNSGT@cluster0.1xfwidu.mongodb.net/';
 
 async function connectToDatabase() {
    try {

@@ -91,11 +91,11 @@
                         <span class="text">Coupon Management</span>
                     </a>
                 </li>
-                <!-- <li class="menu-item">
+                <li class="menu-item">
                 <a class="menu-link" disabled href="#"> <i class="icon material-icons md-pie_chart"></i>
                     <span class="text">Statistics</span>
                 </a>
-            </li> -->
+            </li>
             </ul>
             <hr>
             <!-- <ul class="menu-aside">
@@ -569,9 +569,13 @@
 
 
         </section>
+        <!-- Add this script tag before your script that uses jQuery -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js" crossorigin="anonymous">
+        </script>
 
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+    
         <script>
             function removeImage(index, prodId) {
                 document.getElementById('imagesUpdate' + index).remove();
@@ -1041,8 +1045,7 @@
             });
         </script>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js" crossorigin="anonymous">
-        </script>
+      
         <script>
             //cropper for main image
             // Initialize cropper for main image
@@ -1118,11 +1121,16 @@
                 for (let i = 0; i < input.files.length; i++) {
                     const file = input.files[i];
                     const reader = new FileReader();
-                    const canvasId = `show${ inputId }${ i }`;
-                    const updateButtonId = `update${ inputId }${ i }`;
+                    const canvasId = `show${inputId}${i}`;
+                    const updateButtonId = `update${inputId}${i}`;
 
                     // Create elements for each image
-                    const canvas = document.createElement('img');
+                    // const canvas = document.createElement(img);
+                    const canvas = document.createElement(img);
+                    // const  canvas = document.getElementById(img)
+
+
+                
 
                     canvas.id = canvasId;
                     canvas.style.width = '500px';
@@ -1185,12 +1193,12 @@
                         });
 
                         // Display the cropped image in the canvas
-                        document.getElementById(`show${ inputId }${ index }`).src = canvas.toDataURL();
+                        document.getElementById(`show${inputId}${index}`).src = canvas.toDataURL();
 
                         // Optionally, you can save or update the cropped image on the server here
 
                         croppers[index].cropper.destroy();
-                        document.getElementById(`update${ inputId }${ index }`).style.display = 'none';
+                        document.getElementById(`update${inputId}${index}`).style.display = 'none';
                     }
                 });
 

@@ -14,6 +14,11 @@ const couponController = require('../Controller/couponController')
 
 router.get("/", isAdmin, adminController.adminhome)
 
+
+router.get('/pdf',adminController.downloadPdf)
+
+router.get('/excel', adminController.generateExcel)
+
 router.get("/login", adminController.adminlogin)
 
 router.post("/login", adminController.loginpost)
@@ -77,7 +82,7 @@ router.post('/refund-amount',orderController.refundAmount)
 
 // admin dashboard
 
-router.get('/',adminController.dashboard)
+// router.get('/',adminController.dashboard)
 
 
 

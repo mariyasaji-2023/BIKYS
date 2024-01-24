@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const session = require('express-session');
 const UserModel = require('../models/User');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 const bodyParser = require('body-parser');
 const usersController = require('../Controller/usersController');
@@ -127,6 +127,12 @@ router.post('/confirm-payment',walletcontroller.WalletConfirmPayment)
 router.post('/withdraw',walletcontroller.withdrawMoney)
 
 
+router.get('/order-details/downloadInvoice/:orderId',usersController.downloadInvoice)
+// router.get('/order-details/downloadInvoice/:orderId',usersController.downloadInvoice)
+
+
+router.get('/refer',usersController.createuserReferral)
+
 function isAuthenticated(req, res, next) {
   if (req.session && req.session.user) {
     next();
@@ -135,7 +141,7 @@ function isAuthenticated(req, res, next) {
   }
 }
 
-
+router.get('/referal',usersController.ref)
 
 
 module.exports = router

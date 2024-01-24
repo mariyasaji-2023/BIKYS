@@ -4,7 +4,7 @@ const user = require('../routes/users')
 const UserModel = require('../models/User');
 const { productModel } = require('../models/product');
 const CategoryModel = require('../models/category');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 const { sentOtp } = require("../nodeMailer");
@@ -12,10 +12,12 @@ const { error, log } = require("console");
 const mongoose = require("mongoose")
 const addressModel = require('../models/address');
 const orderModel = require('../models/order');
-const ReferralModel = require('../models/referral')
+const Referral = require('../models/referral')
 const cartModel = require('../models/cart')
 const wishlistModel = require('../models/wishlist')
 const Wallet = require("../models/wallet")
+const uuidv4 = require('uuid').v4;
+const easyinvoice = require('easyinvoice');
 
 function otpNull(req, res, next) {
   // Check if req.session.otp is not null
@@ -32,9 +34,27 @@ function otpNull(req, res, next) {
 }
 
 
+const ref=async (req, res) => {
+  try {
+
+const newReferrer = new Referral({
+  referralId: uuidv4(),
+  referralLink: uuidv4(),
+  userId:req.session.user._id,
+});
+
+newReferrer.save();
+res.send("dsds")
+  }catch(err){
+console.log(err);
+  }
+}
 
 const home = async (req, res) => {
   try {
+
+
+ 
     const cart = await cartModel.findOne();
     const cartItemCount = cart ? cart.items.length : 0;
     let wishlistCount = 0;
@@ -56,7 +76,7 @@ const home = async (req, res) => {
         const products = await productModel.find();
 
         res.render('home', {
-          user:  req.session.user, // Using req.session.email for consistency
+          user: req.session.user, // Using req.session.email for consistency
           userEmail: req.session.user.email, // Using req.session.email for consistency
           category,
           products,
@@ -90,14 +110,19 @@ const home = async (req, res) => {
 
 
 const getSignup = (req, res) => {
+  if(req.query.reflink){
+    console.log('l,,kmknmjnjnjnjlkkkn');
+          req.session.reflink= req.query.reflink;
+        }
   res.render('userSignup');
 }
 
 
-const signuppost = async (req, res) => {
-  const { username, email, password, phone, confirmpassword } = req.body;
 
+const signuppost = async (req, res) => {
   try {
+    const { username, email, password, phone, confirmpassword } = req.body;
+
     // Validate user input (You can use a validation library or implement your own validation logic)
 
     // Check if the user already exists in the database
@@ -106,18 +131,15 @@ const signuppost = async (req, res) => {
     if (foundUser) {
       return res.render('userSignup', { errorMessage: 'User already exists. Please log in.' });
     }
-    if (password.length < 8) {
-      return res.render('userSignup', { errorMessage: 'Password must be at least 8 characters long' })
 
+    if (password.length < 8) {
+      return res.render('userSignup', { errorMessage: 'Password must be at least 8 characters long' });
     } else {
-      console.log("Password length is fine");
       // Check for uppercase letters, lowercase letters, numbers, and special characters
       if (!/[A-Z]/.test(password) || !/[a-z]/.test(password) || !/\d/.test(password) || !/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
-        return res.render('userSignup', { errorMessage: 'Password must meet the specified criteria' })
+        return res.render('userSignup', { errorMessage: 'Password must meet the specified criteria' });
       }
-      console.log(password, confirmpassword)
     }
-
 
     // Compare Password and Confirm Password
     if (password !== confirmpassword) {
@@ -139,8 +161,10 @@ const signuppost = async (req, res) => {
       phone: phone,
       status: false,
     };
-
+    
+   
     req.session.otp = otp;
+    req.session.expirationtime = new Date();
 
     // Redirect to the OTP verification page
     res.redirect('/otp');
@@ -153,22 +177,6 @@ const signuppost = async (req, res) => {
 
 
 
-// const home = async (req, res) => {
-//   const cart = await cartModel.findOne();
-//   const cartItemCount = cart ? cart.items.length : 0;
-//   console.log(userName, "66666666666666666666666666666666666666666666666666");
-//   try {
-
-//     const category = await CategoryModel.find();
-//     const products = await productModel.find();
-//     res.render('home', { user: userName, category: category, products: products, cart, cartItemCount });
-//   } catch (error) {
-//     console.error('Error fetching data from the database:', error);
-//     res.status(500).send('Internal Server Error');
-//   }
-// }
-
-
 const getlogin = (req, res) => {
   if (req.session.user) {
     res.redirect('/');
@@ -176,6 +184,8 @@ const getlogin = (req, res) => {
     res.render('index', { title: 'Login Page' });
   }
 };
+
+
 
 
 const loginpost = async (req, res) => {
@@ -190,7 +200,7 @@ const loginpost = async (req, res) => {
         return res.render('index', { errorMessage: 'Your account is blocked. Contact support for assistance.' });
       }
 
-      const passwordMatch =  bcrypt.compare(password, user.password);
+      const passwordMatch = await bcrypt.compare(password, user.password);
 
       if (passwordMatch) {
         user.status = true;
@@ -199,25 +209,24 @@ const loginpost = async (req, res) => {
         userName = user.name;
         userEmail = user.email;
 
-        req.session.user = user;
+        req.session.user = user; // Set the user data in the session
         req.session.userDelete = false;
 
         res.status(200);
         res.redirect('/');
-        console.log(user.password,"/////////////////////////////////");
       } else {
+        console.log('Password does not match:', password, user.password);
         res.render('index', { errorMessage: 'Enter Valid Username or Password' });
-        console.log(req.body.password,"...........................................");
       }
     } else {
       res.render('index', { errorMessage: 'Enter Valid Username or Password' });
-      console.log(req.body.password,"...........................................");
     }
   } catch (error) {
     console.error(error);
     res.status(500).send('Internal Server Error');
   }
 };
+
 
 
 
@@ -273,8 +282,8 @@ const passwordpost = async (req, res) => {
   const transporter = nodemailer.createTransport({
     service: 'Gmail', // Use your email service here
     auth: {
-      user: 'mariyasaji321@gmail.com',
-      pass: 'efea nyma srmi zlaa',
+      user:  process.env.EMAIL,
+      pass:  process.env.PASSWORD,
     },
   });
 
@@ -282,7 +291,7 @@ const passwordpost = async (req, res) => {
   const resetText = 'Click here to reset your password';
 
   const mailOptions = {
-    from: 'mariyasaji321@gmail.com',
+    from: process.env.EMAIL,
     to: email,
     subject: 'Password Reset',
     text: `You are receiving this because you (or someone else) requested a password reset for your account.\n\n`
@@ -326,6 +335,7 @@ const getreset = (req, res) => {
   res.render('resetpassword');
 };
 
+
 const resetpost = async (req, res) => {
   const { password, confirmPassword } = req.body;
   console.log(req.body.password)
@@ -354,32 +364,146 @@ const resetpost = async (req, res) => {
 
 };
 
-// Function to handle OTP verification after user submission
-const postVerifyOtp = async (req, res, next) => {
-  const { otp } = req.body;
 
+// Function to handle OTP verification after user submission
+
+const postVerifyOtp = async (req, res, next) => {
   try {
-    if (req.session.otp !== null) {
-      if (!isNaN(otp)) {
-        if (otp === req.session.otp) {
-          // Save the user to the database
-          await UserModel.create(req.session.user);
-          req.session.user = req.session.user.email;
-          res.render('index');
-        } else {
-          req.session.otpFalse = true;
-          res.redirect('/otp');
+    console.log("/////////////////////////////////////");
+    const { otp } = req.body;
+    const expirationtime = req.session.expirationtime;
+
+    if (req.session.otp !== undefined) {
+      const newtime = new Date();
+      const expirationtime = req.session.expirationtime;
+      let otpTime;
+
+      try {
+        otpTime = expirationtime ? new Date(expirationtime) : 0;
+        if (isNaN(otpTime)) {
+          throw new Error("Invalid date");
         }
+      } catch (error) {
+        console.error("Error parsing expirationtime:", expirationtime);
+        otpTime = 0;
       }
-    } else {
-      req.session.otpExpired = true; // Set the otpExpired flag
-      res.redirect('/otp');
+
+      const timeDifference = newtime - otpTime;
+
+      console.log(newtime, "]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]");
+      console.log(otpTime, "[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[");
+      console.log(timeDifference, "time");
+
+      if (timeDifference <= 60 * 1000) {
+        if (!isNaN(otp)) {
+          if (otp === req.session.otp) {
+            const newUser = new UserModel({
+              name: req.session.user.name,
+              email: req.session.user.email,
+              password: req.session.user.password,
+              confirmPassword: req.session.user.confirmPassword,
+              phone: req.session.user.phone,
+              status: false,
+            });
+
+            const newReferrer = new Referral({
+              referralId: uuidv4(),
+              referralLink: uuidv4(),
+              userId: newUser._id,
+            });
+
+            newReferrer.save();
+
+            newUser.refId = newReferrer._id;
+
+            const newWallet = new Wallet({
+              user: newUser._id,
+            });
+
+            // Save the new wallet
+            await newWallet.save();
+
+            // Update the user's wallet ID in the user document
+            newUser.wallet = newWallet._id;
+
+            // Save the updated user
+            await newUser.save();
+            console.log(newUser,"beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+
+            if (req.session.reflink) {
+              try {
+                const referal = await Referral.findOne({referralLink:req.session.reflink})
+             
+                const wallet = await Wallet.findOne({user:referal.userId})
+
+                console.log(wallet,"reeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+
+                if (wallet) {
+                  const referralAmount = 500;
+                  const referralBonus = referralAmount * 0.5;
+
+                  // Updating the referrer's wallet with the referral bonus
+                  wallet.balance += referralAmount;
+                  wallet.transactions.push({
+                    amount: referralAmount,
+                    type: 'credit',
+                    description: 'Referral Bonus',
+                  });
+
+                  // Save the changes to the referrer's wallet
+                  await wallet.save()
+
+                  // Updating the new user's wallet with the referral bonus
+                  newWallet.balance += referralBonus;
+                  newWallet.transactions.push({
+                    amount: referralBonus,
+                    type: 'credit',
+                    description: 'Referral Bonus',
+                  });
+
+                  // Save the changes to the new user's wallet
+                  await newWallet.save();
+
+                  // Update the user's wallet ID in the user document
+                  newUser.wallet = newWallet._id;
+
+                  // Save the changes to the user document
+                  await newUser.save();
+                }
+              } catch (err) {
+                console.error('Error finding referral:', err);
+                res.status(500).json({
+                  success: false,
+                  message: err,
+                });
+              }
+            }
+
+            req.session.user = req.session.user.email;
+            req.session.otpExpired = false;
+            req.session.otpFalse = false;
+            res.render('index');
+            return;
+          } else {
+            req.session.otpFalse = true;
+          }
+        }
+      } else {
+        req.session.otpExpired = true;
+        req.session.otpFalse = false;
+      }
     }
+
+    res.render('otp', {
+      errorMessage: req.session.otpFalse ? 'Incorrect OTP' : 'OTP expired',
+    });
   } catch (error) {
     console.error(error);
-    res.redirect('/signup');
+    res.render('otp', { errorMessage: 'An error occurred' });
   }
 };
+
+
 
 // Function to render the OTP verification page
 const loadOTP = async (req, res) => {
@@ -579,7 +703,7 @@ const productDetails = async (req, res) => {
       });
     }
 
-    const userId = req.session.userId;
+    const userId = req.session.user._id;
 
     // Fetch the user's wishlist and get the item count
     let wishlistCount = 0;
@@ -627,6 +751,7 @@ const productDetails = async (req, res) => {
 
 
 //profile 
+
 const userprofile = async (req, res) => {
   const ITEMS_PER_PAGE = 5;
 
@@ -641,9 +766,8 @@ const userprofile = async (req, res) => {
     const category = await CategoryModel.find({ status: 'active' });
     const addresses = await addressModel.findOne({ user: userId });
     console.log(addresses, ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;");
-    const user = await UserModel.findOne({ _id: userId })
-    console.log(user, "\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\");
-    let [userDetails] = await UserModel.aggregate([{
+
+    let [user] = await UserModel.aggregate([{
       $match: {
         _id: new mongoose.Types.ObjectId(userId), // Assuming userId is accessible
       },
@@ -659,6 +783,17 @@ const userprofile = async (req, res) => {
       $limit: 1
     }
     ])
+
+    console.log(user);
+
+    const loggedUser = await Referral.findOne({
+      userId: req.session.user._id
+    })
+
+    console.log(loggedUser,"???????????????????????????")
+    const generatedRefLink = `${req.protocol}://${req.headers.host}/signup?reflink=${loggedUser.referralLink}`
+
+    console.log(generatedRefLink, "////////////////////////////////////////////")
 
     const wallet = await Wallet.findOne({ user: userId });
     console.log(wallet.balance, ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;");
@@ -686,12 +821,12 @@ const userprofile = async (req, res) => {
       user: true,
       addresses,
       user,
-      userDetails,
       orderDetails,
       currentPage: page,
       totalPages: totalPages,
       cartItemCount,
       wallet,
+      generatedRefLink,
     });
   } catch (error) {
     console.error('Error:', error);
@@ -700,6 +835,7 @@ const userprofile = async (req, res) => {
     });
   }
 };
+
 
 const userAddAddress = async (req, res) => {
   try {
@@ -1045,8 +1181,8 @@ const changePassword = async (req, res) => {
     const transporter = nodemailer.createTransport({
       service: 'Gmail', // Use your email service here
       auth: {
-        user: 'mariyasaji321@gmail.com',
-        pass: 'efea nyma srmi zlaa',
+        user: process.env.EMAIL,
+        pass: process.env.PASSWORD,
       },
     });
 
@@ -1184,7 +1320,7 @@ const wishlistGet = async (req, res) => {
     // const page = parseInt(req.query.page) || 1; // Get the page number from the request query parameters
 
 
-    const userId = req.session.userId;
+    const userId = req.session.user_id;
     const category = await CategoryModel.find();
 
     let wishlistCount = 0;
@@ -1311,7 +1447,7 @@ const wishlistAdd = async (req, res) => {
   try {
     console.log("haui")
     const productId = req.params.productId;
-    const userId = req.session.userId;
+    const userId = req.session.user._id;
 
     // Find the product by its ID
     console.log(productId, "productId wishlist")
@@ -1377,7 +1513,7 @@ const wishlistAdd = async (req, res) => {
 const wishlistItemDelete = async (req, res) => {
   try {
     const productId = req.params.productId; // The product ID to remove from the wishlist
-    const userId = req.session.userId; // The user ID
+    const userId = req.session.user._id; // The user ID
     console.log("wislist Delete")
     // Find the user's wishlist
     const wishlist = await wishlistModel.findOne({
@@ -1417,11 +1553,121 @@ const wishlistItemDelete = async (req, res) => {
   }
 };
 
+const createuserReferral = async (req, res) => {
+  try {
+    const user = await UserModel.findById(req.session.user._id);
+
+    // Create a new referral
+    const newReferrer = new Referral({
+      referralId: uuidv4(),
+      referralLink: uuidv4(),
+      userId: user._id,
+    });
+
+    // Save the new referral to the database
+    await newReferrer.save();
+
+    // Update the user's refId with the new referral's _id
+    user.refId = newReferrer._id;
+
+    // Save the user with the updated refId
+    await user.save();
+
+    console.log(newReferrer);
+    // Assuming generatedRefLink should be the referral link
+    const generatedRefLink =` ${ req.protocol }://${req.headers.host}/register?reflink=${newReferrer.referralLink}`
+      res.status(200).json({
+        success: true,
+        referralLink: generatedRefLink
+      });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      success: false,
+      message: err
+    });
+  }
+};
+
+
+
+
+
+const downloadInvoice = async (req, res) => {
+  try {
+    // if (req.query.from === '$2b$10$gviVtGpDfqpsAsCkbx8xaukeIQDirbAk2vIJ0IhJROGzYHeHUERp2') {
+
+    let order = await orderModel.findById(req.params.orderId)
+    let user = await UserModel.findById(order.user)
+
+    console.log("innn")
+    console.log(order, order ?.items);
+    let products = order.items.map((item, index) => {
+      return {
+        "quantity": item.quantity,
+        "price": item.productPrice,
+        "tax-rate": 0.0,
+        "description": item.name,
+      }
+    });
+
+
+    var data = {
+      "customize": {},
+      "images": {
+        "logo": "https://public.easyinvoice.cloud/img/logo_en_original.png",
+        // "background": "https://public.easyinvoice.cloud/img/watermark-draft.jpg"
+      },
+      "sender": {
+        "company": "BIKYS",
+        "address": "BIKYS",
+        "zip": "680502",
+        "city": "Thrissur",
+        "country": "INDIA"
+      },
+      "client": {
+        "company": user ?.name || "N/A",
+        "address": user.email,
+        "city": order.deliveryAddress.city,
+        "zip": "PIN :" + order.deliveryAddress.pincode,
+        "phone": user.phone,
+        "country": order.deliveryAddress.Country,
+      },
+      "information": {
+        "number": user.phone,
+        "date": order.orderDate,
+        "due-date": "PAID"
+      },
+      "products": products,
+      "bottom-notice": "Thank you for supporting us, BIKYS",
+      "settings": {
+        "currency": "INR",
+      },
+      "translate": {},
+    };
+    easyinvoice.createInvoice(data, function (result) {
+      const base64Data = result.pdf;
+      res.setHeader('Content-Type', 'application/pdf');
+      res.setHeader('Content-Disposition', 'attachment; filename="INVOICE_' + Date.now() + '_.pdf"');
+      const binaryData = Buffer.from(base64Data, 'base64');
+      res.send(binaryData);
+    });
+    // } 
+    // else {
+    //     res.redirect('/profile')
+    // }
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error generating the PDF');
+  }
+
+}
 
 
 module.exports = {
   home, logout, getSignup, signuppost, getlogin, loginpost, getpassword, passwordpost, getreset,
   resetpost, loadOTP, postVerifyOtp, resendOtp, userShop, productDetails, userprofile, homepage,
   userAddAddress, userEditAddress, userdeleteAddress, cancelOrder, userOrderDetails, wishlistGet,
-  wishlistAdd, wishlistItemDelete, resetPasswordPost, resetPasswordGet, changePassword
+  wishlistAdd, wishlistItemDelete, resetPasswordPost, resetPasswordGet, changePassword, createuserReferral,ref,downloadInvoice
 }

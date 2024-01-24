@@ -1,15 +1,21 @@
 const express = require('express')
 const adminModel = require('../models/Admin')
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 const bodyParser = require('body-parser');
 const admin = require('../routes/admin')
 const router = express.Router()
 const UserModel = require('../models/User')
+const orderModel=require("../models/order")
+const {productModel}=require("../models/product")
+const PDFDocument = require('pdfkit');
+const ExcelJS = require('exceljs');
 
-const adminhome = (req, res) => {
-  res.render("adminHome", { admiN });
-};
+
+
+// const adminhome = (req, res) => {
+//   res.render("adminHome", { admiN });
+// };
 
 
 
@@ -277,7 +283,7 @@ async function salesReport(date) {
     Revenue += order.billTotal;
   });
 
-  let stock = await ProductModel.find();
+  let stock = await productModel.find();
   let totalCountInStock = 0;
   stock.forEach((product) => {
     totalCountInStock += product.countInStock;
@@ -299,11 +305,11 @@ async function salesReport(date) {
 }
 
 
-let dashboard = async (req, res) => {
-  if (req.session.admin) {
-    req.session.admn = true;
+let adminhome = async (req, res) => {
+  if (req.session.isAdmin) {
+    req.session.isAdmin= true;
 
-    let orders = await orderModel.find().sort({ createdAt: -1 }).limit(10).populate('user', 'fullname')
+    let orders = await orderModel.find().sort({ createdAt: -1 }).limit(10).populate('user', 'name')
 
     let daily = await salesReport(1)
     let weekly = await salesReport(7);
@@ -311,9 +317,9 @@ let dashboard = async (req, res) => {
     let yearly = await salesReport(365)
 
     console.log("D:",daily,"W:",weekly,"M:",monthly,"Y:",yearly)
-    let allProductsCount = await ProductModel.countDocuments();
+    let allProductsCount = await productModel.countDocuments();
 
-    res.render("admin-dashboard",{daily,weekly,monthly,yearly,orders,allProductsCount});
+    res.render("adminHome",{daily,weekly,monthly,yearly,orders,allProductsCount});
   } else {
     res.redirect("/admin/login");
   }
@@ -321,7 +327,90 @@ let dashboard = async (req, res) => {
 
 
 
+const downloadPdf = async (req, res) => {
+  try {
+    // Obtain the sales data for the desired period (e.g., daily)
+    let salesData = null; // Change the parameter based on the desired period
+
+    if (req.query.type === 'daily') {
+      salesData = await salesReport(1);
+    } else if (req.query.type === 'weekly') {
+      salesData = await salesReport(7);
+    } else if (req.query.type === 'monthly') {
+      salesData = await salesReport(30);
+    } else if (req.query.type === 'yearly') {
+      salesData = await salesReport(365);
+    }
+
+    let doc = new PDFDocument();
+
+    // Set response headers for the PDF file
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', 'attachment; filename="sales_report.pdf"');
+
+    // Pipe the PDF content to the response
+    doc.pipe(res);
+
+    // Add content to the PDF
+    doc.fontSize(20).text('Sales Report', { align: 'center' });
+
+    // Insert sales data into the PDF
+    if (salesData) {
+      doc.fontSize(12).text(`Total Revenue: INR ${salesData.totalRevenue}`);
+      doc.text(`Total Orders: ${salesData.totalOrders}`);
+      doc.text(`Total Order Count: ${salesData.totalOrderCount}`);
+      doc.text(`Total Count In Stock: ${salesData.totalCountInStock}`);
+      doc.text(`Average Sales: ${salesData.averageSales ? salesData.averageSales.toFixed(2) : 'N/A'}%`);
+      doc.text(`Average Revenue: ${salesData.averageRevenue ? salesData.averageRevenue.toFixed(2) : 'N/A'}%`);
+    } else {
+      doc.text('No sales data available.');
+    }
+
+    // End the document and send it to the client
+    doc.end();
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send('Error generating PDF.');
+  }
+};
+
+
+const generateExcel = async (req, res, next) => {
+  try {
+    const salesDatas = await salesReport(0);
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet('Sales Report');
+
+    worksheet.columns = [
+      { header: 'Total Revenue', key: 'totalRevenue', width: 15 },
+      { header: 'Total Orders', key: 'totalOrders', width: 15 },
+      { header: 'Total Count In Stock', key: 'totalCountInStock', width: 15 },
+      { header: 'Average Sales', key: 'averageSales', width: 15 },
+      { header: 'Average Revenue', key: 'averageRevenue', width: 15 },
+      { header: 'Revenue', key: 'Revenue', width: 15 },
+    ];
+
+    worksheet.addRow({
+      totalRevenue: salesDatas.totalRevenue,
+      totalOrders: salesDatas.totalOrders,
+      totalCountInStock: salesDatas.totalCountInStock,
+      averageSales: salesDatas.averageSales ? salesDatas.averageSales.toFixed(2) : 'N/A',
+      averageRevenue: salesDatas.averageRevenue ? salesDatas.averageRevenue.toFixed(2) : 'N/A',
+      Revenue: salesDatas.Revenue,
+    });
+
+    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    res.setHeader('Content-Disposition', 'attachment; filename="sales_report.xlsx"');
+
+    workbook.xlsx.write(res).then(() => res.end());
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send('Error generating Excel file.');
+  }
+};
+
+
 module.exports = {
   adminlogin,
-  loginpost, adminhome, adminlogout, adminusers, admindelete, adduser, adduserpost, userupdate, userupdatepost, userblock, searchuser,dashboard
+  loginpost, adminhome, adminlogout, adminusers, admindelete, adduser, adduserpost, userupdate, userupdatepost, userblock, searchuser,downloadPdf,generateExcel
 }

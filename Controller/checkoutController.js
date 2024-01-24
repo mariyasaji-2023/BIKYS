@@ -944,7 +944,7 @@ let orderCheckoutPost = async (req, res, next) => {
       const options = {
         amount,
         currency: "INR",
-        receipt: "mariya321@gmail.com", // Replace with your email
+        receipt: process.env.EMAIL, // Replace with your email
       };
 
       razorpayInstance.orders.create(options, async (error, razorpayOrder) => {
