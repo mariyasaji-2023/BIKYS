@@ -1,16 +1,24 @@
 const CategoryModel = require("../models/category");
-const { productModel } = require("../models/product");
-const mongoose = require("mongoose")
-
+const { productModel } = require('../models/product');
+const mongoose = require('mongoose')
 
 const categoryManagementGet = async (req, res) => {
+    const page = parseInt(req.query.page) || 1;
+    const limit = 5; // number of categories per page
     try {
-        const categories = await CategoryModel.find(); // Fetch all categories from the database
+        const totalCategory = await CategoryModel.countDocuments()
+        const totalPages = Math.ceil(totalCategory/limit)
+
+        const categories = await CategoryModel.find()// Fetch all categories from the database
+        .skip((page-1)*limit)
+        .limit(limit)
 
         // Pass the categories to the view
         res.render('category', {
             pagetitle: 'Category',
             categories: categories, // Pass the categories to the view
+            currentPage:page,
+            totalPages
         });
     } catch (error) {
         console.error('Error fetching categories:', error);
@@ -22,27 +30,39 @@ const categoryManagementGet = async (req, res) => {
 const categoryManagementCreate = async (req, res) => {
     try {
         const { name, description } = req.body;
-        let image = null
-        if (req.file) {
+        let image = null;
 
+        if (req.file) {
             image = req.file.path.replace(/\\/g, '/').replace('public/', '');
         }
-        // const image = req.file ? req.file.buffer.toString('base64') : null; // Store image as base64 string
+
+        // Check if a category with the same name (case-insensitive) already exists
+        const existingCategory = await CategoryModel.findOne({ name: { $regex: new RegExp(`^${name}$`, 'i') } });
+
+        if (existingCategory) {
+            return res.status(400).json({ error: 'Category with the same name already exists.' });
+        }
 
         const category = new CategoryModel({
             name,
             description,
-            image
+            image,
         });
 
         await category.save();
 
-        res.status(201).redirect('/admin/category-management');
+        // Send a success response if the category is created
+        res.status(200).json({ success: true, message: 'Category created successfully.' });
+
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: 'Internal Server Error' });
+        res.status(500).json({ error: 'Internal Server Error' });
     }
-}
+};
+
+
+
+
 
 
 const categoryManagementEdit = async (req, res) => {
@@ -51,30 +71,59 @@ const categoryManagementEdit = async (req, res) => {
         editName = editName.trim();
         editDescription = editDescription.trim();
         const categoryId = req.params.categoryId;
+        const page = parseInt(req.query.page) || 1;
+        const limit = 5; // number of categories per page
+
         const category = await CategoryModel.findById(categoryId);
 
         if (!category) {
             return res.status(404).json({ message: 'Category not found' });
         }
+
+        // Check if a category with the same name (case-insensitive) already exists
+        const existingCategory = await CategoryModel.findOne({
+            name: { $regex: new RegExp(`^${editName}$`, 'i') },
+        });
+
+        if (existingCategory && existingCategory._id.toString() !== categoryId) {
+            return res.status(400).json({ error: 'Category with the same name already exists.' });
+        }
+
         // Update name and description
         category.name = editName;
         category.description = editDescription;
-        // console.log(category.image+"############");
+
         // Update image if a new one is uploaded
         if (req.file) {
             // Replace backslashes with forward slashes and remove 'public/' from the path
             const newImage = req.file.path.replace(/\\/g, '/').replace('public/', '');
             category.image = newImage;
         }
-        console.log(req.body, req.file);
+
         await category.save();
 
-        res.status(200).redirect('/admin/category-management');
+        const totalCategory = await CategoryModel.countDocuments();
+        const totalPages = Math.ceil(totalCategory / limit);
+
+        const categories = await CategoryModel.find()
+            .skip((page - 1) * limit)
+            .limit(limit);
+
+        res.render('category', {
+            pagetitle: 'Category',
+            categories: categories,
+            currentPage: page,
+            totalPages,
+        });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal Server Error' });
     }
-}
+};
+
+
+
+
 
 
 const categoryManagementFeatured = async (req, res) => {
@@ -105,4 +154,3 @@ module.exports = {
     categoryManagementEdit,
     categoryManagementFeatured
 }
-

@@ -1,430 +1,446 @@
 <%- include('admin-partials/header.ejs') %>
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+   <div class="screen-overlay"></div>
 
-<div class="screen-overlay"></div>
 
-
-<aside class="navbar-aside" id="offcanvas_aside">
-   <div class="aside-top">
-      <a href="index.html" class="brand-wrap">
-         <!-- <img src="/assets/imgs/theme/inloop-logo.png" class="logo" alt="inloop Dashboard"> -->
-         <h3 style="color:green">BIKYZ</h3>
-      </a>
-      <div>
-         <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i>
-         </button>
+   <aside class="navbar-aside" id="offcanvas_aside">
+      <div class="aside-top">
+         <a href="/" class="brand-wrap">
+            <img src="/assets/imgs/shop/BIKYS.png" class="logo" alt="BIKYS Dashboard">
+        </a>
+         <div>
+            <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i>
+            </button>
+         </div>
       </div>
-   </div>
-   <nav>
-      <ul class="menu-aside">
-         <li class="menu-item ">
-            <a class="menu-link" href="/admin"> <i class="icon material-icons md-home"></i>
-               <span class="text">Dashboard</span>
-            </a>
-         </li>
-         <li class="menu-item ">
-            <a class="menu-link" href="/admin/usermanagement"> <i class="icon material-icons md-person"></i>
-               <span class="text">User Management</span>
-            </a>
-         </li>
-         <li class="menu-item has-submenu active">
-            <a class="menu-link" href=""> <i class="icon material-icons md-shopping_bag"></i>
-               <span class="text">Products</span>
-            </a>
-            <div class="submenu ">
-               <a href="/admin/product-management">Product List</a>
-               <!-- <a href="page-products-grid.html">Product grid</a>
-                    <a href="page-products-grid-2.html">Product grid 2</a> -->
-               <a href="/admin/category-management">Categories</a>
-            </div>
-         </li>
-         <!-- <li class="menu-item has-submenu">
-                <a class="menu-link" href="page-orders-1.html"> <i class="icon material-icons md-shopping_cart"></i>
-                    <span class="text">Orders</span>
-                </a>
-                <div class="submenu">
-                    <a href="page-orders-1.html">Order list 1</a>
-                    <a href="page-orders-2.html">Order list 2</a>
-                    <a href="page-orders-detail.html">Order detail</a>
-                    <a href="page-orders-tracking.html">Order tracking</a>
-                    <a href="page-invoice.html">Invoice</a>
-                </div>
-            </li> -->
-         <!-- <li class="menu-item has-submenu">
-                <a class="menu-link" href="page-sellers-cards.html"> <i class="icon material-icons md-store"></i>
-                    <span class="text">Sellers</span>
-                </a>
-                <div class="submenu">
-                    <a href="page-sellers-cards.html">Sellers cards</a>
-                    <a href="page-sellers-list.html">Sellers list</a>
-                    <a href="page-seller-detail.html">Seller profile</a>
-                </div>
-            </li> -->
-         <!-- <li class="menu-item has-submenu">
-                <a class="menu-link" href="page-transactions-1.html"> <i
-                        class="icon material-icons md-monetization_on"></i>
-                    <span class="text">Transactions</span>
-                </a>
-                <div class="submenu">
-                    <a href="page-transactions-1.html">Transaction 1</a>
-                    <a href="page-transactions-2.html">Transaction 2</a>
-                    <a href="page-transactions-details.html">Transaction Details</a>
-                </div>
-            </li> -->
-         <!-- <li class="menu-item has-submenu">
-                <a class="menu-link" href="#"> <i class="icon material-icons md-person"></i>
-                    <span class="text">Account</span>
-                </a>
-                <div class="submenu">
-                    <a href="page-account-login.html">User login</a>
-                    <a href="page-account-register.html">User registration</a>
-                    <a href="page-error-404.html">Error 404</a>
-                </div>
-            </li> -->
-         <!-- <li class="menu-item">
-                <a class="menu-link" href="page-reviews.html"> <i class="icon material-icons md-comment"></i>
-                    <span class="text">Reviews</span>
-                </a>
-            </li> -->
-            <li class="menu-item">
+      <nav>
+         <ul class="menu-aside">
+            <li class="menu-item ">
+               <a class="menu-link" href="/admin"> <i class="icon material-icons md-home"></i>
+                  <span class="text">Dashboard</span>
+               </a>
+            </li>
+            <li class="menu-item active">
+               <a class="menu-link" href="/admin/usermanagement"> <i class="icon material-icons md-person"></i>
+                  <span class="text">User Management</span>
+               </a>
+            </li>
+            <li class="menu-item has-submenu ">
+               <a class="menu-link" href=""> <i class="icon material-icons md-shopping_bag"></i>
+                  <span class="text">Products</span>
+               </a>
+               <div class="submenu ">
+                  <a href="/admin/product-management">Product List</a>
+                  <!-- <a href="page-products-grid.html">Product grid</a>
+                   <a href="page-products-grid-2.html">Product grid 2</a> -->
+                  <a href="/admin/category-management">Categories</a>
+               </div>
+            </li>
+
+            <li class="menu-item ">
                <a class="menu-link" href="/admin/order-management"> <i class="icon material-icons md-shopping_cart"></i>
                   <span class="text">Order Management</span>
                </a>
-               </li>
-               <li class="menu-item">
-                  <a class="menu-link" href="/admin/coupon-management"> <i class="icon material-icons md-redeem"></i>
-                      <span class="text">Coupon Management</span>
-                  </a>
-              </li>
-         <!-- <li class="menu-item">
-                <a class="menu-link" disabled href="#"> <i class="icon material-icons md-pie_chart"></i>
-                    <span class="text">Statistics</span>
-                </a>
-            </li> -->
-      </ul>
-      <hr>
-      <!-- <ul class="menu-aside">
-            <li class="menu-item has-submenu">
-                <a class="menu-link" href="#"> <i class="icon material-icons md-settings"></i>
-                    <span class="text">Settings</span>
-                </a>
-                <div class="submenu">
-                    <a href="page-settings-1.html">Setting sample 1</a>
-                    <a href="page-settings-2.html">Setting sample 2</a>
-                </div>
             </li>
+
             <li class="menu-item">
-                <a class="menu-link" href="page-blank.html"> <i class="icon material-icons md-local_offer"></i>
-                    <span class="text"> Starter page </span>
-                </a>
-            </li>
-        </ul> -->
-      <br>
-      <br>
-   </nav>
-</aside>
-
-<main class="main-wrap">
-   <header class="main-header navbar">
-      <div class="col-search">
-         <form class="searchform">
-            <div class="input-group">
-               <input list="search_terms" type="text" class="form-control" placeholder="Search term">
-               <button class="btn btn-light bg" type="button"> <i class="material-icons md-search"></i></button>
-            </div>
-            <datalist id="search_terms">
-               <option value="Products">
-               <option value="New orders">
-               <option value="Apple iphone">
-               <option value="Ahmed Hassan">
-            </datalist>
-         </form>
-      </div>
-      <div class="col-nav">
-         <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i
-               class="material-icons md-apps"></i> </button>
-         <ul class="nav">
-            <li class="nav-item">
-               <a class="nav-link btn-icon" href="#">
-                  <i class="material-icons md-notifications animation-shake"></i>
-                  <span class="badge rounded-pill">3</span>
+               <a class="menu-link" href="/admin/coupon-management"> <i class="icon material-icons md-redeem"></i>
+                   <span class="text">Coupon Management</span>
                </a>
-            </li>
-            <li class="nav-item">
-               <a class="nav-link btn-icon darkmode" href="#"> <i class="material-icons md-nights_stay"></i> </a>
-            </li>
-            <li class="nav-item">
-               <a href="#" class="requestfullscreen nav-link btn-icon"><i class="material-icons md-cast"></i></a>
-            </li>
-            <!-- <li class="dropdown nav-item">
-               <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownLanguage"
-                  aria-expanded="false"><i class="material-icons md-public"></i></a>
-               <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownLanguage">
-                  <a class="dropdown-item text-brand" href="#"><img src="/assets/imgs/theme/flag-us.png"
-                        alt="English">English</a>
-                  <a class="dropdown-item" href="#"><img src="/assets/imgs/theme/flag-fr.png"
-                        alt="Français">Français</a>
-                  <a class="dropdown-item" href="#"><img src="/assets/imgs/theme/flag-jp.png" alt="Français">日本語</a>
-                  <a class="dropdown-item" href="#"><img src="/assets/imgs/theme/flag-cn.png" alt="Français">中国人</a>
-               </div>
-            </li> -->
-            <li class="dropdown nav-item">
-               <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false">
-                  <img class="img-xs rounded-circle" src="/admin-assetsimgs/people/avatar2.jpg" alt="User"></a>
-               <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
-                  <a class="dropdown-item" href="#"><i class="material-icons md-perm_identity"></i>Edit
-                     Profile</a>
-                  <a class="dropdown-item" href="#"><i class="material-icons md-settings"></i>Account Settings</a>
-                  <a class="dropdown-item" href="#"><i class="material-icons md-account_balance_wallet"></i>Wallet</a>
-                  <a class="dropdown-item" href="#"><i class="material-icons md-receipt"></i>Billing</a>
-                  <a class="dropdown-item" href="#"><i class="material-icons md-help_outline"></i>Help center</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item text-danger" href="#"><i class="material-icons md-exit_to_app"></i>Logout</a>
-               </div>
-            </li>
+           </li>
+
+
+            
          </ul>
-      </div>
-   </header>
-   <section class="content-main">
-      <div class="content-header">
-         <div>
-            <h2 class="content-title card-title">Category Management</h2>
-            <!-- <p>Lorem ipsum dolor sit amet.</p> -->
-         </div>
-         <div>
-            <!-- <a href="#" class="btn btn-light rounded font-md">Export</a>
-                <a href="#" class="btn btn-light rounded  font-md">Import</a> -->
-            <a href="#" class="btn btn-primary btn-sm rounded" data-bs-toggle="modal"
-               data-bs-target="#addProductModal">Add new category</a>
+         <hr>
+         
+         <br>
+         <br>
+      </nav>
+   </aside>
 
-
-            <!-- Add Product Modal -->
-            <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel"
-               aria-hidden="true">
-               <div class="modal-dialog">
-                  <div class="modal-content">
-                     <div class="modal-header">
-                        <h5 class="modal-title" id="addProductModalLabel">Add New Category</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                     </div>
-                     <div class="modal-body">
-                        <!-- Product details form -->
-                        <form action="/admin/category-management/newCategory" method="post"
-                           enctype="multipart/form-data">
-                           <div class="mb-3">
-                              <label for="name" class="form-label">Category Name</label>
-                              <input type="text" id="name" name="name" class="form-control" required>
-                           </div>
-                           <div class="mb-3">
-                              <label for="description" class="form-label">Category Description</label>
-                              <input type="text" class="form-control" id="description" name="description" required>
-                           </div>
-                           <div class="mb-3">
-                              <label for="image" class="form-label">Category Image</label>
-                              <input type="file" class="form-control" id="image" name="image" accept="image/*" required>
-                           </div>
-                           <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                              <button type="submit" class="btn btn-primary">Add Category</button>
-                           </div>
-                        </form>
-                     </div>
-
-                  </div>
+   <main class="main-wrap">
+      <header class="main-header navbar">
+         <div class="col-search">
+            <form class="searchform">
+               <div class="input-group">
+                  <input list="search_terms" type="text" class="form-control" placeholder="Search term">
+                  <button class="btn btn-light bg" type="button"> <i class="material-icons md-search"></i></button>
                </div>
-            </div>
-
-
-
-
-
-
+               <datalist id="search_terms">
+                  <option value="Products">
+                  <option value="New orders">
+                  <option value="Apple iphone">
+                  <option value="Ahmed Hassan">
+               </datalist>
+            </form>
          </div>
-      </div>
-      <!-- <div class="card mb-4"> -->
-      <!-- <header class="card-header">
-                <div class="row align-items-center"> -->
-      <!-- <div class="col col-check flex-grow-0">
-                        <div class="form-check ms-2">
-                            <input class="form-check-input" type="checkbox" value="">
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-12 me-auto mb-md-0 mb-3">
-                        <select class="form-select">
-                            <option selected>All category</option>
-                            <option>Electronics</option>
-                            <option>Clothes</option>
-                            <option>Automobile</option>
-                        </select>
-                    </div> -->
-      <!-- <div class="col-md-2 col-6">
-                        <input type="date" value="02.05.2022" class="form-control">
-                    </div> -->
-      <!-- <div class="col-md-2 col-6">
-                        <select class="form-select">
-                            <option selected>Status</option>
-                            <option>Active</option>
-                            <option>Disabled</option>
-                            <option>Show all</option>
-                        </select>
-                    </div> -->
-      <!-- </div> -->
-      <!-- </header> card-header end// -->
-
-
-      <div class="card-body">
-         <div class="table-responsive border rounded">
-         <table class="table text-center">
-            <thead class="border rounded">
-               <tr class="text-center">
-                  <th scope="col">Sl No</th>
-                  <th scope="col">Image</th>
-                  <th scope="col">Category Name</th>
-                  <th colspan="1">Description</th>
-                  <th scope="col">Action</th>
-               </tr>
-            </thead>
-            <tbody class="border rounded">
-               <% categories?.forEach((category, index) => { %>
-                  <tr>
-                     <td class="align-middle"><%= index + 1 %></td>
-                     <td class="align-middle">
-                         <% if (category.image) { %>
-                         <img src="/<%= category.image %>" class="img-thumbnail" alt="<%= category.name %>"
-                             style="width: 65px; height: 80px">
-                         <% } %>
-                     </td>
-                     <td class="align-middle"><%= category.name %></td>
-                     <td class="align-middle" style="max-width: 300px; min-width: 150px;"><%= category.description %></td>
-                     <td class="align-middle">
-                         <button type="button" class="btn btn-sm font-sm rounded btn-brand" data-bs-toggle="modal"
-                             data-bs-target="#editModal<%= category._id %>" data-category-id="<%= category._id %>">
-                             <i class="material-icons md-edit"></i> Edit
-                         </button>
-                         <button type="button"
-                             class="btn btn-sm font-sm rounded <%= category.isFeatured ? 'btn-danger' : 'btn-success' %>"
-                             onclick="publishCategory('<%= category._id %>')">
-                             <%= category.isFeatured ? 'Unpublish' : 'Publish' %>
-                         </button>
-                     </td>
-                 </tr>
-                 
-                 
+         <div class="col-nav">
+            <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i
+                  class="material-icons md-apps"></i> </button>
+            <ul class="nav">
+               <li class="nav-item">
+                  <a class="nav-link btn-icon" href="#">
+                     <!-- <i class="material-icons md-notifications animation-shake"></i>
+                     <span class="badge rounded-pill">3</span> -->
+                  </a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link btn-icon darkmode" href="#"> <i class="material-icons md-nights_stay"></i> </a>
+               </li>
+               <li class="nav-item">
+                  <a href="#" class="requestfullscreen nav-link btn-icon"><i class="material-icons md-cast"></i></a>
+               </li>
+               
+               <!-- <li class="dropdown nav-item">
+                  <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount"
+                     aria-expanded="false">
+                     <img class="img-xs rounded-circle" src="/admin-assets/imgs/people/avatar2.jpg" alt="User"></a>
+                  <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
+                     <a class="dropdown-item" href="#"><i class="material-icons md-perm_identity"></i>Edit
+                        Profile</a>
+                     <a class="dropdown-item" href="#"><i class="material-icons md-settings"></i>Account Settings</a>
+                     <a class="dropdown-item" href="#"><i
+                           class="material-icons md-account_balance_wallet"></i>Wallet</a>
+                     <a class="dropdown-item" href="#"><i class="material-icons md-receipt"></i>Billing</a>
+                     <a class="dropdown-item" href="#"><i class="material-icons md-help_outline"></i>Help center</a>
+                     <div class="dropdown-divider"></div>
+                     <a class="dropdown-item text-danger" href="/admin/login"><i
+                           class="material-icons md-exit_to_app"></i>Logout</a>
+                  </div>
+               </li> -->
+            </ul>
+         </div>
+      </header>
+      <section class="content-main">
+         <div class="content-header">
+            <div>
+               <h2 class="content-title card-title">Category Management</h2>
+               <!-- <p>Lorem ipsum dolor sit amet.</p> -->
+            </div>
+            <div>
+               
+               <a href="#" class="btn btn-primary btn-sm rounded" data-bs-toggle="modal"
+                  data-bs-target="#addProductModal">Add new category</a>
 
 
 
-               <!-- Edit Modal -->
-               <div class="modal fade" id="editModal<%= category._id %>" tabindex="-1" aria-labelledby="editModalLabel"
+
+
+               <!-- Add Product Modal -->
+               <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel"
                   aria-hidden="true">
                   <div class="modal-dialog">
                      <div class="modal-content">
                         <div class="modal-header">
-                           <h5 class="modal-title" id="editModalLabel">Edit Category</h5>
+                           <h5 class="modal-title" id="addProductModalLabel">Add New Category</h5>
                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                           <!-- Your edit form goes here -->
-                           <form action="category-management/edit-category/<%= category._id %>"
-                              enctype="multipart/form-data" method="post">
-                              <!-- Image Upload Section -->
+                           <!-- Error message -->
+                           <% if (locals.error) { %>
+                              <div class="alert alert-danger" role="alert">
+                                 <%= locals.error %>
+                              </div>
+                              <% } %>
 
-                              <div class="mb-3">
-                                 <label for="editName" class="form-label">Category Name</label>
-                                 <input type="text" class="form-control" id="editName" name="editName"
-                                    value="<%= category.name %>">
-                              </div>
-                              <div class="mb-3">
-                                 <label for="editDescription" class="form-label">Description</label>
-                                 <textarea class="form-control" id="editDescription" rows="2" name="editDescription"> <%= category.description %>
-                     
-                  </textarea>
-                              </div>
-                              <div class="mb-3">
-                                 <label for="editImage" class="form-label">Category Image</label>
-                                 <div class="mb-3 ">
-                                    <img class="m-1" src="/<%= category.image %>" alt="<%= category.name %>"
-                                       style="width: 65px; height: 80px">
-                                 </div>
-                                 <input type="file" class="form-control" name="editImage" id="editImage"
-                                    accept="image/*">
+                                 <!-- Product details form -->
+                                 <div id="errorMessage" style="color: red;"></div>
+                                 <div id="errorContainer" style="color: red;"></div>
 
-                              </div>
 
-                              <div class="modal-footer">
-                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                 <button type="submit" class="btn btn-primary">Save Changes</button>
-                              </div>
-                           </form>
+                                 <form id="categoryForm" action="/admin/category-management/newCategory" method="post"
+                                    enctype="multipart/form-data">
+                                    <div class="mb-3">
+                                       <label for="name" class="form-label">Category Name</label>
+                                       <input type="text" id="name" name="name" class="form-control" required>
+                                    </div>
+                                    <div class="mb-3">
+                                       <label for="description" class="form-label">Category Description</label>
+                                       <input type="text" class="form-control" id="description" name="description"
+                                          required>
+                                    </div>
+                                    <div class="mb-3">
+                                       <label for="image" class="form-label">Category Image</label>
+                                       <input type="file" class="form-control" id="image" name="image" accept="image/*"
+                                          required>
+                                    </div>
+                                    <div class="modal-footer">
+                                       
+                                       <button type="button" onclick="submitForm()">Add Category</button>
+                                 </form>
                         </div>
                      </div>
                   </div>
                </div>
 
 
+            </div>
+
+         </div>
+         </div>
+         
 
 
-               <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-               <script>
-                  async function publishCategory(categoryId) {
-                     let result = await Swal.fire({
-                        title: 'Do you want to save the changes?',
-                        showDenyButton: true,
-                        showCancelButton: true,
-                        confirmButtonText: 'Save',
-                        denyButtonText: `Don't save`,
-                     })
-                     if (result.isConfirmed) {
-                        let response = await fetch('/admin/category-management/isFeatured', {
-                           method: 'POST',
-                           headers: {
-                              "Content-Type": "application/json",
-                           },
-                           body: JSON.stringify({
-                              categoryId
-                           })
-                        })
-                        if (response.status === 200) {
-                           await Swal.fire('Saved!', 'Category Unpublished', 'success')
-                        } else if (response.status === 201) {
-                           await Swal.fire('Saved!', 'Category Published', 'success')
-                        }
+         <div class="card-body">
+            <div class="table-responsive border rounded">
+               <table class="table text-center">
+                  <thead class="border rounded">
+                     <tr class="text-center">
+                        <th scope="col">Sl No</th>
+                        <th scope="col">Image</th>
+                        <th scope="col">Category Name</th>
+                        <th colspan="1">Description</th>
+                        <th scope="col">Action</th>
+                     </tr>
+                  </thead>
+                  <tbody class="border rounded">
+                     <% categories?.forEach((category, index)=> { %>
+                        <tr>
+                           <td class="align-middle">
+                              <%= index + 1 %>
+                           </td>
+                           <td class="align-middle">
+                              <% if (category.image) { %>
+                                 <img src="/<%= category.image %>" class="img-thumbnail" alt="<%= category.name %>"
+                                    style="width: 80px; height: 80px">
+                                 <% } %>
+                           </td>
+                           <td class="align-middle">
+                              <%= category.name %>
+                           </td>
+                           <td class="align-middle" style="max-width: 300px; min-width: 150px;">
+                              <%= category.description %>
+                           </td>
+                           <td class="align-middle">
+                              <button type="button" class="btn btn-sm font-sm rounded btn-brand" data-bs-toggle="modal"
+                                 data-bs-target="#editModal<%= category._id %>" data-category-id="<%= category._id %>">
+                                 <i class="material-icons md-edit"></i> Edit
+                              </button>
+                              <button type="button"
+                                 class="btn btn-sm font-sm rounded <%= category.isFeatured ? 'btn-danger' : 'btn-success' %>"
+                                 onclick="publishCategory('<%= category._id %>')">
+                                 <%= category.isFeatured ? 'Unpublish' : 'Publish' %>
+                              </button>
+                           </td>
+                        </tr>
 
-                        window.location.reload();
-                     } else if (result.isDenied) {
-                        Swal.fire('Changes are not saved', '', 'info')
-                     }
+
+
+
+
+                        <!-- Edit Modal -->
+                        <div class="modal fade" id="editModal<%= category._id %>" tabindex="-1"
+                           aria-labelledby="editModalLabel" aria-hidden="true">
+                           <div class="modal-dialog">
+                              <div class="modal-content">
+                                 <div class="modal-header">
+                                    <h5 class="modal-title" id="editModalLabel">Edit Category</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                       aria-label="Close"></button>
+                                 </div>
+                                 <div class="modal-body">
+                                    <!-- Your edit form goes here -->
+                                    <form action="category-management/edit-category/<%= category._id %>"
+                                       enctype="multipart/form-data" method="post">
+                                       <!-- Image Upload Section -->
+
+                                       <div class="mb-3">
+                                          <label for="editName" class="form-label">Category Name</label>
+                                          <input type="text" class="form-control" id="editName" name="editName"
+                                             value="<%= category.name %>">
+                                       </div>
+                                       <div class="mb-3">
+                                          <label for="editDescription" class="form-label">Description</label>
+                                          <textarea class="form-control" id="editDescription" rows="2"
+                                             name="editDescription"> <%= category.description %>
+                     
+                  </textarea>
+                                       </div>
+                                       <div class="mb-3">
+                                          <label for="editImage" class="form-label">Category Image</label>
+                                          <div class="mb-3 ">
+                                             <img class="m-1" src="/<%= category.image %>" alt="<%= category.name %>"
+                                                style="width: 65px; height: 80px">
+                                          </div>
+                                          <input type="file" class="form-control" name="editImage" id="editImage"
+                                             accept="image/*">
+
+                                       </div>
+
+                                       <div class="modal-footer">
+                                          <button type="button" class="btn btn-secondary"
+                                             data-bs-dismiss="modal">Close</button>
+                                          <button type="submit" class="btn btn-primary">Save Changes</button>
+                                       </div>
+                                    </form>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+
+
+
+
+                        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                        <script>
+                           async function publishCategory(categoryId) {
+                              let result = await Swal.fire({
+                                 title: 'Do you want to save the changes?',
+                                 showDenyButton: true,
+                                 showCancelButton: true,
+                                 confirmButtonText: 'Save',
+                                 denyButtonText: `Don't save`,
+                              })
+                              if (result.isConfirmed) {
+                                 let response = await fetch('/admin/category-management/isFeatured', {
+                                    method: 'POST',
+                                    headers: {
+                                       "Content-Type": "application/json",
+                                    },
+                                    body: JSON.stringify({
+                                       categoryId
+                                    })
+                                 })
+                                 if (response.status === 200) {
+                                    await Swal.fire('Saved!', 'Category Unpublished', 'success')
+                                 } else if (response.status === 201) {
+                                    await Swal.fire('Saved!', 'Category Published', 'success')
+                                 }
+
+                                 window.location.reload();
+                              } else if (result.isDenied) {
+                                 Swal.fire('Changes are not saved', '', 'info')
+                              }
+                           }
+                        </script>
+                        </td>
+
+                        <!-- End Edit Modal -->
+                        <% }) %>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+
+
+
+
+
+
+
+
+
+         <!-- card end// -->
+
+
+         <!--pagination -->
+
+         <div class="pagination-area mt-15 mb-sm-5 mb-lg-0">
+            <nav aria-label="Page navigation example">
+               <ul class="pagination justify-content-start">
+                  <% if (currentPage> 1) { %>
+                     <li class="page-item">
+                        <a class="page-link" href="?page=<%= currentPage - 1 %>"><i
+                              class="material-icons md-chevron_left"></i></a>
+                     </li>
+                     <% } %>
+
+                        <% for (let i=Math.max(1, currentPage - 2); i <=Math.min(currentPage + 2, totalPages); i++) { %>
+                           <li class="page-item <%= currentPage === i ? 'active' : '' %>">
+                              <a class="page-link" href="?page=<%= i %>">
+                                 <%= i %>
+                              </a>
+                           </li>
+                           <% } %>
+
+                              <% if (currentPage < totalPages) { %>
+                                 <li class="page-item">
+                                    <a class="page-link" href="?page=<%= currentPage + 1 %>"><i
+                                          class="material-icons md-chevron_right"></i></a>
+                                 </li>
+                                 <% } %>
+               </ul>
+            </nav>
+         </div>
+
+
+      </section> <!-- content-main end// -->
+
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+      <script>
+         function submitForm() {
+            var name = $('#name').val().trim();
+            var description = $('#description').val().trim();
+
+            // Clear previous error and success messages
+            $('#errorContainer').text('');
+            $('#successContainer').text('');
+
+            if (!name || !description) {
+               // Display error message on the page
+               displayErrorMessage('Category name and description are required.');
+               return;
+            }
+
+            var formData = new FormData($('#categoryForm')[0]);
+
+            $.ajax({
+               type: 'POST',
+               url: '/admin/category-management/newCategory',
+               data: formData,
+               contentType: false,
+               processData: false,
+               dataType: 'json',
+               success: function (response) {
+                  if (response.success) {
+                     // Display success message using SweetAlert
+                     swal.fire({
+                        icon: 'success',
+                        title: 'Success!',
+                        text: 'Category added successfully.',
+                     }).then(function () {
+                        // Redirect to the category page after the SweetAlert is closed
+                        window.location.href = '/admin/category-management';
+                     });
+                  } else {
+                     // Display error message on the page
+                     displayErrorMessage('Error: ' + extractErrorMessage(response));
                   }
-               </script>
-               </td>
+               },
+               error: function (xhr, status, error) {
+                  console.error(xhr.responseText);
+                  // Display detailed error message on the page
+                  displayErrorMessage('Error: ' + extractErrorMessage(xhr.responseText));
+               }
+            });
+         }
 
-               <!-- End Edit Modal -->
-               <% }) %>
-            </tbody>
-         </table>
-      </div>
-   </div>
+         // Function to extract the error message from the JSON response
+         function extractErrorMessage(responseText) {
+            try {
+               // Try to parse the JSON response
+               const responseObject = JSON.parse(responseText);
+               // Return the specific error message if available
+               return responseObject.error || 'An unexpected error occurred.';
+            } catch (error) {
+               // Return a default error message if JSON parsing fails
+               return 'An unexpected error occurred.';
+            }
+         }
 
+         // Function to display success message on the page
+         function displaySuccessMessage(successMessage) {
+            $('#successContainer').text(successMessage);
+         }
 
+         // Function to display error message on the page
+         function displayErrorMessage(errorMessage) {
+            $('#errorContainer').text(errorMessage);
+         }
+      </script>
 
+      <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
-
-
-
-
-
-      </div> <!-- card end// -->
-      <div class="pagination-area mt-30 mb-50">
-         <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-start">
-               <li class="page-item active"><a class="page-link" href="#">01</a></li>
-               <li class="page-item"><a class="page-link" href="#">02</a></li>
-               <li class="page-item"><a class="page-link" href="#">03</a></li>
-               <li class="page-item"><a class="page-link dot" href="#">...</a></li>
-               <li class="page-item"><a class="page-link" href="#">16</a></li>
-               <li class="page-item"><a class="page-link" href="#"><i class="material-icons md-chevron_right"></i></a>
-               </li>
-            </ul>
-         </nav>
-      </div>
-   </section> <!-- content-main end// -->
-
-   <%- include('admin-partials/footer.ejs') %>
+      <%- include('admin-partials/footer.ejs') %>

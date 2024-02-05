@@ -213,13 +213,13 @@
                     </div> 
                     <div class="header-action-right">
                         <div class="header-action-2">
-                            <div class="header-action-icon-2">
+                            <!-- <div class="header-action-icon-2">
                                 <a href="/wishlist">
                                      <img class="svgInject" alt="Evara"
                                         src="/assets/imgs/theme/icons/icon-heart.svg"> 
                                     <!-- <span class="pro-count blue">4</span> -->
-                                </a>
-                            </div>
+                                <!-- </a>
+                            </div> -->
                             <div class="header-action-icon-2">
                                 <a class="mini-cart-icon" href="/cart">
                                     <img alt="Evara" src="/assets/imgs/theme/icons/icon-cart.svg">
@@ -985,10 +985,10 @@
                                                     <%= product.countInStock <= 0 ? 'data-toggle="tooltip" data-placement="bottom" title="Out of Stock"' : '' %>>
                                                     <%= product.countInStock <= 0 ? 'Out of Stock' : 'Add to cart' %>
                                                 </button>
-                                                <a aria-label="Add To Wishlist" class="action-btn hover-up" href="#"><i
+                                                <!-- <a aria-label="Add To Wishlist" class="action-btn hover-up" href="#"><i
                                                         class="fi-rs-heart"></i></a>
                                                 <a aria-label="Compare" class="action-btn hover-up" href="#"><i
-                                                        class="fi-rs-shuffle"></i></a>
+                                                        class="fi-rs-shuffle"></i></a> -->
                                             </div>
                                         </div>
                                         <ul class="product-meta font-xs color-grey mt-50">
@@ -1247,7 +1247,7 @@ $(document).ready(function () {
     event.preventDefault();
 
     // Get the product ID or any relevant data
-    const productId = /* your product ID retrieval logic here */;
+    const productId = /* your product ID retrieval logic here */
 
     // Make an AJAX request to add the product to the wishlist
     $.ajax({
