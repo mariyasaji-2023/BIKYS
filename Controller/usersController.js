@@ -63,7 +63,7 @@ const home = async (req, res) => {
     if (req.session.user) {
       const userData = await UserModel.findOne({ email: req.session.user.email });
 
-      if (!userData.isBlocked) {
+      if (userData && !userData.isBlocked) { // Add null check for userData
         const wishlist = await wishlistModel.findOne({
           user: userData._id,
         });
@@ -129,21 +129,21 @@ const signuppost = async (req, res) => {
     const foundUser = await UserModel.findOne({ email: email });
 
     if (foundUser) {
-      return res.render('userSignup', { errorMessage: 'User already exists. Please log in.' });
+      return res.render('userSignup', { errorMessage: 'User already exists. Please log in.', username, email, phone });
     }
 
     if (password.length < 8) {
-      return res.render('userSignup', { errorMessage: 'Password must be at least 8 characters long' });
+      return res.render('userSignup', { errorMessage: 'Password must be at least 8 characters long', username, email, phone });
     } else {
       // Check for uppercase letters, lowercase letters, numbers, and special characters
       if (!/[A-Z]/.test(password) || !/[a-z]/.test(password) || !/\d/.test(password) || !/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
-        return res.render('userSignup', { errorMessage: 'Password must meet the specified criteria' });
+        return res.render('userSignup', { errorMessage: 'Password must contain at least one uppercase, one lowercase, one digit, and one special character.', username, email, phone });
       }
     }
 
     // Compare Password and Confirm Password
     if (password !== confirmpassword) {
-      return res.render('userSignup', { errorMessage: 'Passwords do not match.' });
+      return res.render('userSignup', { errorMessage: 'Passwords do not match.', username, email, phone });
     }
 
     // Generate and send OTP
@@ -495,76 +495,62 @@ const postVerifyOtp = async (req, res, next) => {
     }
 
     res.render('otp', {
-      errorMessage: req.session.otpFalse ? 'Incorrect OTP' : 'OTP expired',
+      err: req.session.otpFalse ? 'Incorrect OTP' : 'OTP expired',
     });
   } catch (error) {
     console.error(error);
-    res.render('otp', { errorMessage: 'An error occurred' });
+    res.render('otp', { err: 'An error occurred' });
   }
 };
 
 
 
 // Function to render the OTP verification page
+
 const loadOTP = async (req, res) => {
   try {
     if (req.session.otpExpired) {
-      // Clear the flags when displaying the OTP page
       req.session.otpExpired = false;
-      req.session.otpFalse = false;
-      res.render('otp', { err: 'Otp expired' });
+      res.render("otp", {
+        err: 'OTP expired!',
+      });
     } else if (req.session.otpFalse) {
-      // Clear the flags when displaying the OTP page
       req.session.otpFalse = false;
-      req.session.otpExpired = false;
-      res.render('otp', { err: 'Incorrect Otp' });
+      res.render("otp", {
+        err: 'Incorrect OTP',
+      });
     } else {
-      res.render('otp', { err: '' });
+      res.render("otp", {
+        err: "",
+      });
     }
   } catch (error) {
     console.log(error.message);
+    res.status(500).send('Internal Server Error');
   }
 };
-
-
-
 
 const resendOtp = async (req, res, next) => {
   try {
-    const timeout = 60000; // 5 minutes in milliseconds
-
     if (req.session.user) {
-      const currentTime = new Date().getTime();
+      console.log("Resending OTP to:", req.session.user.email);
+      req.session.otp = await sentOtp(req.session.user.email);
 
-      // Check if enough time has passed since the last OTP request
-      if (!req.session.lastOtpSentTime || (currentTime - req.session.lastOtpSentTime) >= timeout) {
-        console.log("Resending OTP to:", req.session.user.email);
-        req.session.otp = await sentOtp(req.session.user.email);
-        console.log("New OTP:", req.session.otp);
+      // Update expiration time for the new OTP (e.g., set it to 60 seconds from now)
+      const newExpirationTime = new Date(Date.now() + 60 * 1000);
+      req.session.expirationtime = newExpirationTime;
 
-        // Update the last OTP sent time only if sending the new OTP is successful
-        req.session.lastOtpSentTime = currentTime;
-
-        res.status(200).json({ status: true });
-      } else {
-        const timeRemaining = timeout - (currentTime - req.session.lastOtpSentTime);
-        console.log("Please wait before requesting another OTP. Time remaining:", timeRemaining);
-
-        // Delay the response to simulate waiting
-        setTimeout(() => {
-          res.status(429).json({ status: false, message: `Please wait ${timeRemaining / 1000} seconds before requesting another OTP.` });
-        }, timeRemaining);
-      }
+      console.log("New OTP:", req.session.otp);
+      res.status(200).json({ status: true });
     } else {
       console.log("User session not found");
-      res.status(201).json({ status: false, message: "User session not found." });
+      res.status(201).json({ status: true });
     }
   } catch (e) {
     console.error("Error in resendOtp:", e);
-    res.status(500).json({ status: false, message: "Internal server error." });
+    res.status(404).json({ status: true});
   }
 };
-
 
 
 
@@ -744,7 +730,7 @@ const productDetails = async (req, res) => {
     console.error(error);
     res.status(500).json({
       error: "Internal Server Error",
-      errorMessage: error.message,
+      err: error.message,
     });
   }
 };
@@ -1064,13 +1050,12 @@ const userdeleteAddress = async (req, res) => {
 
 
 // cancel order 
-
 const cancelOrder = async (req, res) => {
   try {
     const orderId = req.params.orderId;
 
     // Check if the order exists
-    const order = await orderModel.findById(orderId);
+    const order = await orderModel.findById(orderId).populate('items');
 
     if (!order) {
       return res.status(404).json({
@@ -1079,10 +1064,10 @@ const cancelOrder = async (req, res) => {
       });
     }
 
-    // Retrieve the products associated with the canceled order
-    const canceledProducts = order.items;
+    // Retrieve the payment method and products associated with the canceled order
+    const paymentMethod = order.paymentMethod;
+    const canceledProducts = order.items || [];
 
-    console.log(canceledProducts)
     // Increase stock counts for each canceled product
     for (const product of canceledProducts) {
       const productId = product.productId;
@@ -1109,6 +1094,35 @@ const cancelOrder = async (req, res) => {
     order.status = "Canceled";
     await order.save();
 
+    // Add amount to the user's wallet if payment method is 'Razorpay' or 'wallet'
+    if (paymentMethod === 'Razorpay' || paymentMethod === 'wallet') {
+      let totalCancelledPrice = 0;
+      for (const product of canceledProducts) {
+        const productPrice = product.price * product.quantity;
+        totalCancelledPrice += productPrice;
+      }
+      const userId = order.user.toString(); // Convert ObjectId to string
+      console.log(userId, "------------------------------");
+
+      // Update the wallet balance directly
+      const wallet = await Wallet.findOne({ user: userId });
+      if (!wallet) {
+        return res.status(404).json({
+          success: false,
+          error: "Wallet not found for the user"
+        });
+      }
+      wallet.balance += totalCancelledPrice;
+
+      // Add transaction record to the wallet's transaction history
+      wallet.transactions.push({
+        amount: totalCancelledPrice,
+        type: 'credit' // Indicates a credited transaction
+      });
+
+      await wallet.save();
+    }
+
     return res.json({
       success: true,
       message: "Order canceled successfully"
@@ -1118,10 +1132,9 @@ const cancelOrder = async (req, res) => {
     return res.status(500).json({
       success: false,
       error: "Internal server error",
-    });
-  }
+    });
+  }
 };
-
 
 //order detailed view
 

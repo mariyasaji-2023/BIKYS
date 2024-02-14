@@ -1,142 +1,217 @@
-<%- include('partials/header.ejs') %>
-
-<!-- <!DOCTYPE HTML>
+<!DOCTYPE HTML>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
-    <title>Home World</title>
+    <title>BIKYS</title>
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta property="og:title" content="">
     <meta property="og:type" content="">
     <meta property="og:url" content="">
-    <meta property="og:image" content=""> -->
-    
-    <section class="content-main mt-20 mb-20">
-        <div class="card mx-auto card-login">
-            <div class="card-body">
-                <h4 class="card-title mb-4">Email verification with OTP</h4>
-    
-                <form action="/postotp" method="post">
-                    <p class="text-success" id="errorShow">
-                        <%= err %>
-                    </p>
-                    <div class="mb-3" id="otpField">
-                        <span class="mobile-text mb-2">Enter the code that we just send on your email <b class="text-danger"></b></span>
-                        <input class="form-control mt-20" type="text" id='otp' name="otp" placeholder="Enter OTP">
-                    </div>
-                    <div id="otp-timer">
-                        <div id="timer">
-                            03:00
-                        </div>
-                    </div>
-                    <div class="mb-4" id="loginBtn">
-                        <button type="submit" class="btn btn-primary w-100" onclick="showAlert()">Verify OTP</button>
-                    </div>
-                    
-    
-                    <div class="text-center mt-5">
-                        <span class="d-block mobile-text">Don't receive the code?</span>
-                        <!-- Add an ID to the button to show/hide it -->
-                        <button class="button btn-primary text-light cursor" type="button" id="resendOtp" onclick="resendOtp()" style="display: none;">Resend</button>
-                    </div>
-                    
-                </form>
+    <meta property="og:image" content="">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/imgs/shop/BIKYS.png">
+    <!-- Template CSS -->
+    <link href="/assets/css/main.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <main>
+        <header class="main-header style-2 navbar">
+            <div class="col-brand">
+                <a href="/" class="brand-wrap">
+                    <!-- <img src="/assets/imgs/shop/BIKYS.png" style="width: 32%; margin-left: 10px;" class="logo"
+                        alt="Evara Dashboard"> -->
+                        <!-- <img src="/assets/imgs/shop/BIKYS.png" style="width: 20%; margin-left: 10px;" class="logo" alt="Evara Dashboard"> -->
+                        <a href="/" class="brand-wrap" style="display: flex; justify-content: flex-start;">
+                            <!-- Your logo img tag here -->
+                            <img src="/assets/imgs/shop/BIKYS.png" style="width: 15%; margin-right: auto;" class="logo" alt="Evara Dashboard">
+                        </a>
+                        
+
+                </a>
             </div>
-        </div>
-    </section>
-        
+            <div class="col-nav">
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link btn-icon" href="#">
+                            <i class="material-icons md-notifications animation-shake"></i>
+                            <span class="badge rounded-pill">3</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn-icon darkmode" href="#"> <i class="material-icons md-nights_stay"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="requestfullscreen nav-link btn-icon"><i
+                                class="material-icons md-cast"></i></a>
+                    </li>
+                    <li class="dropdown nav-item">
+                        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownLanguage"
+                            aria-expanded="false"><i class="material-icons md-public"></i></a>
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownLanguage">
+                            <a class="dropdown-item text-brand" href="#"><img src="/assets/imgs/theme/flag-us.png"
+                                    alt="English">English</a>
+                            <a class="dropdown-item" href="#"><img src="/assets/imgs/theme/flag-fr.png"
+                                    alt="Français">Français</a>
+                            <a class="dropdown-item" href="#"><img src="/assets/imgs/theme/flag-jp.png"
+                                    alt="Français">日本語</a>
+                            <a class="dropdown-item" href="#"><img src="/assets/imgs/theme/flag-cn.png"
+                                    alt="Français">中国人</a>
+                        </div>
+                    </li>
+                    
+                </ul>
+            </div>
+        </header>
+        <section class="content-main mt-20 mb-20">
+            <div class="card mx-auto card-login">
+                <div class="card-body">
+                    <h4 class="card-title mb-4">Email verification with OTP</h4>
+
+                    <form action="/postOtp" method="post">
+                        
+                        <p class="text-danger">
+                            <%= err %>
+                        </p>
+                        <div class="mb-3" id="otpField">
+                            <div class="mobile-text mb-2 text-center">Enter the code that we just send on your email <b
+                                    class="text-danger"></b></div>
+                            <input class="form-control" required="" type="text" id='otp' name="otp"
+                                placeholder="Enter OTP">
+                        </div>
+
+
+
+                        <div class="mb-4" id="loginBtn">
+                            <button type="submit" class="btn btn-primary w-100">Verify OTP</button>
+                            <center>
+                                <button id="start-countdown-button" class="btn btn-primary w-100"
+                                    style="display: none;">Start Countdown</button>
+                                <button id="reset-countdown-button" class="btn btn-secondary w-100"
+                                    style="display: none;">Reset Countdown</button>
+
+
+                                <!-- Add this element where you want the countdown to be displayed -->
+                                <div id="timer" class="text-danger mt-3 md-3">
+                                    <span id="minute">0</span>:<span id="seconds">59</span>
+                                </div>
+
+
+                                <button class="btn btn-primary w-35 mt-2" onclick="resendotp()" id="resend-otp-button"
+                                    style="display: none;">
+                                    <h6 class="text-light">Resend OTP</h6>
+                                </button>
+                            </center>
+                        </div>
+
+
+
+
+
+                    </form>
+                </div>
+
+
+            </div>
+        </section>
+
+
+        <!-- Modify your script section -->
+        <script>
+            // Function to handle OTP resend
+            function resendOtp() {
+                // Perform an AJAX request to resend the OTP
+                fetch('/resend-otp', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({}),
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Handle the response
+                        if (data.status === true) {
+                            console.log('OTP resent successfully');
+                            // You can add additional logic here, such as updating UI elements
+                        } else {
+                            console.error('Error resending OTP');
+                            // Handle the error, display an alert, or update UI accordingly
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error in fetch:', error);
+                    });
+            }
+
+            // OTP timer
+            var timer;
+            var minutesDisplay = document.getElementById('minute');
+            var secondsDisplay = document.getElementById('seconds');
+
+            function startTimer(minutes, seconds) {
+                clearInterval(timer);
+                timer = setInterval(function () {
+                    if (seconds === 0) {
+                        if (minutes === 0) {
+                            clearInterval(timer);
+                            // Show the resend button after the timeout
+                            document.getElementById('resend-otp-button').style.display = 'block';
+                        } else {
+                            minutes--;
+                            seconds = 59;
+                        }
+                    } else {
+                        seconds--;
+                    }
+
+                    minutesDisplay.textContent = formatTime(minutes);
+                    secondsDisplay.textContent = formatTime(seconds);
+                }, 1000);
+            }
+
+            function formatTime(time) {
+                return time < 10 ? '0' + time : time;
+            }
+
+            // Start the timer when the page loads with a 1-minute initial countdown
+            startTimer(1, 0);
+
+            // Event listener for the "Resend" button
+            document.getElementById('resend-otp-button').addEventListener('click', function () {
+                // Hide the resend button
+                this.style.display = 'none';
+                // Reset the timer with a 1-minute countdown
+                startTimer(1, 0);
+                // Trigger the resendOtp function
+                resendOtp();
+            });
+        </script>
+
+
+
+
+
+
+
+
+
+
+
         <footer class="main-footer text-center">
             <p class="font-xs">
                 <script>
                     document.write(new Date().getFullYear())
-                </script> ©BIKYZ.
+                </script> © BIKYS.
             </p>
             <p class="font-xs pb-20">All rights reserved</p>
         </footer>
     </main>
-   
-    <!-- Your existing script code -->
-    <script>
-        // Function to handle OTP resend
-        function resendOtp() {
-            // Perform an AJAX request to resend the OTP
-            fetch('/resend-otp', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({}),
-            })
-                .then(response => response.json())
-                .then(data => {
-                    // Handle the response
-                    if (data.status === true) {
-                        console.log('OTP resent successfully');
-                        // You can add additional logic here, such as updating UI elements
-                    } else {
-                        console.error('Error resending OTP');
-                        // Handle the error, display an alert, or update UI accordingly
-                    }
-                })
-                .catch(error => {
-                    console.error('Error in fetch:', error);
-                });
-        }
-    
-        // Function to show the "Resend OTP" button after 3 minutes
-        function showResendButton() {
-            document.getElementById('resendOtp').style.display = 'block';
-        }
-    
-        // otp
-        var timer;
-        var Otptimer = document.getElementById('timer');
-        var resendTimer = document.getElementById('resendOtp');
-    
-        function Otpstarttimer(minute, sec) {
-            clearInterval(timer)
-            timer = setInterval(() => {
-                Otptimer.innerHTML = formatTime(minute) + ':' + formatTime(sec);
-                if (minute == 0 && sec == 0) {
-                    clearInterval(timer);
-                    // Call the function to show the "Resend OTP" button
-                    showResendButton();
-                } else {
-                    if (sec == 0) {
-                        minute--;
-                        sec = 59;
-                    } else {
-                        sec--;
-                    }
-                }
-            }, 1000)
-        }
-    
-        function formatTime(time) {
-            return time < 10 ? '0' + time : time;
-        }
-        Otpstarttimer(1, 0);
-    
-        resendTimer.addEventListener('click', function () {
-            Otpstarttimer(1, 0);
-        });
-    </script>
 
-       
-    <script>
-        document.getElementById('resendOtp').addEventListener('click', function () {
-            resendOtp();
-        });
-    </script>
-    <!-- <script>
-        function showAlert() {
-            // Display an alert when the button is clicked
-            alert('User registered successfully');
-        }
-    </script> -->
 
     <script src="/assets/js/vendors/jquery-3.6.0.min.js"></script>
     <script src="/assets/js/vendors/bootstrap.bundle.min.js"></script>
@@ -145,4 +220,4 @@
     <script src="/assets/js/main.js" type="text/javascript"></script>
 </body>
 
-<%- include('partials/footer.ejs') %>
+</html>

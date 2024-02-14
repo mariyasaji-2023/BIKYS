@@ -267,6 +267,7 @@ async function salesReport(date) {
   }
 
   let users = await UserModel.countDocuments();
+ 
   // console.log(orders, "orders function inside");
 
   let totalRevenue = 0;
@@ -291,7 +292,10 @@ async function salesReport(date) {
 
   let averageSales = orders.length / date; // Fix the average calculation
   let averageRevenue = totalRevenue / date; // Fix the average calculation
-
+// console.log(totalRevenue,totalOrderCount,totalCountInStock,
+//   averageSales,
+//   averageRevenue,
+//   Revenue,"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
   return {
     users,
     totalOrders: orders.length,
@@ -316,7 +320,7 @@ let adminhome = async (req, res) => {
     let monthly = await salesReport(30);
     let yearly = await salesReport(365)
 
-    console.log("D:",daily,"W:",weekly,"M:",monthly,"Y:",yearly)
+    console.log("D:",daily,"W:",weekly,"M:",monthly,"Y:",yearly,"..................................................")
     let allProductsCount = await productModel.countDocuments();
 
     res.render("adminHome",{daily,weekly,monthly,yearly,orders,allProductsCount});

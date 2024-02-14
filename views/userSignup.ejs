@@ -10,17 +10,23 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel='stylesheet' href='/stylesheets/userSignup.css' />
     <link rel="stylesheet" href="/node_modules/toastr/build/toastr.min.css">
+   
 
 
   
 </head>
 <body>
+    
 <div class="container pt-5">
     <div class="form-bg">
         <div class="container">
             <div class="row">
                 <div class="col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6">
                     <div class="form-container">
+                        <a href="/" class="brand-wrap" style="display: flex; justify-content: flex-start;">
+                            <!-- Your logo img tag here -->
+                            <img src="/assets/imgs/shop/BIKYS.png" style="width: 50%; margin-right: auto;" class="logo" alt="Evara Dashboard">
+                        </a>
                         <h3 class="title">Create Account</h3>
                        
                         <form action="/signup" class="form-horizontal" method="post" name="Signup_Form" onsubmit="return validateForm()">   
@@ -28,7 +34,7 @@
                                 <h5 class="text-danger"><%= errorMessage %></h5>
                                 <% } %>
                             <div class="form-group">
-                                <label for="uname" class="form-label naming">Username</label>
+                                <label for="uname" class="form-label naming">Name</label>
                                 <input type="text" class="form-control" placeholder="Name" id="username" name="username" autofocus="" required="">
                                 <span id="usernameError" class="check-label" style="color: red;"></span>
                             </div>
