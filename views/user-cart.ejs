@@ -155,11 +155,11 @@
                                     </a> -->
                                 </div>
                                 <div class="header-action-icon-2">
-                                    <a class="mini-cart-icon" href="/getCart">
+                                    <a class="mini-cart-icon" href="/cart">
                                         <img alt="Evara" src="/assets/imgs/theme/icons/icon-cart.svg">
-                                        <span class="pro-count blue">
+                                        <!-- <span class="pro-count blue">
                                             <%= cartItemCount %>
-                                        </span>
+                                        </span> -->
                                     </a>
 
                                 </div>
@@ -531,9 +531,9 @@
                             <div class="header-action-icon-2">
                                 <a class="mini-cart-icon" href="/getCart">
                                     <img alt="Evara" src="/assets/imgs/theme/icons/icon-cart.svg">
-                                    <span class="pro-count white">
+                                    <!-- <span class="pro-count white">
                                         <%= cartItemCount %>
-                                    </span>
+                                    </span> -->
                                 </a>
                                 <div class="cart-dropdown-wrap cart-dropdown-hm2">
                                     <ul>
@@ -1066,85 +1066,84 @@
 
 
   <script>
-      async function updateQuantity(productId, userId, stock, current, need) {
-  console.log('updateQuantity called with productId:', productId, 'userId:', userId, 'stock:', stock, 'current:', current, 'need:', need);
+      
+        async function updateQuantity(productId, userId, stock, current, need) {
+    console.log('updateQuantity called with productId:', productId, 'userId:', userId, 'stock:', stock, 'current:', current, 'need:', need);
 
-  // Assume the ID is directly derived from the productId
-  const qtyElementId = `qty-${productId}`;
-  const priceElementId = `price-${productId}`;
-  console.log(productId, "\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\");
+    // Assume the ID is directly derived from the productId
+    const qtyElementId = `qty-${productId}`;
+    const priceElementId = `price-${productId}`;
+    console.log(productId, "\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\");
 
-  if (document.getElementById(qtyElementId)) {
-      try {
-          const res = await fetch('/update-cart-quantity', {
-              method: 'POST',
-              headers: {
-                  'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                  productId,
-                  userId,
-                  need,
-              }),
-          });
+    if (document.getElementById(qtyElementId)) {
+        try {
+            const res = await fetch('/update-cart-quantity', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    productId,
+                    userId,
+                    need,
+                }),
+            });
 
-          if (res.status === 200) {
-              const responseData = await res.json();
-              
-              // Only update the UI if the updated quantity is greater than or equal to 1
-              if (responseData.quantity >= 1) {
-                  const updatedQuantity = responseData.quantity;
-                  const updatedPrice = responseData.updatedPrice;
+            if (res.status === 200) {
+                const responseData = await res.json();
+                
+                // Only update the UI if the updated quantity is greater than or equal to 1
+                if (responseData.quantity >= 1) {
+                    const updatedQuantity = responseData.quantity;
+                    const updatedPrice = responseData.updatedPrice;
 
-                  console.log(updatedQuantity, updatedPrice, responseData.totalamt);
+                    console.log(updatedQuantity, updatedPrice, responseData.totalamt);
 
-                  // Update the quantity on the page without reloading
-                  const qtyElement = document.getElementById("quantity" + productId);
-                  if (qtyElement) {
-                      if (updatedQuantity > stock) {
-                          // Display error modal for stock limit exceeded
-                          await Swal.fire({
-                              title: 'Error',
-                              text: 'Stock limit exceeded.',
-                              icon: 'error',
-                              showConfirmButton: true
-                          });
-                      } else {
-                          // Update quantity and total amount
-                          qtyElement.textContent = "₹ " + updatedPrice;
-                          let Bill = document.getElementById('totalPrice');
-                          document.getElementById("cartTotal").textContent = "₹ " + responseData.totalamt
-                          Bill.textContent = "₹ " + responseData.totalamt
-                      }
-                  }
+                    // Update the quantity on the page without reloading
+                    const qtyElement = document.getElementById("quantity" + productId);
+                    if (qtyElement) {
+                        if (updatedQuantity > stock) {
+                            // Display error modal for stock limit exceeded
+                            await Swal.fire({
+                                title: 'Error',
+                                text: 'Stock limit exceeded.',
+                                icon: 'error',
+                                showConfirmButton: true
+                            });
+                        } else {
+                            // Update quantity and total amount
+                            qtyElement.textContent = "₹ " + updatedPrice;
+                            let Bill = document.getElementById('totalPrice');
+                            document.getElementById("cartTotal").textContent = "₹ " + responseData.totalamt
+                            Bill.textContent = "₹ " + responseData.totalamt
+                        }
+                    }
 
-                  // Update the price on the page without reloading
-                  const priceElement = document.getElementById(priceElementId);
-                  if (priceElement) {
-                      priceElement.textContent = updatedPrice;
-                  } else {
-                      console.error(`Price element not found with ID: `);
-                  }
-              }
-          } else {
-              // Handle non-200 status codes if needed
-              console.error('Error updating quantity:', res.statusText);
-          }
-      } catch (error) {
-          console.error('Error updating quantity:', error.message);
-      }
-  } else {
-      console.error(`Quantity element not found with ID: ${qtyElementId}`);
-  }
+                    // Update the price on the page without reloading
+                    const priceElement = document.getElementById(priceElementId);
+                    if (priceElement) {
+                        priceElement.textContent = updatedPrice;
+                    } else {
+                        console.error(`Price element not found with ID: `);
+                    }
+                }
+            } else {
+                // Handle non-200 status codes if needed
+                console.error('Error updating quantity:', res.statusText);
+            }
+        } catch (error) {
+            console.error('Error updating quantity:', error.message);
+        }
+    } else {
+        console.error(`Quantity element not found with ID: ${qtyElementId}`);
+   }
 }
 
 
 
 
 
-
-
-      // async function removeProductCart(productId, userId) {
+    //async function removeProductCart(productId, userId) {
 
       //     let res = await fetch('/remove-product', {
       //         method: "POST",

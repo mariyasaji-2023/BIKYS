@@ -138,13 +138,12 @@ const addToCart = async (req, res) => {
 
 
 
-
 const cartPut = async (req, res) => {
   try {
     console.log(req.body);
     const productId = req.body.productId;
     const userId = req.body.userId;
-    console.log(userId,productId,".......................................");
+    console.log(userId);
     const cart = await cartModel.findOne({ owner: userId });
 
     if (!cart) {
@@ -169,7 +168,18 @@ const cartPut = async (req, res) => {
         .json({ success: false, message: "Product not found" });
     }
 
-    cartItem.quantity = req.body.need === "sub" ? Math.max(1, cartItem.quantity - 1) : cartItem.quantity + 1;
+    // Ensure that the quantity doesn't go below 1
+    if (req.body.need === "sub" && cartItem.quantity <= 1) {
+      return res.status(200).json({
+        success: true,
+        quantity: cartItem.quantity,
+        updatedPrice: cartItem.price,
+        totalamt: cart.billTotal,
+      });
+    }
+
+    cartItem.quantity =
+      req.body.need === "sub" ? Math.max(1, cartItem.quantity - 1) : cartItem.quantity + 1;
     cartItem.price = cartItem.quantity * cartItem.productPrice || 0;
 
     cart.billTotal = req.body.need === "sub"
@@ -179,15 +189,14 @@ const cartPut = async (req, res) => {
     const quantity = cartItem.quantity;
 
     await cart.save();
-    console.log(cart.billTotal );
-    let  totalamt=cart.billTotal 
-    return res.status(200).json({ success: true, quantity, updatedPrice: cartItem.price ,totalamt });
+    console.log(cart.billTotal);
+    let totalamt = cart.billTotal;
+    return res.status(200).json({ success: true, quantity, updatedPrice: cartItem.price, totalamt });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ success: false, message: "Internal server error"});
-   }
+    res.status(500).json({ success: false, message: "Internal server error" });
+}
 };
-
 
 
 const cartRemove = async (req, res) => {
