@@ -308,28 +308,70 @@ async function salesReport(date) {
   };
 }
 
-
 let adminhome = async (req, res) => {
   if (req.session.isAdmin) {
-    req.session.isAdmin= true;
+    req.session.isAdmin = true;
+    
+    let product = await productModel.find()
+    let orders = await orderModel.find().sort({ createdAt: -1 }).limit(10).populate('user', 'name');
+    
+    const salesReportData = await fetchSalesReport();
 
-    let orders = await orderModel.find().sort({ createdAt: -1 }).limit(10).populate('user', 'name')
+      const daily = await salesReport(1); // Assuming you want daily data
+      const weekly = await salesReport(7);
+      const monthly = await salesReport(30);
+      const yearly = await salesReport(365);
 
-    let daily = await salesReport(1)
-    let weekly = await salesReport(7);
-    let monthly = await salesReport(30);
-    let yearly = await salesReport(365)
+    let fullSalesData = await salesReport(365); // Assuming you want data for the past 365 days
 
-    console.log("D:",daily,"W:",weekly,"M:",monthly,"Y:",yearly,"..................................................")
+    // Extract data from the full sales report
+    let totalOrders = monthly.totalOrders;
+    let averageSales = monthly.averageSales;
+    let averageRevenue = monthly.averageRevenue;
+    
+    console.log(salesReportData,"'''''''''''''''''''''''''''''''''''''''")
+
+    console.log(monthly.totalOrders, "////////////////////////////");
+    console.log(monthly.Revenue, "////////////////////////////");
+    console.log("Full Sales Data:", fullSalesData);
     let allProductsCount = await productModel.countDocuments();
 
-    res.render("adminHome",{daily,weekly,monthly,yearly,orders,allProductsCount});
+    res.render("adminHome", { daily, weekly, monthly, yearly, fullSalesData, orders, product, allProductsCount, totalOrders, averageSales, averageRevenue, salesReportData});
   } else {
     res.redirect("/admin/login");
   }
 };
 
+const fetchSalesReport = async () => {
+  try {
+    // Fetch all orders with status "Delivered"
+    const orders = await orderModel.find({ status: "Delivered" }).populate('user', 'name');
 
+    // Prepare the sales report data
+    const salesReportData = [];
+
+    for (const order of orders) {
+      for (const item of order.items) {
+        const product = await productModel.findById(item.productId);
+        if (order.user) { // Check if order.user exists
+          salesReportData.push({
+            productName: product.productName,
+            totalStock: product.countInStock,
+            remainingStock: product.countInStock - item.quantity,
+            customerName: order.user.name,
+            totalRevenue: order.billTotal,
+            paymentMethod: order.paymentMethod // assuming paymentMethod is available in order
+          });
+        }
+      }
+    }
+
+    return salesReportData;
+  } catch (error) {
+    console.error("Error fetching sales report:", error);
+    throw error;
+  }
+};
 
 const downloadPdf = async (req, res) => {
   try {

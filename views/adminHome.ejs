@@ -4,119 +4,67 @@
 
 <aside class="navbar-aside" id="offcanvas_aside">
     <div class="aside-top">
-        <a href="index.html" class="brand-wrap">
-            <img src="/assets/imgs/shop/BIKYS.png" class="logo" alt="inloop Dashboard">
-        </a>
-        <div>
-            <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i>
-            </button>
-        </div>
+       <a href="/" class="brand-wrap">
+          <img src="/assets/imgs/shop/BIKYS.png" class="logo" alt="BIKYS Dashboard">
+       </a>
+       <div>
+          <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i>
+          </button>
+       </div>
     </div>
     <nav>
-        <ul class="menu-aside">
-            <li class="menu-item active">
-                <a class="menu-link" href="/admin"> <i class="icon material-icons md-home"></i>
-                    <span class="text">Dashboard</span>
-                </a>
-            </li>
-            <li class="menu-item">
-                <a class="menu-link" href="/admin/usermanagement"> <i class="icon material-icons md-person"></i>
-                    <span class="text">User Management</span>
-                </a>
-            </li>
+       <ul class="menu-aside">
+         
+          <li class="menu-item active">
+            <a class="menu-link" href="/admin"> <i class="icon material-icons md-person"></i>
+               <span class="text">Dashboard</span>
+            </a>
+         </li>
+         <li class="menu-item ">
+            <a class="menu-link" href="/admin/usermanagement"> <i class="icon material-icons md-home"></i>
+               <span class="text">User Management</span>
+            </a>
+         </li>
+          <!-- <li class="menu-item active">
+             <a class="menu-link" href="/admin/usermanagement"> <i class="icon material-icons md-person"></i>
+                <span class="text">User Management</span>
+             </a>
+          </li> -->
 
-            <li class="menu-item">
-                <a class="menu-link" href="/admin/product-management"> <i class="icon material-icons md-shopping_bag"></i>
-                    <span class="text">Product Management</span>
-                </a>
-            </li>
 
-            <li class="menu-item">
-                <a class="menu-link" href="/admin/category-management"> <i class="icon material-icons md-category "></i>
+          <li class="menu-item has-submenu ">
+             <a class="menu-link" href=""> <i class="icon material-icons md-shopping_bag"></i>
+                <span class="text">Products</span>
+             </a>
+             <div class="submenu ">
+                <a href="/admin/product-management">Product List</a>
+                <!-- <a href="page-products-grid.html">Product grid</a>
+                 <a href="page-products-grid-2.html">Product grid 2</a> -->
+                <a href="/admin/category-management">Categories</a>
+             </div>
+          </li>
 
-                    <span class="text">Category Management</span>
-                </a>
-            </li>
+          <li class="menu-item ">
+             <a class="menu-link" href="/admin/order-management"> <i class="icon material-icons md-shopping_cart"></i>
+                <span class="text">Order Management</span>
+             </a>
+          </li>
 
-            <li class="menu-item ">
-                <a class="menu-link" href="/admin/order-management"> <i
-                        class="icon material-icons md-shopping_cart"></i>
-                    <span class="text">Order Management</span>
-                </a>
-            </li>
+          <li class="menu-item">
+             <a class="menu-link" href="/admin/coupon-management"> <i class="icon material-icons md-redeem"></i>
+                <span class="text">Coupon Management</span>
+             </a>
+          </li>
 
-            <li class="menu-item">
-                <a class="menu-link" href="/admin/coupon-management"> <i class="icon material-icons md-redeem"></i>
-                    <span class="text">Coupon Management</span>
-                </a>
-            </li>
-            <!-- <li class="menu-item has-submenu">
-                <a class="menu-link" href="page-sellers-cards.html"> <i class="icon material-icons md-store"></i>
-                    <span class="text">Sellers</span>
-                </a>
-                <div class="submenu">
-                    <a href="page-sellers-cards.html">Sellers cards</a>
-                    <a href="page-sellers-list.html">Sellers list</a>
-                    <a href="page-seller-detail.html">Seller profile</a>
-                </div>
-            </li> -->
-            <!-- <li class="menu-item has-submenu">
-                <a class="menu-link" href="page-transactions-1.html"> <i
-                        class="icon material-icons md-monetization_on"></i>
-                    <span class="text">Transactions</span>
-                </a>
-                <div class="submenu">
-                    <a href="page-transactions-1.html">Transaction 1</a>
-                    <a href="page-transactions-2.html">Transaction 2</a>
-                    <a href="page-transactions-details.html">Transaction Details</a>
-                </div>
-            </li> -->
-            <!-- <li class="menu-item has-submenu">
-                <a class="menu-link" href="#"> <i class="icon material-icons md-person"></i>
-                    <span class="text">Account</span>
-                </a>
-                <div class="submenu">
-                    <a href="page-account-login.html">User login</a>
-                    <a href="page-account-register.html">User registration</a>
-                    <a href="page-error-404.html">Error 404</a>
-                </div>
-            </li> -->
-            <!-- <li class="menu-item">
-                <a class="menu-link" href="page-reviews.html"> <i class="icon material-icons md-comment"></i>
-                    <span class="text">Reviews</span>
-                </a>
-            </li> -->
-            <!-- <li class="menu-item">
-                <a class="menu-link" href="page-brands.html"> <i class="icon material-icons md-stars"></i>
-                    <span class="text">Brands</span> </a>
-            </li> -->
-            <!-- <li class="menu-item">
-                <a class="menu-link" disabled href="#"> <i class="icon material-icons md-pie_chart"></i>
-                    <span class="text">Statistics</span>
-                </a>
-            </li> -->
-        </ul>
-        <!-- <hr> -->
-        <!-- <ul class="menu-aside">
-            <li class="menu-item has-submenu">
-                <a class="menu-link" href="#"> <i class="icon material-icons md-settings"></i>
-                    <span class="text">Settings</span>
-                </a>
-                <div class="submenu">
-                    <a href="page-settings-1.html">Setting sample 1</a>
-                    <a href="page-settings-2.html">Setting sample 2</a>
-                </div>
-            </li>
-            <li class="menu-item">
-                <a class="menu-link" href="page-blank.html"> <i class="icon material-icons md-local_offer"></i>
-                    <span class="text"> Starter page </span>
-                </a>
-            </li>
-        </ul> -->
-        <br>
-        <br>
+
+
+       </ul>
+       <hr>
+
+       <br>
+       <br>
     </nav>
-</aside>
+ </aside>
 
 <main class="main-wrap">
     <header class="main-header navbar">
@@ -180,9 +128,9 @@
                         <div class="text">
                             <h6 class="mb-1 card-title">Revenue</h6>
                             <span>INR <%= daily.totalRevenue.toFixed(2) %></span>
-                            <span class="text-sm">
+                            <!-- <span class="text-sm">
                                 Shipping fees are not included
-                            </span>
+                            </span> -->
                         </div>
                     </article>
                 </div>
@@ -193,7 +141,7 @@
                         <span class="icon icon-sm rounded-circle bg-success-light"><i
                                 class="text-success material-icons md-local_shipping"></i></span>
                         <div class="text">
-                            <h6 class="mb-1 card-title">Orders</h6> <span><%= daily.totalOrders %></span>
+                            <h6 class="mb-1 card-title">Orders</h6> <span><%= orders.length %></span>
                             <!-- <span class="text-sm">
                                 Excluding orders in transit
                             </span> -->
@@ -253,14 +201,14 @@
                 </div>
                
             </div>
-            <div class="col-xl-4 col-lg-12">
-                <!-- <div class="card mb-4">
+            <!-- <div class="col-xl-4 col-lg-12">
+                <div class="card mb-4">
                     <article class="card-body">
                         <h5 class="card-title">Revenue Base on Area</h5>
                         <canvas id="myChart2" height="217"></canvas>
                     </article>
-                </div> -->
-                <!-- <div class="card mb-4">
+                </div>
+                <div class="card mb-4">
                     <article class="card-body">
                         <h5 class="card-title">Marketing Chanel</h5>
                         <span class="text-muted font-xs">Facebook</span>
@@ -287,25 +235,72 @@
                 </div>
             </div> -->
         </div>
+
+        <div class="card mb-4">
+            <header class="card-header">
+                <h4 class="card-title">Sales Report</h4>
+                <div class="row align-items-center"></div>
+            </header>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table align-middle table-nowrap mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th scope="col" class="text-center">
+                                    <div class="form-check align-middle">
+                                        <!-- <input class="form-check-input" type="checkbox" id="transactionCheck01"> -->
+                                        <label class="form-check-label" for="transactionCheck01"></label>
+                                    </div>
+                                </th>
+                                <th class="align-middle" scope="col">Product Name</th>
+                                <th class="align-middle" scope="col">Total Stock</th>
+                                <!-- <th class="align-middle" scope="col">Remaining Stock</th> -->
+                                <th class="align-middle" scope="col">Customer Name</th>
+                                <th class="align-middle" scope="col">Total Revenue</th>
+                                <th class="align-middle" scope="col">Payment Method</th>
+                                <!-- <th class="align-middle" scope="col">View Details</th> -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% if (salesReportData && salesReportData.length > 0) { %>
+                                <% salesReportData.forEach(product => { %>
+                                    <tr>
+                                        <td class="text-center">
+                                            <!-- <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="transactionCheck02">
+                                                <label class="form-check-label" for="transactionCheck02"></label>
+                                            </div> -->
+                                        </td>
+                                        <td><%= product.productName %></td>
+                                        <td><%= product.totalStock %></td>
+                                        <!-- <td><%= product.remainingStock %></td> -->
+                                        <td><%= product.customerName %></td>
+                                        <td><%= product.totalRevenue %></td>
+                                        <td>
+                                            <i class="material-icons md-payment font-xxl text-muted mr-5"></i> <%= product.paymentMethod %>
+                                        </td>
+                                    </tr>
+                                <% }); %>
+                            <% } else { %>
+                                <tr>
+                                    <td colspan="7" class="text-center">No products sold</td>
+                                </tr>
+                            <% } %>
+                        </tbody>
+                    </table>
+                    
+                </div>
+            </div>
+        </div>
+
+        
+
         <div class="card mb-4">
             <header class="card-header">
                 <h4 class="card-title">Orders</h4>
                 <div class="row align-items-center">
                     
-                    <!-- <div class="col-md-2 col-6">
-                        <input type="date" value="02.05.2022" class="form-control">
-                    </div> -->
-                    <!-- <div class="col-md-2 col-6">
-                        <div class="custom_select">
-                            <select class="form-select select-nice">
-                                <option selected>Status</option>
-                                <option>All</option>
-                                <option>Paid</option>
-                                <option>Chargeback</option>
-                                <option>Refund</option>
-                            </select>
-                        </div>
-                    </div> -->
+                    
                 </div>
             </header>
             <div class="card-body">
@@ -342,8 +337,7 @@
                                         </div> -->
                                     </td>
                                     <td><a href="/admin/order-management/orderDetailedView/<%= order._id %>" class="fw-bold">#<%= order.oId %></a> </td>
-                                    <td><%= order.user ? order.user.name : 'N/A' %></td>
-
+                                    <td><%= order.user.name %></td>
                                     <td><%= order.orderDate.toLocaleDateString() %></td>
                                     <td>INR <%= order.billTotal %></td>
                                     <td>
@@ -385,31 +379,21 @@
             </nav>
         </div> -->
     </section> <!-- content-main end// -->
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  
+    <script type="module" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
     <script>
-     document.addEventListener('DOMContentLoaded', function () {
-            function decodeHtmlEntities(text) {
-                var textArea = document.createElement('textarea');
-                textArea.innerHTML = text;
-                return textArea.value;
-            }
-
-            // Retrieve data from the server-side and parse it
-            const ordersString = '<%= JSON.stringify(monthly) %>';
-            const orders = JSON.parse(decodeHtmlEntities(ordersString));
+        document.addEventListener('DOMContentLoaded', function () {
+            // Monthly data chart
+            const monthlyOrders = <%- JSON.stringify(monthly) %>;
             const ctx = document.getElementById('myChart');
-            console.log(orders,"oooooooooooooooooooooooooo");
-
-            // Create a new Chart.js chart instance
             new Chart(ctx, {
                 type: 'bar',
                 data: {
                     labels: ['Orders', 'Sales', 'Average Revenue'],
                     datasets: [{
-                        data: [orders.totalOrders, orders.averageSales, orders.averageRevenue],
+                        label: 'Monthly Data',
+                        data: [monthlyOrders.totalOrders, monthlyOrders.averageSales, monthlyOrders.averageRevenue],
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)', // Light blue color
+                        borderColor: 'rgba(54, 162, 235, 1)',
                         borderWidth: 1
                     }]
                 },
@@ -421,76 +405,54 @@
                     }
                 }
             });
-
-                const yearlyString = '<%= JSON.stringify(yearly) %>';
-                const yearly = JSON.parse(decodeHtmlEntities(yearlyString));
-                const chart = document.getElementById('yearlyChart');
-console.log(yearly,chart,yearlyString,"///////////////////////////");
-                new Chart(chart, {
-                    type: 'bar',
-                    data: {
-                        labels: ['Orders', 'Users', 'Products'],
-                        datasets: [{
-                            data: [yearly.count, yearly.users, yearly.totalproducts],
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            y: {
-                                beginAtZero: true
-                            }
+    
+            // Yearly data chart
+            const yearlyString = '<%= JSON.stringify(yearly) %>';
+            const yearly = JSON.parse(decodeHtmlEntities(yearlyString));
+            const yearlyCtx = document.getElementById('yearlyChart');
+            new Chart(yearlyCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Orders', 'Users', 'Products'],
+                    datasets: [{
+                        label: 'Yearly Data',
+                        data: [yearly.count, yearly.users, yearly.totalproducts],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
                         }
                     }
-                })
-
-                const dailyString = '<%= JSON.stringify(daily) %>';
-                const dailyOrders = JSON.parse(decodeHtmlEntities(dailyString));
-                const daily = document.getElementById('dailyChart');
-
-                new Chart(daily, {
-                    type: 'bar',
-                    data: {
-                        labels: ['Orders', 'Users', 'Products'],
-                        datasets: [{
-                            data: [dailyOrders.count, dailyOrders.users, dailyOrders.totalproducts],
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            y: {
-                                beginAtZero: true
-                            }
-                        }
-                    }
-
-                });
-                const weeklyString = '<%= JSON.stringify(weekly) %>';
-                const weekly = JSON.parse(decodeHtmlEntities(weeklyString));
-                const week = document.getElementById('weeklyChart');
-
-                new Chart(week, {
-                    type: 'bar',
-                    data: {
-                        labels: ['Orders', 'Users', 'Products'],
-                        datasets: [{
-                            data: [weekly.count, weekly.users, weekly.totalproducts],
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            y: {
-                                beginAtZero: true
-                            }
-                        }
-                    }
-                })
+                }
             });
+    
+            // Daily data chart
+            const dailyString = '<%= JSON.stringify(daily) %>';
+            const dailyOrders = JSON.parse(decodeHtmlEntities(dailyString));
+            const dailyCtx = document.getElementById('dailyChart');
+            new Chart(dailyCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Orders', 'Users', 'Products'],
+                    datasets: [{
+                        label: 'Daily Data',
+                        data: [dailyOrders.count, dailyOrders.users, dailyOrders.totalproducts],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
     </script>
+    
 
-    <%- include('admin-partials/footer.ejs') %>
-
-
-
+    <%- include('admin-partials/footer.ejs') %>
