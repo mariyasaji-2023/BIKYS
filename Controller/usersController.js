@@ -178,11 +178,14 @@ const signuppost = async (req, res) => {
 
 
 const getlogin = (req, res) => {
-  if (req.session.user) {
-    res.redirect('/');
-  } else {
-    res.render('index', { title: 'Login Page' });
-  }
+ try {
+  res.render('index');
+ 
+ } catch (error) {
+  console.log(error)
+ }
+   
+  
 };
 
 
@@ -239,8 +242,12 @@ const getpassword = (req, res) => {
 
 const logout = async (req, res) => {
   try {
-    if (req.session.user) {
-      req.session.user = false;
+    req.session.destroy(err => {
+      if (err) throw err;
+      res.redirect('/logins');
+  });
+    // if (req.session.user) {
+      // req.session.user = false;
       // const user = await UserModel.findOne({ email: userEmail });
       // console.log(user + '    logout');
       // if (user) {
@@ -248,8 +255,8 @@ const logout = async (req, res) => {
       //   await user.save();
       // }
       // console.log(user + '    after logout');
-    }
-    res.redirect('/login');
+    // }
+    // res.redirect('/logins');
   } catch (error) {
     console.error(error);
     res.status(500).send('Internal Server Error');

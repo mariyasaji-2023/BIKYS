@@ -23,7 +23,7 @@ router.get('/signup', usersController.getSignup)
 
 router.post('/signup', usersController.signuppost)
 
-router.get('/login', usersController.getlogin)
+router.get('/logins', usersController.getlogin)
 
 router.post('/login', usersController.loginpost)
 
