@@ -442,7 +442,7 @@
         function submitOrderStatusForm(orderId) {
             const newStatus = document.querySelector('select[name="orderStatus"]').value;
             // Make the fetch request
-            alert(orderId)
+            
             fetch(`/admin/order-management/update-order-status/${orderId}`, {
                     method: 'POST',
                     headers: {
@@ -487,8 +487,7 @@
                 orderId: orderId,
                 userId: userId,
             };
-            alert(orderId)
-            alert(userId)
+        
 
             // Make a POST request to the backend endpoint
             fetch('/admin/refund-amount', {

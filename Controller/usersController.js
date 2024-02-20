@@ -18,6 +18,7 @@ const wishlistModel = require('../models/wishlist')
 const Wallet = require("../models/wallet")
 const uuidv4 = require('uuid').v4;
 const easyinvoice = require('easyinvoice');
+const Banner=require('../models/bannerModel')
 
 function otpNull(req, res, next) {
   // Check if req.session.otp is not null
@@ -54,7 +55,7 @@ const home = async (req, res) => {
   try {
 
 
- 
+    
     const cart = await cartModel.findOne();
     const cartItemCount = cart ? cart.items.length : 0;
     let wishlistCount = 0;
@@ -74,6 +75,7 @@ const home = async (req, res) => {
 
         const category = await CategoryModel.find();
         const products = await productModel.find();
+        const banner= await Banner.find();
 
         res.render('home', {
           user: req.session.user, // Using req.session.email for consistency
@@ -83,14 +85,18 @@ const home = async (req, res) => {
           cart,
           cartItemCount,
           wishlistCount,
+          banner
         });
       } else {
         req.session.isBlocked = true;
         return res.redirect('/login');
       }
     } else {
+
       const category = await CategoryModel.find();
       const products = await productModel.find();
+      const banner= await Banner.find();
+
 
       res.render('home', {
         user: null,
@@ -100,6 +106,7 @@ const home = async (req, res) => {
         cart,
         cartItemCount,
         wishlistCount,
+        banner
       });
     }
   } catch (error) {
@@ -244,7 +251,7 @@ const logout = async (req, res) => {
   try {
     req.session.destroy(err => {
       if (err) throw err;
-      res.redirect('/logins');
+      res.redirect('/login');
   });
     // if (req.session.user) {
       // req.session.user = false;
@@ -682,6 +689,8 @@ const userShop = async (req, res) => {
     });
   }
 };
+
+
 const productDetails = async (req, res) => {
   try {
     const id = req.params.productId;
@@ -790,6 +799,17 @@ const userprofile = async (req, res) => {
 
     const wallet = await Wallet.findOne({ user: userId });
     console.log(wallet.balance, ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;");
+
+    // Initialize selectedAddressTypes as an empty array
+    let selectedAddressTypes = [];
+    
+    // Check if addresses exist and map the address types
+    if (addresses) {
+      selectedAddressTypes = addresses.addresses.map(
+        (address) => address.addressType
+      );
+    }
+
     // Pagination logic
     const page = parseInt(req.query.page) || 1;
     const totalOrders = await orderModel.countDocuments({ user: userId });
@@ -820,6 +840,7 @@ const userprofile = async (req, res) => {
       cartItemCount,
       wallet,
       generatedRefLink,
+      selectedAddressTypes, // Pass selectedAddressTypes to the template
     });
   } catch (error) {
     console.error('Error:', error);
@@ -828,6 +849,7 @@ const userprofile = async (req, res) => {
     });
   }
 };
+
 
 
 const userAddAddress = async (req, res) => {

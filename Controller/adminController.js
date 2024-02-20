@@ -10,6 +10,7 @@ const orderModel=require("../models/order")
 const {productModel}=require("../models/product")
 const PDFDocument = require('pdfkit');
 const ExcelJS = require('exceljs');
+const CategoryModel = require('../models/category');
 
 
 
@@ -308,6 +309,7 @@ async function salesReport(date) {
   };
 }
 
+
 let adminhome = async (req, res) => {
   if (req.session.isAdmin) {
     req.session.isAdmin = true;
@@ -342,10 +344,34 @@ let adminhome = async (req, res) => {
   }
 };
 
-const fetchSalesReport = async () => {
+
+const fetchSalesReport = async (period) => {
   try {
-    // Fetch all orders with status "Delivered"
-    const orders = await orderModel.find({ status: "Delivered" }).populate('user', 'name');
+    let startDate = new Date();
+    let endDate = new Date();
+
+    // Adjust startDate and endDate based on the desired period
+    if (period === 'daily') {
+      // For daily report, fetch sales data for today only
+      startDate.setHours(0, 0, 0, 0); // Set start time to the beginning of the day
+    } else if (period === 'weekly') {
+      // For weekly report, fetch sales data for the past week
+      startDate.setDate(startDate.getDate() - 7);
+    } else if (period === 'monthly') {
+      // For monthly report, fetch sales data for the current month
+      startDate.setDate(1); // Set to the beginning of the month
+      endDate.setMonth(endDate.getMonth() + 1); // Move to the next month
+      endDate.setDate(0); // Set to the last day of the current month
+    } else if (period === 'yearly') {
+      // For yearly report, fetch sales data for the past year
+      startDate.setFullYear(startDate.getFullYear() - 1);
+    }
+
+    // Fetch orders within the specified period with status "Delivered"
+    const orders = await orderModel.find({
+      status: "Delivered",
+      createdAt: { $gte: startDate, $lte: endDate }
+    }).populate('user', 'name');
 
     // Prepare the sales report data
     const salesReportData = [];
@@ -357,7 +383,6 @@ const fetchSalesReport = async () => {
           salesReportData.push({
             productName: product.productName,
             totalStock: product.countInStock,
-            remainingStock: product.countInStock - item.quantity,
             customerName: order.user.name,
             totalRevenue: order.billTotal,
             paymentMethod: order.paymentMethod // assuming paymentMethod is available in order
@@ -369,9 +394,11 @@ const fetchSalesReport = async () => {
     return salesReportData;
   } catch (error) {
     console.error("Error fetching sales report:", error);
-    throw error;
-  }
+    throw error;
+  }
 };
+
+
 
 const downloadPdf = async (req, res) => {
   try {
@@ -379,13 +406,20 @@ const downloadPdf = async (req, res) => {
     let salesData = null; // Change the parameter based on the desired period
 
     if (req.query.type === 'daily') {
-      salesData = await salesReport(1);
+      salesData = await fetchSalesReport('daily');
     } else if (req.query.type === 'weekly') {
-      salesData = await salesReport(7);
+      salesData = await fetchSalesReport('weekly');
     } else if (req.query.type === 'monthly') {
-      salesData = await salesReport(30);
+      salesData = await fetchSalesReport('monthly');
     } else if (req.query.type === 'yearly') {
-      salesData = await salesReport(365);
+      salesData = await fetchSalesReport('yearly');
+    }
+
+    console.log("Sales Data:", salesData); // Log the fetched sales data
+
+    if (!salesData || salesData.length === 0) {
+      console.log("No sales data available.");
+      return res.status(404).send('No sales data available.');
     }
 
     let doc = new PDFDocument();
@@ -398,16 +432,45 @@ const downloadPdf = async (req, res) => {
     doc.pipe(res);
 
     // Add content to the PDF
-    doc.fontSize(20).text('Sales Report', { align: 'center' });
+    doc.fontSize(10).text('Sales Report', { align: 'center' });
 
-    // Insert sales data into the PDF
-    if (salesData) {
-      doc.fontSize(12).text(`Total Revenue: INR ${salesData.totalRevenue}`);
-      doc.text(`Total Orders: ${salesData.totalOrders}`);
-      doc.text(`Total Order Count: ${salesData.totalOrderCount}`);
-      doc.text(`Total Count In Stock: ${salesData.totalCountInStock}`);
-      doc.text(`Average Sales: ${salesData.averageSales ? salesData.averageSales.toFixed(2) : 'N/A'}%`);
-      doc.text(`Average Revenue: ${salesData.averageRevenue ? salesData.averageRevenue.toFixed(2) : 'N/A'}%`);
+    // Insert sales data into the PDF as a table
+    if (salesData && salesData.length > 0) {
+      const table = {
+        headers: ['Product Name', 'Total Stock', 'Customer Name', 'Total Revenue', 'Payment Method'],
+        rows: salesData.map(data => [
+          data.productName,
+          data.totalStock,
+          data.customerName,
+          `INR ${data.totalRevenue.toFixed(2)}`, // Format revenue as currency
+          data.paymentMethod
+        ])
+      };
+
+      // Draw table manually
+      let rowPos = 100; // Starting position for the table rows
+      const cellWidth = 100; // Width of each cell
+      const cellHeight = 20; // Height of each cell
+
+      // Draw headers
+      doc.font('Helvetica-Bold');
+      table.headers.forEach((header, index) => {
+        doc.rect(50 + index * cellWidth, rowPos, cellWidth, cellHeight).stroke(); // Draw cell outline
+        doc.text(header, 55 + index * cellWidth, rowPos + 5); // Adjusted position for header text
+      });
+      rowPos += cellHeight; // Move down for row content
+
+      // Reset font to default
+      doc.font('Helvetica');
+
+      // Draw rows
+      table.rows.forEach(row => {
+        row.forEach((cell, index) => {
+          doc.rect(50 + index * cellWidth, rowPos, cellWidth, cellHeight).stroke(); // Draw cell outline
+          doc.text(cell.toString(), 55 + index * cellWidth, rowPos + 5); // Adjusted position for cell text
+        });
+        rowPos += cellHeight; // Move down for the next row
+      });
     } else {
       doc.text('No sales data available.');
     }
@@ -415,9 +478,10 @@ const downloadPdf = async (req, res) => {
     // End the document and send it to the client
     doc.end();
   } catch (error) {
-    console.log(error.message);
+    console.error('Error generating PDF:', error);
     res.status(500).send('Error generating PDF.');
-  }
+  
+}
 };
 
 
@@ -456,7 +520,160 @@ const generateExcel = async (req, res, next) => {
 };
 
 
+
+// const adminDashboard = async (req, res) => {
+    
+//   try {
+//       const products = await productModel.find();
+//       const orders = await orderModel.find({status:"Delivered"});
+//       const category=await CategoryModel.find()
+//       const users= await UserModel.find()
+//       const perPage = 2;
+//       const totalpages = Math.ceil(orders.length / perPage);
+
+//       const latestOrders = await orderModel.find().sort({ createdOn: -1 }).limit(5);
+     
+
+
+
+
+//       const productCount = products.length;
+//       const orderCount = orders.length;
+//       const categoryCount=category.length
+//       const currentpage = req.query.currentPage || 1;
+//       let totalRevenue = 0;
+//       orders.forEach((order) => {
+//         totalRevenue += order.billTotal;
+//       });
+    
+
+//       // const totalRevenue = orders.reduce((total, order) => total + order.totalPrice, 0);
+//       console.log(orderCount,"...........................",products, "////////////");
+
+// console.log(totalRevenue,"this is total revenue");
+
+//        //-------------------this is for the sales graph ------------
+
+//         const monthlySales = await orderModel.aggregate([
+//           {
+//               $match: {
+//                   status: "Delivered", // Filter by status
+//               },
+//           },
+//           {
+//               $group: {
+//                   _id: {
+//                       $month: '$createdOn',
+//                   },
+//                   count: { $sum: 1 },
+//               },
+//           },
+//           {
+//               $sort: {
+//                   '_id': 1,
+//               },
+//           },
+//       ]);
+//       const monthlySalesArray = Array.from({ length: 12 }, (_, index) => {
+//           const monthData = monthlySales.find((item) => item._id === index + 1);
+//           return monthData ? monthData.count : 0;
+//       });
+
+
+//       ///----------this is for the product data------
+//       const productsPerMonth = Array(12).fill(0);
+
+//       // Iterate through each product
+//       products.forEach(product => {
+//         // Extract month from the createdAt timestamp
+//         const creationMonth = product.createdAt.getMonth(); // JavaScript months are 0-indexed
+  
+//         // Increment the count for the corresponding month
+//         productsPerMonth[creationMonth]++;
+//       });
+//       ///----------this is for the product data--end----
+      
+//       res.render('salesreport',{totalRevenue:totalRevenue, orderCount, productCount,categoryCount ,monthlySalesArray,productsPerMonth,latestOrders,orders,totalpages,users,currentpage: currentpage });
+
+//   } catch (error) {
+//       console.log('Error happened in admin controller at adminLoginPage function ', error);
+//   }
+// };
+
+// //graph conditions---------------------------------------------------->
+
+// //monthlyRevenue------------------------->
+
+// const monthlyRevenue = async(req,res)=>{
+// console.log("entered ");
+//   try {
+//     const monthlyRevenueData = await Order.aggregate([
+//       {
+//         $match: { status: 'Delivered' }
+//       },
+//       {
+//         $group: {
+//           _id: { $month: '$createdOn' },
+//           totalRevenue: { $sum: '$totalPrice' },
+//         },
+//       },
+//     ]);
+//     res.json(monthlyRevenueData);
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json({ message: err.message });
+//   }
+// };
+
+// //weeklyRevenue------------------------------------------>
+
+// const weeklyRevenue = async(req,res)=>{
+
+//   try {
+//     const weeklyRevenueData = await Order.aggregate([
+//       {
+//         $match: { status: 'Delivered' }
+//       },
+//       {
+//         $group: {
+//           _id: { $week: '$createdOn' },
+//           totalRevenue: { $sum: '$totalPrice' },
+//         },
+//       },
+//     ]);
+//     res.json(weeklyRevenueData);
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json({ message: err.message });
+//   }
+
+//  }
+
+// //yearlyRevenue----------------------------------------------->
+
+//   const yearlyRevenue = async(req,res)=>{
+//   try {
+//     const yearlyRevenueData = await Order.aggregate([
+//       {
+//         $match: { status: 'Delivered' }
+//       },
+//       {
+//         $group: {
+//           _id: { $year: '$createdOn' },
+//           totalRevenue: { $sum: '$totalPrice' },
+//         },
+//       },
+//     ]);
+//     res.json(yearlyRevenueData);
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json({ message: err.message });
+//   }
+// };
+
+
 module.exports = {
   adminlogin,
-  loginpost, adminhome, adminlogout, adminusers, admindelete, adduser, adduserpost, userupdate, userupdatepost, userblock, searchuser,downloadPdf,generateExcel
+  loginpost, adminhome, adminlogout, adminusers, admindelete, adduser, adduserpost, userupdate, userupdatepost, userblock, searchuser,downloadPdf,generateExcel,
+
 }

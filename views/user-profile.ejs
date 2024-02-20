@@ -123,9 +123,7 @@
             border: none;
         }
 
-        .modal {
-            top: 20%;
-        }
+        
 
         .btn-close {
             box-shadow: none;
@@ -387,7 +385,7 @@
                             <div class="header-action-icon-2">
                                 <!-- <a href="shop-wishlist.html">
                                     <img class="svgInject" alt="Evara" src="assets/imgs/theme/icons/icon-heart.svg"> -->
-                                    <!-- <span class="pro-count blue">4</span> -->
+                                <!-- <span class="pro-count blue">4</span> -->
                                 <!-- </a> -->
                             </div>
                             <div class="header-action-icon-2">
@@ -664,7 +662,7 @@
 
 
                             <div class="col-md-8">
-                                
+
                                 <div class="tab-content dashboard-content">
                                     <div class="tab-pane fade active show" id="dashboard" role="tabpanel"
                                         aria-labelledby="dashboard-tab">
@@ -705,279 +703,6 @@
                                     </div>
 
 
-
-                                    <div class="tab-pane fade" id="Edit-Profile" role="tabpanel"
-                                        aria-labelledby="Edit-Profile-tab">
-                                        <div class="card border-0 bg-light">
-                                            <div class="card-header text-center">
-                                                <h5 class="mb-0 text-brand">Edit Account</h5>
-                                            </div>
-                                            <form id="editprofile" class="p-4" method="POST" action="/update-profile">
-
-                                                <div class="row mb-3">
-                                                    <div class="col-12">
-                                                        <label for="username" class="form-label">Username</label>
-                                                        <input type="text" id="username" value="<%= user.name %>"
-                                                            name="username" required class="form-control" />
-                                                        <span id="usernameError"
-                                                            class="error-message text-danger"></span>
-                                                    </div>
-                                                </div>
-
-                                                <div class="mb-3">
-                                                    <label for="email" class="form-label">Email</label>
-                                                    <input type="email" id="email" value="<%= user.email %>"
-                                                        name="email" required class="form-control" />
-                                                    <span id="emailError" class="error-message text-danger"></span>
-                                                </div>
-
-                                                <!-- Gender section removed -->
-
-                                                <div class="mb-3">
-                                                    <label for="phone" class="form-label">Phone</label>
-                                                    <input type="tel" id="phone" value="<%= user.phone %>" name="phone"
-                                                        required class="form-control" />
-                                                    <span id="phoneError" class="error-message text-danger"></span>
-                                                </div>
-
-                                                <button type="submit" class="btn btn-success btn-block">Save
-                                                    Changes</button>
-                                            </form>
-                                        </div>
-                                    </div>
-
-
-
-
-
-
-                                    <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">
-                                        <div class="row">
-                                            <div class="col">
-                                                <center>
-                                                    <h2 class="text-brand my-3">Your Orders</h2>
-                                                </center>
-                                                <% if (orderDetails && orderDetails.length> 0) { %>
-                                                    <% orderDetails.forEach((order)=> { %>
-                                                        <div class="card card-2 my-3">
-                                                            <div class="card-body ">
-                                                                <div class="row">
-                                                                    <div class="col-md-4">
-                                                                        <h6 class="mb-0 ">Order ID:</h6>
-                                                                        <p class="text-brand">
-                                                                            <%= order.oId %>
-                                                                        </p>
-                                                                    </div>
-                                                                    <div class="col-md-2">
-                                                                        <h6 class="mb-0">Status:</h6>
-                                                                        <p>
-                                                                            <%= order.status %>
-                                                                        </p>
-                                                                    </div>
-                                                                    <!-- Add more columns as needed -->
-                                                                    <div class="col-md-2">
-                                                                        <h6 class="mb-0">Date:</h6>
-                                                                        <p>
-                                                                            <%= order.orderDate.toLocaleDateString() %>
-                                                                        </p>
-                                                                    </div>
-                                                                    <div class="col-md-2">
-                                                                        <h6 class="mb-0">Payment Method:</h6>
-                                                                        <p>
-                                                                            <%= order.paymentMethod %>
-                                                                        </p>
-                                                                    </div>
-                                                                    <div class="col-md-2">
-                                                                        <h6 class="mb-0">Total:</h6>
-                                                                        <p>&#8377;<%= order.billTotal %>
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
-
-                                                                <hr class="my-3">
-                                                                <% if(order.status==='Canceled' ){ %>
-                                                                    <div class="row d-flex" id="cancellationMessage">
-                                                                        <p class="text-danger">
-                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24">
-                                                                                <path fill="#282C3F" fill-rule="nonzero"
-                                                                                    d="M15.854 8.146a.495.495 0 0 0-.703 0L12 11.296l-3.15-3.15a.495.495 0 0 0-.704 0 .495.495 0 0 0 0 .703L11.297 12l-3.15 3.15a.5.5 0 1 0 .35.85.485.485 0 0 0 .349-.146l3.15-3.15 3.151 3.15a.5.5 0 0 0 .35.147.479.479 0 0 0 .35-.147.495.495 0 0 0 0-.703L12.702 12l3.15-3.15a.495.495 0 0 0 0-.704z">
-                                                                                </path>
-                                                                            </svg> Order has been canceled.
-                                                                        </p>
-                                                                    </div>
-                                                                
-                                                                    <% if (order.paymentMethod === 'Razorpay' || order.paymentMethod === 'wallet') { %>
-                                                                        <% if (order.products && order.products.length > 0) { %>
-                                                                            <% order.products.forEach(product => { %>
-                                                                                <% if (order.status === 'Canceled') { %>
-                                                                                    <% if (order.paymentMethod === 'wallet') { %>
-                                                                                        <% /* Add logic to add the canceled product price to the user's wallet */ %>
-                                                                                        <% const totalCancelledPrice = product.price * product.quantity; %>
-                                                                                        <% const newBalance = parseFloat(order.wallet.balance) + totalCancelledPrice; %>
-                                                                                        <% order.wallet.balance = newBalance.toFixed(2); %>
-                                                                                    <% } %>
-                                                                                <% } %>
-                                                                            <% }); %>
-                                                                        <% } %>
-                                                                    <% } %>
-                                                                    
-
-                                                              <%} else { %>
-
-                                                                        <div class="row d-flex justify-content-evenly">
-                                                                            <% if(order.status!=='Returned' &&
-                                                                                order.status !=='Delivered' &&
-                                                                                order.status !=='Canceled' ) { %>
-                                                                                <button type="button"
-                                                                                    class="btn btn-small w-25 h-25"
-                                                                                    onclick="cancelOrder('<%= order._id %>')">cancel
-                                                                                    order
-                                                                                </button>
-                                                                                <% } %>
-
-                                                                                    <a href="/order-details/<%= order._id %>"
-                                                                                        class="btn btn-small w-25 h-25">Order
-                                                                                        Details</a>
-                                                                        </div>
-                                                                        <!-- Bootstrap Confirmation Modal -->
-                                                                        <div class="modal" id="confirmationModal"
-                                                                            tabindex="-1"
-                                                                            aria-labelledby="confirmationModalLabel"
-                                                                            aria-hidden="true">
-                                                                            <div class="modal-dialog">
-                                                                                <div class="modal-content">
-                                                                                    <div class="modal-header">
-                                                                                        <h5 class="modal-title"
-                                                                                            id="confirmationModalLabel">
-                                                                                            Confirm Order Cancellation
-                                                                                        </h5>
-                                                                                        <button id="closeModalButton"
-                                                                                            type="button"
-                                                                                            class="btn-close"
-                                                                                            data-bs-dismiss="modal"
-                                                                                            aria-label="Close"></button>
-                                                                                    </div>
-                                                                                    <div class="modal-body">
-                                                                                        Are you sure you want to cancel
-                                                                                        this order?
-                                                                                        Please
-                                                                                        provide a reason below
-                                                                                        (optional):
-                                                                                        <textarea
-                                                                                            id="cancellationReason"
-                                                                                            class="form-control"
-                                                                                            rows="3"></textarea>
-                                                                                    </div>
-                                                                                    <div class="modal-footer">
-                                                                                        <button type="button"
-                                                                                            class="btn btn-secondary"
-                                                                                            data-bs-dismiss="modal">Close</button>
-                                                                                        <button type="button"
-                                                                                            class="btn btn-danger"
-                                                                                            id="confirmCancellationButton">Confirm
-                                                                                            Cancellation</button>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <% } %>
-                                                            </div>
-
-                                                        </div>
-
-
-                                                        <% }) %>
-
-                                                            <!-- pagination -->
-                                                            <div class="pagination-area mt-15 mb-sm-5 mb-lg-0">
-                                                                <nav aria-label="Page navigation example">
-                                                                    <ul class="pagination justify-content-start">
-                                                                        <% if (currentPage> 1) { %>
-                                                                            <li class="page-item">
-                                                                                <a class="page-link"
-                                                                                    href="?page=<%= currentPage - 1 %>"><i
-                                                                                        class="fa-solid fa-chevron-left"></i></i></a>
-                                                                            </li>
-                                                                            <% } %>
-
-                                                                                <% for (let i=1; i <=totalPages; i++) {
-                                                                                    %>
-                                                                                    <li
-                                                                                        class="page-item <%= currentPage === i ? 'active' : '' %>">
-                                                                                        <a class="page-link"
-                                                                                            href="?page=<%= i %>">
-                                                                                            <%= i %>
-                                                                                        </a>
-                                                                                    </li>
-                                                                                    <% } %>
-
-                                                                                        <% if (currentPage < totalPages)
-                                                                                            { %>
-                                                                                            <li class="page-item">
-                                                                                                <a class="page-link"
-                                                                                                    href="?page=<%= currentPage + 1 %>"><i
-                                                                                                        class="fa-solid fa-chevron-right"></i></i></a>
-                                                                                            </li>
-                                                                                            <% } %>
-                                                                    </ul>
-                                                                </nav>
-                                                            </div>
-
-
-
-                                                            <% }else{ %>
-                                                                <div class="row">
-                                                                    <h4>No Orders Found Please continue Shopping</h4>
-                                                                    <a href="/shop" type="button" class="btn">continue
-                                                                        Shoping</a>
-                                                                </div>
-                                                                <% } %>
-                                            </div>
-
-
-                                        </div>
-                                    </div>
-
-
-
-                                    <div class="tab-pane fade" id="track-orders" role="tabpanel"
-                                        aria-labelledby="track-orders-tab">
-                                        <div class="card">
-                                            <div class="card-header">
-                                                <h5 class="mb-0">Orders tracking</h5>
-                                            </div>
-                                            <div class="card-body contact-from-area">
-                                                <p>To track your order please enter your OrderID in the box below and
-                                                    press
-                                                    "Track" button. This was given to you on your receipt and in the
-                                                    confirmation email you should have received.</p>
-                                                <div class="row">
-                                                    <div class="col-lg-8">
-                                                        <form class="contact-form-style mt-30 mb-50" action="#"
-                                                            method="post">
-                                                            <div class="input-style mb-20">
-                                                                <label>Order ID</label>
-                                                                <input name="order-id"
-                                                                    placeholder="Found in your order confirmation email"
-                                                                    type="text" class="square">
-                                                            </div>
-                                                            <div class="input-style mb-20">
-                                                                <label>Billing email</label>
-                                                                <input name="billing-email"
-                                                                    placeholder="Email you used during checkout"
-                                                                    type="email" class="square">
-                                                            </div>
-                                                            <button class="submit submit-auto-width"
-                                                                type="submit">Track</button>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
                                     <div class="tab-pane fade" id="address" role="tabpanel"
                                         aria-labelledby="address-tab">
 
@@ -999,10 +724,12 @@
                                                 </div>
                                             </div>
                                         </div>
+
                                         <div class="modal fade" id="addNewAddressModal" tabindex="-1" role="dialog"
                                             aria-labelledby="addressModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content modal-dialog-scrollable">
+                                            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered"
+                                                role="document">
+                                                <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h5 class="modal-title" id="addressModalLabel">Add Address</h5>
                                                         <button type="button" class="close" data-dismiss="modal"
@@ -1010,17 +737,28 @@
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
-                                                    <div class="modal-body">
-                                                        <!-- Your form content goes here -->
+
+                                                    <div class="modal-body" style="max-height: calc(100vh - 200px); overflow-y: auto;">
                                                         <form id="addressForm">
                                                             <!-- Form fields for address details -->
                                                             <div class="form-group mb-3">
-                                                                <label for="addressType">Address Type</label>
+                                                                <label for="addressType">Address Type</label>
                                                                 <select class="form-control" id="addressType"
                                                                     name="addressType">
-                                                                    <option value="home">Home</option>
-                                                                    <option value="work">Work</option>
-                                                                    <option value="temp">Temporary</option>
+                                                                    <option value="home"
+                                                                        <%=selectedAddressTypes.includes('home')
+                                                                        ? 'disabled' : '' %>>
+                                                                        Home
+                                                                    </option>
+                                                                    <option value="work"
+                                                                        <%=selectedAddressTypes.includes('work')
+                                                                        ? 'disabled' : '' %>>
+                                                                        Work
+                                                                    </option>
+                                                                    <option value="temp"
+                                                                        <%=selectedAddressTypes.includes('temp')
+                                                                        ? 'disabled' : '' %>>
+                                                                        Temporary</option>
                                                                 </select>
                                                                 <span id="addressTypeError" class="text-danger"></span>
                                                             </div>
@@ -1108,15 +846,15 @@
                                                                     placeholder="Country">
                                                                 <span id="countryError" class="text-danger"></span>
                                                             </div>
-                                                        </form>
+
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn "
+                                                        <button type="button" class="btn btn-secondary"
                                                             data-dismiss="modal">Close</button>
-
-                                                        <button type="button" class="btn "
-                                                            id="saveAddress">Save</button>
+                                                        <button type="button" id="saveAddress" class="btn">Save
+                                                            Address</button>
                                                     </div>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
@@ -1165,16 +903,14 @@
 
                                                     <!-- Modal for Editing Address -->
                                                     <div class="modal" id="editAddressModal<%= index %>">
-                                                        <div class="modal-dialog">
+                                                        <div class="modal-dialog modal-dialog-scrollable">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
                                                                     <h5 class="modal-title">Edit Address</h5>
-                                                                    <button type="button" class="close"
-                                                                        data-dismiss="modal">&times;</button>
+                                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
                                                                 </div>
-                                                                <div class="modal-body">
-                                                                    <form id="editaddressForm"
-                                                                        action="/profile/editAddress" method="post">
+                                                                <div class="modal-body" style="max-height: 80vh; overflow-y: auto;">
+                                                                    <form id="editaddressForm" action="/profile/editAddress" method="post">
                                                                         <!-- Form fields for address details -->
                                                                         <div class="form-group mb-3">
                                                                             <label for="addressType">Address
@@ -1426,7 +1162,337 @@
                                     </div>
 
 
-  
+
+
+
+                                    <div class="tab-pane fade" id="Edit-Profile" role="tabpanel"
+                                        aria-labelledby="Edit-Profile-tab">
+                                        <div class="card border-0 bg-light">
+                                            <div class="card-header text-center">
+                                                <h5 class="mb-0 text-brand">Edit Account</h5>
+                                            </div>
+                                            <form id="editprofile" class="p-4" method="POST" action="/update-profile">
+
+                                                <div class="row mb-3">
+                                                    <div class="col-12">
+                                                        <label for="username" class="form-label">Username</label>
+                                                        <input type="text" id="username" value="<%= user.name %>"
+                                                            name="username" required class="form-control" />
+                                                        <span id="usernameError"
+                                                            class="error-message text-danger"></span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="email" class="form-label">Email</label>
+                                                    <input type="email" id="email" value="<%= user.email %>"
+                                                        name="email" required class="form-control" />
+                                                    <span id="emailError" class="error-message text-danger"></span>
+                                                </div>
+
+                                                <!-- Gender section removed -->
+
+                                                <div class="mb-3">
+                                                    <label for="phone" class="form-label">Phone</label>
+                                                    <input type="tel" id="phone" value="<%= user.phone %>" name="phone"
+                                                        required class="form-control" />
+                                                    <span id="phoneError" class="error-message text-danger"></span>
+                                                </div>
+
+                                                <button type="submit" class="btn btn-success btn-block">Save
+                                                    Changes</button>
+                                            </form>
+                                        </div>
+                                    </div>
+
+
+
+
+
+
+                                    <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">
+                                        <div class="row">
+                                            <div class="col">
+                                                <center>
+                                                    <h2 class="text-brand my-3">Your Orders</h2>
+                                                </center>
+                                                <% if (orderDetails && orderDetails.length> 0) { %>
+                                                    <% orderDetails.forEach((order)=> { %>
+                                                        <div class="card card-2 my-3">
+                                                            <div class="card-body ">
+                                                                <div class="row">
+                                                                    <div class="col-md-4">
+                                                                        <h6 class="mb-0 ">Order ID:</h6>
+                                                                        <p class="text-brand">
+                                                                            <%= order.oId %>
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="col-md-2">
+                                                                        <h6 class="mb-0">Status:</h6>
+                                                                        <p>
+                                                                            <%= order.status %>
+                                                                        </p>
+                                                                    </div>
+                                                                    <!-- Add more columns as needed -->
+                                                                    <div class="col-md-2">
+                                                                        <h6 class="mb-0">Date:</h6>
+                                                                        <p>
+                                                                            <%= order.orderDate.toLocaleDateString() %>
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="col-md-2">
+                                                                        <h6 class="mb-0">Payment Method:</h6>
+                                                                        <p>
+                                                                            <%= order.paymentMethod %>
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="col-md-2">
+                                                                        <h6 class="mb-0">Total:</h6>
+                                                                        <p>&#8377;<%= order.billTotal %>
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+
+                                                                <hr class="my-3">
+                                                                <% if(order.status==='Canceled' ){ %>
+                                                                    <div class="row d-flex" id="cancellationMessage">
+                                                                        <p class="text-danger">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                                                width="24px" height="24px"
+                                                                                viewBox="0 0 24 24">
+                                                                                <path fill="#282C3F" fill-rule="nonzero"
+                                                                                    d="M15.854 8.146a.495.495 0 0 0-.703 0L12 11.296l-3.15-3.15a.495.495 0 0 0-.704 0 .495.495 0 0 0 0 .703L11.297 12l-3.15 3.15a.5.5 0 1 0 .35.85.485.485 0 0 0 .349-.146l3.15-3.15 3.151 3.15a.5.5 0 0 0 .35.147.479.479 0 0 0 .35-.147.495.495 0 0 0 0-.703L12.702 12l3.15-3.15a.495.495 0 0 0 0-.704z">
+                                                                                </path>
+                                                                            </svg> Order has been canceled.
+                                                                        </p>
+                                                                    </div>
+
+                                                                    <% if (order.paymentMethod==='Razorpay' ||
+                                                                        order.paymentMethod==='wallet' ) { %>
+                                                                        <% if (order.products && order.products.length>
+                                                                            0) { %>
+                                                                            <% order.products.forEach(product=> { %>
+                                                                                <% if (order.status==='Canceled' ) { %>
+                                                                                    <% if
+                                                                                        (order.paymentMethod==='wallet'
+                                                                                        ) { %>
+                                                                                        <% /* Add logic to add the
+                                                                                            canceled product price to
+                                                                                            the user's wallet */ %>
+                                                                                            <% const
+                                                                                                totalCancelledPrice=product.price
+                                                                                                * product.quantity; %>
+                                                                                                <% const
+                                                                                                    newBalance=parseFloat(order.wallet.balance)
+                                                                                                    +
+                                                                                                    totalCancelledPrice;
+                                                                                                    %>
+                                                                                                    <% order.wallet.balance=newBalance.toFixed(2);
+                                                                                                        %>
+                                                                                                        <% } %>
+                                                                                                            <% } %>
+                                                                                                                <% });
+                                                                                                                    %>
+                                                                                                                    <% }
+                                                                                                                        %>
+                                                                                                                        <% }
+                                                                                                                            %>
+
+
+                                                                                                                            <%} else
+                                                                                                                                {
+                                                                                                                                %>
+
+                                                                                                                                <div
+                                                                                                                                    class="row d-flex justify-content-evenly">
+                                                                                                                                    <% if(order.status!=='Returned'
+                                                                                                                                        &&
+                                                                                                                                        order.status
+                                                                                                                                        !=='Delivered'
+                                                                                                                                        &&
+                                                                                                                                        order.status
+                                                                                                                                        !=='Canceled'
+                                                                                                                                        )
+                                                                                                                                        {
+                                                                                                                                        %>
+                                                                                                                                        <button
+                                                                                                                                            type="button"
+                                                                                                                                            class="btn btn-small w-25 h-25"
+                                                                                                                                            onclick="cancelOrder('<%= order._id %>')">cancel
+                                                                                                                                            order
+                                                                                                                                        </button>
+                                                                                                                                        <% }
+                                                                                                                                            %>
+
+                                                                                                                                            <a href="/order-details/<%= order._id %>"
+                                                                                                                                                class="btn btn-small w-25 h-25">Order
+                                                                                                                                                Details</a>
+                                                                                                                                </div>
+                                                                                                                                <!-- Bootstrap Confirmation Modal -->
+                                                                                                                                <div class="modal"
+                                                                                                                                    id="confirmationModal"
+                                                                                                                                    tabindex="-1"
+                                                                                                                                    aria-labelledby="confirmationModalLabel"
+                                                                                                                                    aria-hidden="true">
+                                                                                                                                    <div
+                                                                                                                                        class="modal-dialog">
+                                                                                                                                        <div
+                                                                                                                                            class="modal-content">
+                                                                                                                                            <div
+                                                                                                                                                class="modal-header">
+                                                                                                                                                <h5 class="modal-title"
+                                                                                                                                                    id="confirmationModalLabel">
+                                                                                                                                                    Confirm
+                                                                                                                                                    Order
+                                                                                                                                                    Cancellation
+                                                                                                                                                </h5>
+                                                                                                                                                <button
+                                                                                                                                                    id="closeModalButton"
+                                                                                                                                                    type="button"
+                                                                                                                                                    class="btn-close"
+                                                                                                                                                    data-bs-dismiss="modal"
+                                                                                                                                                    aria-label="Close"></button>
+                                                                                                                                            </div>
+                                                                                                                                            <div
+                                                                                                                                                class="modal-body">
+                                                                                                                                                Are
+                                                                                                                                                you
+                                                                                                                                                sure
+                                                                                                                                                you
+                                                                                                                                                want
+                                                                                                                                                to
+                                                                                                                                                cancel
+                                                                                                                                                this
+                                                                                                                                                order?
+                                                                                                                                                Please
+                                                                                                                                                provide
+                                                                                                                                                a
+                                                                                                                                                reason
+                                                                                                                                                below
+                                                                                                                                                (optional):
+                                                                                                                                                <textarea
+                                                                                                                                                    id="cancellationReason"
+                                                                                                                                                    class="form-control"
+                                                                                                                                                    rows="3"></textarea>
+                                                                                                                                            </div>
+                                                                                                                                            <div
+                                                                                                                                                class="modal-footer">
+                                                                                                                                                <button
+                                                                                                                                                    type="button"
+                                                                                                                                                    class="btn btn-secondary"
+                                                                                                                                                    data-bs-dismiss="modal">Close</button>
+                                                                                                                                                <button
+                                                                                                                                                    type="button"
+                                                                                                                                                    class="btn btn-danger"
+                                                                                                                                                    id="confirmCancellationButton">Confirm
+                                                                                                                                                    Cancellation</button>
+                                                                                                                                            </div>
+                                                                                                                                        </div>
+                                                                                                                                    </div>
+                                                                                                                                </div>
+
+                                                                                                                                <% }
+                                                                                                                                    %>
+                                                            </div>
+
+                                                        </div>
+
+
+                                                        <% }) %>
+
+                                                            <!-- pagination -->
+                                                            <div class="pagination-area mt-15 mb-sm-5 mb-lg-0">
+                                                                <nav aria-label="Page navigation example">
+                                                                    <ul class="pagination justify-content-start">
+                                                                        <% if (currentPage> 1) { %>
+                                                                            <li class="page-item">
+                                                                                <a class="page-link"
+                                                                                    href="?page=<%= currentPage - 1 %>"><i
+                                                                                        class="fa-solid fa-chevron-left"></i></i></a>
+                                                                            </li>
+                                                                            <% } %>
+
+                                                                                <% for (let i=1; i <=totalPages; i++) {
+                                                                                    %>
+                                                                                    <li
+                                                                                        class="page-item <%= currentPage === i ? 'active' : '' %>">
+                                                                                        <a class="page-link"
+                                                                                            href="?page=<%= i %>">
+                                                                                            <%= i %>
+                                                                                        </a>
+                                                                                    </li>
+                                                                                    <% } %>
+
+                                                                                        <% if (currentPage < totalPages)
+                                                                                            { %>
+                                                                                            <li class="page-item">
+                                                                                                <a class="page-link"
+                                                                                                    href="?page=<%= currentPage + 1 %>"><i
+                                                                                                        class="fa-solid fa-chevron-right"></i></i></a>
+                                                                                            </li>
+                                                                                            <% } %>
+                                                                    </ul>
+                                                                </nav>
+                                                            </div>
+
+
+
+                                                            <% }else{ %>
+                                                                <div class="row">
+                                                                    <h4>No Orders Found Please continue Shopping</h4>
+                                                                    <a href="/shop" type="button" class="btn">continue
+                                                                        Shoping</a>
+                                                                </div>
+                                                                <% } %>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="tab-pane fade" id="track-orders" role="tabpanel"
+                                        aria-labelledby="track-orders-tab">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h5 class="mb-0">Orders tracking</h5>
+                                            </div>
+                                            <div class="card-body contact-from-area">
+                                                <p>To track your order please enter your OrderID in the box below and
+                                                    press
+                                                    "Track" button. This was given to you on your receipt and in the
+                                                    confirmation email you should have received.</p>
+                                                <div class="row">
+                                                    <div class="col-lg-8">
+                                                        <form class="contact-form-style mt-30 mb-50" action="#"
+                                                            method="post">
+                                                            <div class="input-style mb-20">
+                                                                <label>Order ID</label>
+                                                                <input name="order-id"
+                                                                    placeholder="Found in your order confirmation email"
+                                                                    type="text" class="square">
+                                                            </div>
+                                                            <div class="input-style mb-20">
+                                                                <label>Billing email</label>
+                                                                <input name="billing-email"
+                                                                    placeholder="Email you used during checkout"
+                                                                    type="email" class="square">
+                                                            </div>
+                                                            <button class="submit submit-auto-width"
+                                                                type="submit">Track</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+
+
                                     <!-- refrral modal -->
                                     <div class="tab-pane fade" id="referralTab" role="tabpanel"
                                         aria-labelledby="track-orders-tab">
@@ -1600,8 +1666,7 @@
 
                                                     <div class="txn-history">
                                                         <p class="text-light"><b>Transaction History</b></p>
-                                                        <% if (wallet &&
-                                                            wallet.transactions) { %>
+                                                        <% if (wallet && wallet.transactions) { %>
                                                             <% wallet.transactions.slice().reverse().forEach((transaction,
                                                                 index)=> { %>
                                                                 <% if (index < 5) { %>
@@ -1609,11 +1674,12 @@
                                                                         <% if (transaction.type==='debit' ) { %>
                                                                             Paid <span class="debit-amount">-₹<%=
                                                                                     Math.abs(transaction.amount) %>
-                                                                                    </span>
+                                                                            </span>
                                                                             <% } else if (transaction.type==='credit' )
                                                                                 { %>
                                                                                 Credited <span class="credit-amount">+₹
-                                                                                    <%= transaction.amount %></span>
+                                                                                    <%= transaction.amount %>
+                                                                                </span>
                                                                                 <% } %>
                                                                     </p>
                                                                     <% } %>
@@ -1633,59 +1699,58 @@
 
 
 
-                                
 
 
 
 
-                                    <div class="tab-pane fade" id="Edit-Profile" role="tabpanel"
-                                        aria-labelledby="Edit-Profile-tab">
-                                        <div class="card border-0 bg-light">
-                                            <div class="card-header text-center">
-                                                <h5 class="mb-0 text-brand">Edit Account</h5>
-                                            </div>
-                                            <form id="editprofile" class="p-4">
-                                                <div class="row mb-3">
-                                                    <div class="col-12">
-                                                        <label for="username" class="form-label">Username</label>
-                                                        <input type="text" id="username" value="<%= user.username %>"
-                                                            name="username" required class="form-control" />
-                                                        <span id="usernameError"
-                                                            class="error-message text-danger"></span>
-                                                    </div>
-                                                </div>
 
-                                                <div class="mb-3">
-                                                    <label for="email" class="form-label">Email</label>
-                                                    <input type="email" id="email" value="<%= user.email %>"
-                                                        name="email" required class="form-control" />
-                                                    <span id="emailError" class="error-message text-danger"></span>
-                                                </div>
-
-                                                <!-- Gender section removed -->
-
-                                                <div class="mb-3">
-                                                    <label for="phone" class="form-label">Phone</label>
-                                                    <input type="tel" id="phone" value="<%= user.phone %>" name="phone"
-                                                        required class="form-control" />
-                                                    <span id="phoneError" class="error-message text-danger"></span>
-                                                </div>
-
-                                                <button type="submit" class="btn btn-success btn-block">Save
-                                                    Changes</button>
-                                            </form>
+                                <div class="tab-pane fade" id="Edit-Profile" role="tabpanel"
+                                    aria-labelledby="Edit-Profile-tab">
+                                    <div class="card border-0 bg-light">
+                                        <div class="card-header text-center">
+                                            <h5 class="mb-0 text-brand">Edit Account</h5>
                                         </div>
+                                        <form id="editprofile" class="p-4">
+                                            <div class="row mb-3">
+                                                <div class="col-12">
+                                                    <label for="username" class="form-label">Username</label>
+                                                    <input type="text" id="username" value="<%= user.username %>"
+                                                        name="username" required class="form-control" />
+                                                    <span id="usernameError" class="error-message text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="email" class="form-label">Email</label>
+                                                <input type="email" id="email" value="<%= user.email %>" name="email"
+                                                    required class="form-control" />
+                                                <span id="emailError" class="error-message text-danger"></span>
+                                            </div>
+
+                                            <!-- Gender section removed -->
+
+                                            <div class="mb-3">
+                                                <label for="phone" class="form-label">Phone</label>
+                                                <input type="tel" id="phone" value="<%= user.phone %>" name="phone"
+                                                    required class="form-control" />
+                                                <span id="phoneError" class="error-message text-danger"></span>
+                                            </div>
+
+                                            <button type="submit" class="btn btn-success btn-block">Save
+                                                Changes</button>
+                                        </form>
                                     </div>
-
-
-                                  
-
-
                                 </div>
+
+
+
+
+
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
         </section>
     </main>
@@ -1824,7 +1889,7 @@
 
     <!-- Vendor JS-->
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-    
+
     <script src="assets/js/vendor/modernizr-3.6.0.min.js"></script>
     <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
     <script src="assets/js/vendor/jquery-migrate-3.3.0.min.js"></script>
@@ -1847,6 +1912,7 @@
     <!-- Template  JS -->
     <script src="./assets/js/main.js?v=3.4"></script>
 </body>
+
 </html>
 
 <script>
@@ -2137,83 +2203,83 @@
     // wallet add money
 
     function addMoneyToWallet(userId) {
-      Swal.fire({
-        title: 'Enter amount to add :',
-        input: 'text',
-        inputLabel: 'Amount',
-        inputPlaceholder: 'Enter the amount',
-        showCancelButton: true,
-        confirmButtonText: 'Add Money',
-        showLoaderOnConfirm: true,
-        preConfirm: (amount) => {
-          // Validate the entered amount (you can add more validation as needed)
-          if (!amount || isNaN(parseFloat(amount)) || amount < 0) {
-            Swal.showValidationMessage('Please enter a valid amount');
-            return false;
-          }
+        Swal.fire({
+            title: 'Enter amount to add :',
+            input: 'text',
+            inputLabel: 'Amount',
+            inputPlaceholder: 'Enter the amount',
+            showCancelButton: true,
+            confirmButtonText: 'Add Money',
+            showLoaderOnConfirm: true,
+            preConfirm: (amount) => {
+                // Validate the entered amount (you can add more validation as needed)
+                if (!amount || isNaN(parseFloat(amount)) || amount < 0) {
+                    Swal.showValidationMessage('Please enter a valid amount');
+                    return false;
+                }
 
-          // Make a POST request to add money to the wallet
-          return fetch('/create-razorpay-order', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
+                // Make a POST request to add money to the wallet
+                return fetch('/create-razorpay-order', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        userId,
+                        amount
+                    }),
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Error adding money to wallet');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.success) {
+                            // Initialize Razorpay
+                            const options = {
+                                key: data.key_id,
+                                amount: data.amount * 100, // Amount in paise
+                                currency: data.currency,
+                                name: data.name,
+                                description: 'Add Money to Wallet',
+                                order_id: data.orderId,
+                                handler: function (response) {
+                                    // Handle the payment success
+                                    Swal.fire('Success', 'Payment successful!', 'success');
+                                    // Send the payment confirmation to your server
+                                    confirmPayment(userId, amount, response
+                                        .razorpay_payment_id);
+                                },
+                                prefill: {
+                                    email: data.email,
+                                    contact: data.contact,
+                                },
+                                theme: {
+                                    color: '#007BFF',
+                                },
+                            };
+
+                            const rzp = new Razorpay(options);
+                            rzp.open();
+                        } else {
+                            Swal.fire('Error', 'Failed to create Razorpay order', 'error');
+                        }
+                    })
+                    .catch(error => {
+                        Swal.showValidationMessage(`Request failed: ${error}`);
+                    });
             },
-            body: JSON.stringify({
-              userId,
-              amount
-            }),
-          })
-            .then(response => {
-              if (!response.ok) {
-                throw new Error('Error adding money to wallet');
-              }
-              return response.json();
-            })
-            .then(data => {
-              if (data.success) {
-                // Initialize Razorpay
-                const options = {
-                  key: data.key_id,
-                  amount: data.amount * 100, // Amount in paise
-                  currency: data.currency,
-                  name: data.name,
-                  description: 'Add Money to Wallet',
-                  order_id: data.orderId,
-                  handler: function (response) {
-                    // Handle the payment success
-                    Swal.fire('Success', 'Payment successful!', 'success');
-                    // Send the payment confirmation to your server
-                    confirmPayment(userId, amount, response
-                      .razorpay_payment_id);
-                  },
-                  prefill: {
-                    email: data.email,
-                    contact: data.contact,
-                  },
-                  theme: {
-                    color: '#007BFF',
-                  },
-                };
-
-                const rzp = new Razorpay(options);
-                rzp.open();
-              } else {
-                Swal.fire('Error', 'Failed to create Razorpay order', 'error');
-              }
-            })
-            .catch(error => {
-              Swal.showValidationMessage(`Request failed: ${error}`);
+            allowOutsideClick: () => !Swal.isLoading(),
+        })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire('Success',
+                        ` Money added successfully. New balance: $${result.value.balance.toFixed(2)}`,
+                        'success');
+                }
             });
-        },
-        allowOutsideClick: () => !Swal.isLoading(),
-      })
-        .then((result) => {
-          if (result.isConfirmed) {
-            Swal.fire('Success',
-             ` Money added successfully. New balance: $${result.value.balance.toFixed(2)}`,
-              'success');
-          }
-        });
     }
 
 
@@ -2304,96 +2370,96 @@
 
 
     function confirmPayment(userId, amount, paymentId) {
-            // Send a request to your server to confirm the payment and update the wallet
-            fetch('/confirm-payment', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    userId,
-                    amount,
-                    paymentId
-                }),
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        // Handle the success response if needed
-                    } else {
-                        Swal.fire('Error', 'Failed to confirm payment', 'error');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    Swal.fire('Error', 'Something went wrong', 'error');
-                });
-        }
-
-
-
-        function showWithdrawalPrompt(balance) {
-            Swal.fire({
-                title: 'Enter withdrawal amount',
-                input: 'text',
-                inputAttributes: {
-                    autocapitalize: 'off',
-                },
-                showCancelButton: true,
-                confirmButtonText: 'Withdraw',
-                showLoaderOnConfirm: true,
-                preConfirm: (amount) => {
-                    // Client-side validation
-                    if (parseFloat(amount) < 1 || isNaN(parseFloat(amount))) {
-                        Swal.showValidationMessage('Invalid withdrawal amount. Amount must be at least 1.');
-                        return false;
-                    } else if (parseFloat(amount) > balance) {
-                        Swal.showValidationMessage(` don't have enough balance`);
-                        return false;
-                    }
-
-                    // You can perform client-side validation here if needed
-                    return fetch('/withdraw', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            amount
-                        }),
-                    })
-                        .then((response) => {
-                            if (!response.ok) {
-                                throw new Error(response.statusText);
-                            }
-                            return response.json();
-                        })
-                        .catch((error) => {
-                            Swal.showValidationMessage(`Request failed: ${error}`);
-                        });
-                },
-                allowOutsideClick: () => !Swal.isLoading(),
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Swal.fire({
-                        title: 'Withdrawal successful!',
-                        icon: 'success',
-                    });
+        // Send a request to your server to confirm the payment and update the wallet
+        fetch('/confirm-payment', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                userId,
+                amount,
+                paymentId
+            }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Handle the success response if needed
+                } else {
+                    Swal.fire('Error', 'Failed to confirm payment', 'error');
                 }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                Swal.fire('Error', 'Something went wrong', 'error');
             });
-        }
+    }
 
-        $(document).ready(function () {
-            $("#copyButton").on("click", function () {
-                // Select the text in the input field
-                var copyText = document.getElementById("refLink");
-                copyText.select();
-                copyText.setSelectionRange(0, 99999); // For mobile devices
 
-                // Copy the selected text to the clipboard
-                document.execCommand("copy");
-            });
+
+    function showWithdrawalPrompt(balance) {
+        Swal.fire({
+            title: 'Enter withdrawal amount',
+            input: 'text',
+            inputAttributes: {
+                autocapitalize: 'off',
+            },
+            showCancelButton: true,
+            confirmButtonText: 'Withdraw',
+            showLoaderOnConfirm: true,
+            preConfirm: (amount) => {
+                // Client-side validation
+                if (parseFloat(amount) < 1 || isNaN(parseFloat(amount))) {
+                    Swal.showValidationMessage('Invalid withdrawal amount. Amount must be at least 1.');
+                    return false;
+                } else if (parseFloat(amount) > balance) {
+                    Swal.showValidationMessage(` don't have enough balance`);
+                    return false;
+                }
+
+                // You can perform client-side validation here if needed
+                return fetch('/withdraw', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        amount
+                    }),
+                })
+                    .then((response) => {
+                        if (!response.ok) {
+                            throw new Error(response.statusText);
+                        }
+                        return response.json();
+                    })
+                    .catch((error) => {
+                        Swal.showValidationMessage(`Request failed: ${error}`);
+                    });
+            },
+            allowOutsideClick: () => !Swal.isLoading(),
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: 'Withdrawal successful!',
+                    icon: 'success',
+                });
+            }
         });
+    }
+
+    $(document).ready(function () {
+        $("#copyButton").on("click", function () {
+            // Select the text in the input field
+            var copyText = document.getElementById("refLink");
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); // For mobile devices
+
+            // Copy the selected text to the clipboard
+            document.execCommand("copy");
+        });
+    });
 
 
 </script>

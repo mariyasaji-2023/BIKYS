@@ -714,6 +714,7 @@
                                 </div>
                             </div>
                         </div>
+                        
 
                         <div class="row product-grid-3 " id="productList">
                             <% products?.forEach((item,index)=>{ %>
@@ -856,7 +857,7 @@
                         <div class="col-lg-12 col-mg-6"></div>
                         <div class="col-lg-12 col-mg-6"></div>
                     </div> -->
-                        <div class="widget-category mb-30">
+                        <!-- <div class="widget-category mb-30">
                             <h5 class="section-title style-1 mb-30 wow fadeIn animated">Category</h5>
                             <ul class="categories">
                                 <% category.forEach((category)=>{ %>
@@ -865,7 +866,7 @@
                                         </a></li>
                                     <% }) %>
                             </ul>
-                        </div>
+                        </div> -->
 
                         <!-- Fillter By Price -->
                         <!-- <div class="sidebar-widget price_range range mb-30">
@@ -983,6 +984,7 @@
                 </div>
             </div>
             <!-- </div> -->
+            
         </section>
 
 
@@ -1037,119 +1039,142 @@
 }
 
 
+// JavaScript
+document.addEventListener("DOMContentLoaded", function () {
+    var sortDropdown = document.getElementById("sortDropdown");
 
+    // Add click event listener to the sort dropdown
+    sortDropdown.addEventListener("click", function () {
+        console.log("Sort dropdown clicked");
+        // Toggle the visibility of the sort options dropdown
+        document.querySelector(".sort-by-dropdown").classList.toggle("active");
+    });
 
+    // Add click event listeners to the sort options
+    var sortOptions = document.querySelectorAll(".sort-option");
+    sortOptions.forEach(function (option) {
+        option.addEventListener("click", function (event) {
+            event.stopPropagation();
 
+            // Get the selected sort option from the data-sort attribute
+            var selectedSort = event.target.getAttribute("data-sort");
+            console.log("Selected Sort Option:", selectedSort);
+            
+            // Get the selected category
+            var selectedCategory = document.getElementById("selectedCategory").value;
 
-            document.addEventListener("DOMContentLoaded", function () {
-                var sortDropdown = document.getElementById("sortDropdown");
+            // Get the search query
+            var searchQuery = document.getElementById("searchInput").value;
 
-                // Add click event listener to the sort dropdown
-                sortDropdown.addEventListener("click", function () {
-                    console.log("Sort dropdown clicked");
-                    // Toggle the visibility of the sort options dropdown
-                    document.querySelector(".sort-by-dropdown").classList.toggle("active");
+            // Make a GET request to the server with the selected sort option, category, and search query as query parameters
+            fetch(`/shop?category=${selectedCategory}&sort=${selectedSort}&search=${searchQuery}`)
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then((products) => {
+                    console.log("Sorted Products:", products);
+                    // Update the product list with the sorted products
+                    updateProductList(products);
+                })
+                .catch((error) => {
+                    console.error('Fetch error:', error);
                 });
 
-                // Add click event listeners to the sort options
-                var sortOptions = document.querySelectorAll(".sort-option");
-                sortOptions.forEach(function (option) {
-                    option.addEventListener("click", function (event) {
-                        // event.preventDefault();
-                        console.log("Sort option clicked");
-                        event.stopPropagation();
+            // Update the displayed sort option in the dropdown
+            sortDropdown.innerHTML = '<span>' + selectedSort + ' <i class="fi-rs-angle-small-down"></i></span>';
 
-                        // Get the selected sort option from the data-sort attribute
-                        var selectedSort = event.target.getAttribute("data-sort");
-                        console.log("Selected Sort Option:", selectedSort);
+            // Hide the sort options dropdown
+            document.querySelector(".sort-by-dropdown").classList.remove("active");
+        });
+    });
 
+    // Function to handle form submission
+    function handleFormSubmit(event) {
+        event.preventDefault(); // Prevent default form submission
 
+        // Get selected category and sort option
+        const category = document.getElementById("categorySelect").value;
+        const sort = document.getElementById("sortSelect").value;
 
-                        // Make a GET request to the server with the selected sort option as a query parameter
-                        fetch(`/shop?sort=${selectedSort}`)
-                            .then((response) => {
-                                if (!response.ok) {
-                                    throw new Error(`HTTP error! Status: ${response.status}`);
-                                }
-                                return response.json();
-                            })
-                            .then((products) => {
-                                console.log("Sorted Products:", products);
-                                // Update the product list with the sorted products
-                                updateProductList(products);
-                            })
-                            .catch((error) => {
-                                console.error('Fetch error:', error);
-                            });
-
-
-                        // Update the displayed sort option in the dropdown
-                        sortDropdown.innerHTML = '<span>' + selectedSort +
-                            ' <i class="fi-rs-angle-small-down"></i></span>';
-
-
-                        // Hide the sort options dropdown
-                        document.querySelector(".sort-by-dropdown").classList.remove("active");
-                    });
-                });
-
-                // Function to update the product list on the frontend
-                function updateProductList(products) {
-                    var productList = document.getElementById('productList');
-                    productList.innerHTML = '';
-
-                    products.forEach(function (item) {
-                        if (item.isFeatured) {
-                            var productElement = document.createElement('div');
-                            productElement.classList.add('col-lg-3', 'col-md-3', 'col-6', 'col-sm-6');
-                            productElement.innerHTML = `
-                    <div class="product-cart-wrap mb-30">
-                        <div class="product-img-action-wrap">
-                            <div class="product-img product-img-zoom">
-                                <a href="productdetails/${item._id}">
-                                    <img class="default-img" src="/${item.image}" alt="">
-                                    <img class="hover-img" src="/${item.image}" alt="">
-                                </a>
-                            </div>
-                            <div class="product-action-1">
-                                <a aria-label="Add to cart" class="action-btn hover-up" onclick="addtoCart('${item._id}','${item.countInStock}')">
-                                    <i class="fi-rs-shopping-bag-add"></i>
-                                </a>
-                                <a aria-label="Add To Wishlist" class="action-btn hover-up" onclick="addtoWishlist('${item._id}')" href="/wishlist">
-                                    <i class="fi-rs-heart"></i>
-                                </a>
-                            </div>
-                            <div class="product-badges product-badges-position product-badges-mrg">
-                                <span class="hot">Hot</span>
-                            </div>
-                        </div>
-                        <div class="product-content-wrap">
-                            <div class="product-category">
-                                <a href="#">${item.brand}</a>
-                            </div>
-                            <div class="mb-2">
-                                <h2>
-                                    <span class="product-name">
-                                        ${item.productName.substring(0, 22) + (item.productName.length > 25 ? '...' : '')}
-                                    </span>
-                                </h2>
-                            </div>
-                            <div class="product-price">
-                                <span>₹ ${item.afterDiscount}</span>
-                                <span class="old-price">${item.price}</span>
-                                <span class="save-price color3 ml-15" style="font-size: 14px;">${item.discountPrice}% off</span>
-                            </div>
-                            <div class="d-flex justify-content-center mt-2">
-                                ${generateStarRating(item.rating)}
-                            </div>
-                        </div>
-                    </div>
-                    `;
-                            productList.appendChild(productElement);
-                        }
-                    });
+        // Make AJAX request
+        fetch(`/shop?category=${category}&sort=${sort}`)
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
                 }
+                return response.json();
+            })
+            .then((products) => {
+                console.log("Filtered and sorted products:", products);
+                // Update the product list on the page
+                updateProductList(products);
+            })
+            .catch((error) => {
+                console.error('Fetch error:', error);
             });
+    }
+
+    // Function to update the product list on the frontend
+    function updateProductList(products) {
+        var productList = document.getElementById('productList');
+        productList.innerHTML = '';
+
+        products.forEach(function (item) {
+            if (item.isFeatured) {
+                var productElement = document.createElement('div');
+                productElement.classList.add('col-lg-3', 'col-md-3', 'col-6', 'col-sm-6');
+                productElement.innerHTML = `
+        <div class="product-cart-wrap mb-30">
+            <div class="product-img-action-wrap">
+                <div class="product-img product-img-zoom">
+                    <a href="productdetails/${item._id}">
+                        <img class="default-img" src="/${item.image}" alt="">
+                        <img class="hover-img" src="/${item.image}" alt="">
+                    </a>
+                </div>
+                <div class="product-action-1">
+                    <a aria-label="Add to cart" class="action-btn hover-up" onclick="addtoCart('${item._id}','${item.countInStock}')">
+                        <i class="fi-rs-shopping-bag-add"></i>
+                    </a>
+                    <a aria-label="Add To Wishlist" class="action-btn hover-up" onclick="addtoWishlist('${item._id}')" href="/wishlist">
+                        <i class="fi-rs-heart"></i>
+                    </a>
+                </div>
+                <div class="product-badges product-badges-position product-badges-mrg">
+                    <span class="hot">Hot</span>
+                </div>
+            </div>
+            <div class="product-content-wrap">
+                <div class="product-category">
+                    <a href="#">${item.brand}</a>
+                </div>
+                <div class="mb-2">
+                    <h2>
+                        <span class="product-name">
+                            ${item.productName.substring(0, 22) + (item.productName.length > 25 ? '...' : '')}
+                        </span>
+                    </h2>
+                </div>
+                <div class="product-price">
+                    <span>₹ ${item.afterDiscount}</span>
+                    <span class="old-price">${item.price}</span>
+                    <span class="save-price color3 ml-15" style="font-size: 14px;">${item.discountPrice}% off</span>
+                </div>
+                <div class="d-flex justify-content-center mt-2">
+                    ${generateStarRating(item.rating)}
+                </div>
+            </div>
+        </div>
+        `;
+                productList.appendChild(productElement);
+            }
+        });
+    }
+});
+
 
             // Function to generate the star rating section
             function generateStarRating(rating) {

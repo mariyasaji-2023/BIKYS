@@ -1764,9 +1764,9 @@
             })
                 .then((response) => response.json())
                 .then((result) => {
-                    alert("before success response")
+                 
                     if (result.success) {
-                        alert("after success response")
+                       
 
                         if (paymentOption === 'cashOnDelivery') {
                             Swal.fire("Success", "Cash on Delivery payment processed.", "success");

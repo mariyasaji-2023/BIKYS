@@ -11,6 +11,11 @@ const categoryController = require("../Controller/categoryController")
 const { storage, upload } = require("../middleware/multer");
 const orderController = require('../Controller/orderController')
 const couponController = require('../Controller/couponController')
+const PDFDocument = require('pdfkit');
+const fs = require('fs');
+const bannercontroller =require('../Controller/bannerController')
+
+
 
 router.get("/", isAdmin, adminController.adminhome)
 
@@ -93,6 +98,14 @@ router.post('/createCoupon',isAdmin,couponController.couponCreate);
 router.post('/coupon/update-status/:Id',isAdmin,couponController.couponUpdate);
 router.post('/EditCoupon/:Id',isAdmin,couponController.couponEdit)
 
+//banner route--------------------------------------------------------------------------------
+
+router.get('/banner',isAdmin,bannercontroller.banner)
+router.get('/addNewBanner',isAdmin,bannercontroller.addNewBanner);
+router.post('/createBanner',isAdmin,upload.single('image'),bannercontroller.createBanner);
+router.get('/editBanner',isAdmin,bannercontroller.editBanner);
+router.post('/updateBanner',isAdmin,upload.single('image'),bannercontroller.updateBanner);
+router.get('/deleteBanner',isAdmin,bannercontroller.deleteBanner);
 
 
 
