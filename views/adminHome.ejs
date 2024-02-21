@@ -237,7 +237,65 @@
             </div> -->
         </div>
 
-       
+        <div class="card mb-4">
+            <header class="card-header">
+                <h4 class="card-title">Sales Report</h4>
+                <div class="row align-items-center"></div>
+            </header>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table align-middle table-nowrap mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th scope="col" class="text-center">
+                                    <div class="form-check align-middle">
+                                        <!-- <input class="form-check-input" type="checkbox" id="transactionCheck01"> -->
+                                        <label class="form-check-label" for="transactionCheck01"></label>
+                                    </div>
+                                </th>
+                                <th class="align-middle" scope="col">Product Name</th>
+                                <th class="align-middle" scope="col">Total Stock</th>
+                                
+                                <th class="align-middle" scope="col">Customer Name</th>
+                                <th class="align-middle" scope="col">Total Revenue</th>
+                                <th class="align-middle" scope="col">Payment Method</th>
+                                <!-- <th class="align-middle" scope="col">View Details</th> -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% if (salesReportData && salesReportData.length > 0) { %>
+                                <% salesReportData.forEach(product => { %>
+                                    <tr>
+                                        <td class="text-center">
+                                            <!-- <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="transactionCheck02">
+                                                <label class="form-check-label" for="transactionCheck02"></label>
+                                            </div> -->
+                                        </td>
+                                        <td><%= product.productName %></td>
+                                        <td><%= product.totalStock %></td>
+                                        
+                                        <td><%= product.customerName %></td>
+                                        <td><%= product.totalRevenue %></td>
+                                        <td>
+                                            <i class="material-icons md-payment font-xxl text-muted mr-5"></i> <%= product.paymentMethod %>
+                                        </td>
+                                    </tr>
+                                <% }); %>
+                            <% } else { %>
+                                <tr>
+                                    <td colspan="7" class="text-center">No products sold</td>
+                                </tr>
+                            <% } %>
+                        </tbody>
+                    </table>
+                    
+                </div>
+            </div>
+        </div>
+
+        
+
 
         <div class="card mb-4">
             <header class="card-header">

@@ -15,6 +15,7 @@ const banner=async(req,res)=>{
         const endindex = startindex + itemsperpage;
         const totalpages = Math.ceil(banner.length / 2);
         const currentproduct = banner.slice(startindex,endindex);
+        console.log("////////////////////////////////////////");
         res.render('banner',{banner:currentproduct,totalpages,currentpage,})
         
     } catch (error) {

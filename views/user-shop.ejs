@@ -732,16 +732,16 @@
                                                      <!-- <a aria-label="Add to cart" onclick="addtoCart('<%= products._id %>')"  class="action-btn hover-up" >
                                             <i class="fi-rs-shopping-bag-add"></i></a> -->
                                             
-                                                    <a aria-label="Add to cart" class="action-btn hover-up"
+                                                    <!-- <a aria-label="Add to cart" class="action-btn hover-up"
                                                         onclick="addtoCart('<%= item._id %>','<%= item.countInStock %>')">
                                                         <i class="fi-rs-shopping-bag-add"></i>
-                                                    </a>
+                                                    </a> -->
 
 
-                                                    <a aria-label="Add To Wishlist" class="action-btn hover-up"
+                                                    <!-- <a aria-label="Add To Wishlist" class="action-btn hover-up"
                                                         onclick="addtoWishlist('<%= item._id %>')" href="/wishlist"><i
                                                             class="fi-rs-heart"></i>
-                                                    </a>
+                                                    </a> -->
                                                     <!-- <a aria-label="Compare" class="action-btn hover-up" href="shop-compare.html"><i
                                                 class="fi-rs-shuffle"></i></a> -->
                                                 </div>
@@ -1040,6 +1040,38 @@
 
 
 // JavaScript
+
+const sortSelect = document.getElementById("sort");
+        const categoryLinks = document.querySelectorAll(".category-link");
+      
+        // Event listener for sorting
+        sortSelect.addEventListener("change", function () {
+          const selectedSort = sortSelect.value;
+          updateURLWithFilter({ sort: selectedSort });
+        });
+      
+        // Event listener for category filtering
+        categoryLinks.forEach((categoryLink) => {
+          categoryLink.addEventListener("click", function (event) {
+            event.preventDefault();
+            const href = categoryLink.getAttribute("href");
+
+           // Parse the category query parameter from the link's href
+           if (href) {
+            const currentURL = new URL(window.location.href);
+            const newURL = new URL(href, window.location.origin);
+    
+            // Copy over the query parameters from the new URL to the current URL
+            newURL.searchParams.forEach((value, key) => {
+              currentURL.searchParams.set(key, value);
+            });
+    
+            // Redirect to the updated URL
+            window.location.href = currentURL.toString();
+          }
+          });
+        });
+      
 document.addEventListener("DOMContentLoaded", function () {
     var sortDropdown = document.getElementById("sortDropdown");
 
